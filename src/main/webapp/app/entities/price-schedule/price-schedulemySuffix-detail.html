@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="advertiserApp.priceSchedule.detail.title">Price Schedule</span> {{vm.priceSchedule.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="advertiserApp.priceSchedule.name">Name</span></dt>
+        <dd>
+            <span>{{vm.priceSchedule.name}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.priceSchedule.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{vm.priceSchedule.startDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.priceSchedule.endDate">End Date</span></dt>
+        <dd>
+            <span>{{vm.priceSchedule.endDate | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="price-schedulemySuffix-detail.edit({id:vm.priceSchedule.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

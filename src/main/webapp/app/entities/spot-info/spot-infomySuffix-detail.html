@@ -1,0 +1,51 @@
+
+<div>
+    <h2><span data-translate="advertiserApp.spotInfo.detail.title">Spot Info</span> {{vm.spotInfo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="advertiserApp.spotInfo.length">Length</span></dt>
+        <dd>
+            <span>{{vm.spotInfo.length}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.spotInfo.filePath">File Path</span></dt>
+        <dd>
+            <span>{{vm.spotInfo.filePath}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.spotInfo.producer">Producer</span></dt>
+        <dd>
+            <span>{{vm.spotInfo.producer}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.spotInfo.scenarioAuthor">Scenario Author</span></dt>
+        <dd>
+            <span>{{vm.spotInfo.scenarioAuthor}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.spotInfo.soundAuthor">Sound Author</span></dt>
+        <dd>
+            <span>{{vm.spotInfo.soundAuthor}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.spotInfo.performer">Performer</span></dt>
+        <dd>
+            <span>{{vm.spotInfo.performer}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.spotInfo.music">Music</span></dt>
+        <dd>
+            <span>{{vm.spotInfo.music}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.spotInfo.campaign">Campaign</span></dt>
+        <dd>
+            <a ui-sref="campaignmySuffix-detail({id:vm.spotInfo.campaignId})">{{vm.spotInfo.campaignId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="spot-infomySuffix-detail.edit({id:vm.spotInfo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

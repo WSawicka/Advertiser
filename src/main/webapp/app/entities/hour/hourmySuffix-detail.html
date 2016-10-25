@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span data-translate="advertiserApp.hour.detail.title">Hour</span> {{vm.hour.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="advertiserApp.hour.number">Number</span></dt>
+        <dd>
+            <span>{{vm.hour.number}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.hour.day">Day</span></dt>
+        <dd>
+            <a ui-sref="daymySuffix-detail({id:vm.hour.dayId})">{{vm.hour.dayId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="hourmySuffix-detail.edit({id:vm.hour.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

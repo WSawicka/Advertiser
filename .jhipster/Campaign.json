@@ -1,0 +1,80 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "campaignState",
+            "otherEntityName": "state",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "campaign"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "business",
+            "otherEntityName": "business",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "campaign"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "spot",
+            "otherEntityName": "spot",
+            "otherEntityRelationshipName": "campaign"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "spotInfo",
+            "otherEntityName": "spotInfo",
+            "otherEntityRelationshipName": "campaign"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "campaign",
+            "relationshipName": "priceSchedule",
+            "otherEntityName": "priceSchedule",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "report",
+            "otherEntityName": "report",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "campaign"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nameShort",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "product",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "spotAmount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "startDate",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20161023105618",
+    "entityTableName": "campaign",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

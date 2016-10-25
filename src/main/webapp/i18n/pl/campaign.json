@@ -1,0 +1,33 @@
+{
+    "advertiserApp": {
+        "campaign" : {
+            "home": {
+                "title": "Campaigns",
+                "createLabel": "Dodaj Campaign",
+                "createOrEditLabel": "Dodaj lub edytuj: Campaign",
+                "search": "Search for Campaign"
+            },
+            "created": "A new Campaign is created with identifier {{ param }}",
+            "updated": "A Campaign is updated with identifier {{ param }}",
+            "deleted": "A Campaign is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Campaign {{ id }}?"
+            },
+            "detail": {
+                "title": "Campaign"
+            },
+            "name": "Name",
+            "nameShort": "Name Short",
+            "product": "Product",
+            "spotAmount": "Spot Amount",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "campaignState": "Campaign State",
+            "business": "Business",
+            "spot": "Spot",
+            "spotInfo": "Spot Info",
+            "priceSchedule": "Price Schedule",
+            "report": "Report"
+        }
+    }
+}

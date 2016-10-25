@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "day",
+            "otherEntityName": "day",
+            "otherEntityRelationshipName": "week"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "number",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "year",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20161023105613",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "week",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

@@ -1,0 +1,24 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "campaign",
+            "otherEntityName": "campaign",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "business"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161023105620",
+    "entityTableName": "business",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

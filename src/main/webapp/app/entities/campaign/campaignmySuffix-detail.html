@@ -1,0 +1,57 @@
+
+<div>
+    <h2><span data-translate="advertiserApp.campaign.detail.title">Campaign</span> {{vm.campaign.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="advertiserApp.campaign.name">Name</span></dt>
+        <dd>
+            <span>{{vm.campaign.name}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.campaign.nameShort">Name Short</span></dt>
+        <dd>
+            <span>{{vm.campaign.nameShort}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.campaign.product">Product</span></dt>
+        <dd>
+            <span>{{vm.campaign.product}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.campaign.spotAmount">Spot Amount</span></dt>
+        <dd>
+            <span>{{vm.campaign.spotAmount}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.campaign.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{vm.campaign.startDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.campaign.endDate">End Date</span></dt>
+        <dd>
+            <span>{{vm.campaign.endDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.campaign.campaignState">Campaign State</span></dt>
+        <dd>
+            <a ui-sref="statemySuffix-detail({id:vm.campaign.campaignStateId})">{{vm.campaign.campaignStateId}}</a>
+        </dd>
+        <dt><span data-translate="advertiserApp.campaign.business">Business</span></dt>
+        <dd>
+            <a ui-sref="businessmySuffix-detail({id:vm.campaign.businessId})">{{vm.campaign.businessId}}</a>
+        </dd>
+        <dt><span data-translate="advertiserApp.campaign.priceSchedule">Price Schedule</span></dt>
+        <dd>
+            <span ng-repeat="priceSchedule in vm.campaign.priceSchedules">
+                <a ui-sref="price-schedulemySuffix-detail({id: priceSchedule.id})">{{priceSchedule.id}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="campaignmySuffix-detail.edit({id:vm.campaign.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

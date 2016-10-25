@@ -1,0 +1,30 @@
+{
+    "advertiserApp": {
+        "spotInfo" : {
+            "home": {
+                "title": "Spot Infos",
+                "createLabel": "Dodaj Spot Info",
+                "createOrEditLabel": "Dodaj lub edytuj: Spot Info",
+                "search": "Search for Spot Info"
+            },
+            "created": "A new Spot Info is created with identifier {{ param }}",
+            "updated": "A Spot Info is updated with identifier {{ param }}",
+            "deleted": "A Spot Info is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Spot Info {{ id }}?"
+            },
+            "detail": {
+                "title": "Spot Info"
+            },
+            "length": "Length",
+            "filePath": "File Path",
+            "producer": "Producer",
+            "scenarioAuthor": "Scenario Author",
+            "soundAuthor": "Sound Author",
+            "performer": "Performer",
+            "music": "Music",
+            "spot": "Spot",
+            "campaign": "Campaign"
+        }
+    }
+}

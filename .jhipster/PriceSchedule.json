@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "priceScheduleHour",
+            "otherEntityName": "priceScheduleHour",
+            "otherEntityRelationshipName": "priceSchedule"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "campaign",
+            "otherEntityName": "campaign",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "priceSchedule"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "startDate",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20161023105622",
+    "entityTableName": "price_schedule",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

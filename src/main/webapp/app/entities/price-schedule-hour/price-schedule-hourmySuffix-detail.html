@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="advertiserApp.priceScheduleHour.detail.title">Price Schedule Hour</span> {{vm.priceScheduleHour.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="advertiserApp.priceScheduleHour.hour">Hour</span></dt>
+        <dd>
+            <span>{{vm.priceScheduleHour.hour}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.priceScheduleHour.price">Price</span></dt>
+        <dd>
+            <span>{{vm.priceScheduleHour.price}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.priceScheduleHour.priceSchedule">Price Schedule</span></dt>
+        <dd>
+            <a ui-sref="price-schedulemySuffix-detail({id:vm.priceScheduleHour.priceScheduleId})">{{vm.priceScheduleHour.priceScheduleId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="price-schedule-hourmySuffix-detail.edit({id:vm.priceScheduleHour.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

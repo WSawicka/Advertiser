@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Report.
+    -->
+    <changeSet id="20161023105619-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="reports_id"
+                                 baseTableName="report_campaign"
+                                 constraintName="fk_report_campaign_reports_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="report"/>
+        <addForeignKeyConstraint baseColumnNames="campaigns_id"
+                                 baseTableName="report_campaign"
+                                 constraintName="fk_report_campaign_campaigns_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="campaign"/>
+        
+    </changeSet>
+</databaseChangeLog>

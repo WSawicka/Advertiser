@@ -1,0 +1,26 @@
+{
+    "advertiserApp": {
+        "priceSchedule" : {
+            "home": {
+                "title": "Price Schedules",
+                "createLabel": "Create a new Price Schedule",
+                "createOrEditLabel": "Create or edit a Price Schedule",
+                "search": "Search for Price Schedule"
+            },
+            "created": "A new Price Schedule is created with identifier {{ param }}",
+            "updated": "A Price Schedule is updated with identifier {{ param }}",
+            "deleted": "A Price Schedule is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Price Schedule {{ id }}?"
+            },
+            "detail": {
+                "title": "Price Schedule"
+            },
+            "name": "Name",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "priceScheduleHour": "Price Schedule Hour",
+            "campaign": "Campaign"
+        }
+    }
+}

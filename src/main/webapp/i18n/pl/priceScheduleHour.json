@@ -1,0 +1,24 @@
+{
+    "advertiserApp": {
+        "priceScheduleHour" : {
+            "home": {
+                "title": "Price Schedule Hours",
+                "createLabel": "Dodaj Price Schedule Hour",
+                "createOrEditLabel": "Dodaj lub edytuj: Price Schedule Hour",
+                "search": "Search for Price Schedule Hour"
+            },
+            "created": "A new Price Schedule Hour is created with identifier {{ param }}",
+            "updated": "A Price Schedule Hour is updated with identifier {{ param }}",
+            "deleted": "A Price Schedule Hour is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Price Schedule Hour {{ id }}?"
+            },
+            "detail": {
+                "title": "Price Schedule Hour"
+            },
+            "hour": "Hour",
+            "price": "Price",
+            "priceSchedule": "Price Schedule"
+        }
+    }
+}

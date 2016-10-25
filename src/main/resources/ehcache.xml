@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         name="CM1"
+         updateCheck="false"
+         maxBytesLocalHeap="16M">
+
+    <!--
+      This is a default configuration, it is re-configured by the CacheConfiguration Spring Bean, using the
+      properties from the resources/config/*.yml files.
+    -->
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            eternal="false"
+            overflowToDisk="false"
+            />
+
+    <cache name="com.advertiser.domain.User"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Authority"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.User.authorities"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.PersistentToken"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.User.persistentTokens"
+           timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache name="com.advertiser.domain.Week"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Week.days"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Day"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Day.hours"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Hour"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Hour.spots"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.SpotInfo"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.SpotInfo.spots"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Spot"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Campaign"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Campaign.spots"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Campaign.spotInfos"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Campaign.priceSchedules"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Campaign.reports"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Report"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Report.campaigns"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.Business"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.State"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.PriceSchedule"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.PriceSchedule.priceScheduleHours"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.PriceSchedule.campaigns"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.advertiser.domain.PriceScheduleHour"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <!-- jhipster-needle-ehcache-add-entry -->
+</ehcache>

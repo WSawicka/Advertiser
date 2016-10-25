@@ -1,0 +1,53 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "spot",
+            "otherEntityName": "spot",
+            "otherEntityRelationshipName": "spotInfo"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "campaign",
+            "otherEntityName": "campaign",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "length",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "filePath",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "producer",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "scenarioAuthor",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "soundAuthor",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "performer",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "music",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161023105616",
+    "entityTableName": "spot_info",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

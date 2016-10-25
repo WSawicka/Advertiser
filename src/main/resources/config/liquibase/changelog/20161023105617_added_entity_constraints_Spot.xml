@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Spot.
+    -->
+    <changeSet id="20161023105617-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="hour_id"
+                                 baseTableName="spot"
+                                 constraintName="fk_spot_hour_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hour"/>
+
+        <addForeignKeyConstraint baseColumnNames="campaign_id"
+                                 baseTableName="spot"
+                                 constraintName="fk_spot_campaign_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="campaign"/>
+
+        <addForeignKeyConstraint baseColumnNames="spot_info_id"
+                                 baseTableName="spot"
+                                 constraintName="fk_spot_spot_info_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="spot_info"/>
+
+    </changeSet>
+</databaseChangeLog>

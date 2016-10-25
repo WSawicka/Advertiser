@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity PriceScheduleHour.
+    -->
+    <changeSet id="20161023105623-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="price_schedule_id"
+                                 baseTableName="price_schedule_hour"
+                                 constraintName="fk_price_schedule_hour_price_schedule_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="price_schedule"/>
+
+    </changeSet>
+</databaseChangeLog>

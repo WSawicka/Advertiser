@@ -1,0 +1,23 @@
+{
+    "advertiserApp": {
+        "business" : {
+            "home": {
+                "title": "Businesses",
+                "createLabel": "Dodaj Business",
+                "createOrEditLabel": "Dodaj lub edytuj: Business",
+                "search": "Search for Business"
+            },
+            "created": "A new Business is created with identifier {{ param }}",
+            "updated": "A Business is updated with identifier {{ param }}",
+            "deleted": "A Business is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Business {{ id }}?"
+            },
+            "detail": {
+                "title": "Business"
+            },
+            "name": "Name",
+            "campaign": "Campaign"
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "spot",
+            "otherEntityName": "spot",
+            "otherEntityRelationshipName": "hour"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "day",
+            "otherEntityName": "day",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "number",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20161023105615",
+    "entityTableName": "hour",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

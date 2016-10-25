@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="advertiserApp.spot.detail.title">Spot</span> {{vm.spot.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="advertiserApp.spot.dateTime">Date Time</span></dt>
+        <dd>
+            <span>{{vm.spot.dateTime | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.spot.hour">Hour</span></dt>
+        <dd>
+            <a ui-sref="hourmySuffix-detail({id:vm.spot.hourId})">{{vm.spot.hourId}}</a>
+        </dd>
+        <dt><span data-translate="advertiserApp.spot.campaign">Campaign</span></dt>
+        <dd>
+            <a ui-sref="campaignmySuffix-detail({id:vm.spot.campaignId})">{{vm.spot.campaignId}}</a>
+        </dd>
+        <dt><span data-translate="advertiserApp.spot.spotInfo">Spot Info</span></dt>
+        <dd>
+            <a ui-sref="spot-infomySuffix-detail({id:vm.spot.spotInfoId})">{{vm.spot.spotInfoId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="spotmySuffix-detail.edit({id:vm.spot.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,24 @@
+{
+    "advertiserApp": {
+        "week" : {
+            "home": {
+                "title": "Weeks",
+                "createLabel": "Dodaj Week",
+                "createOrEditLabel": "Dodaj lub edytuj: Week",
+                "search": "Search for Week"
+            },
+            "created": "A new Week is created with identifier {{ param }}",
+            "updated": "A Week is updated with identifier {{ param }}",
+            "deleted": "A Week is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Week {{ id }}?"
+            },
+            "detail": {
+                "title": "Week"
+            },
+            "number": "Number",
+            "year": "Year",
+            "day": "Day"
+        }
+    }
+}

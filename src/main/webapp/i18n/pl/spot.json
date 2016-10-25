@@ -1,0 +1,25 @@
+{
+    "advertiserApp": {
+        "spot" : {
+            "home": {
+                "title": "Spots",
+                "createLabel": "Dodaj Spot",
+                "createOrEditLabel": "Dodaj lub edytuj: Spot",
+                "search": "Search for Spot"
+            },
+            "created": "A new Spot is created with identifier {{ param }}",
+            "updated": "A Spot is updated with identifier {{ param }}",
+            "deleted": "A Spot is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć Spot {{ id }}?"
+            },
+            "detail": {
+                "title": "Spot"
+            },
+            "dateTime": "Date Time",
+            "hour": "Hour",
+            "campaign": "Campaign",
+            "spotInfo": "Spot Info"
+        }
+    }
+}

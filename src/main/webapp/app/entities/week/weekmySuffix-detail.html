@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span data-translate="advertiserApp.week.detail.title">Week</span> {{vm.week.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="advertiserApp.week.number">Number</span></dt>
+        <dd>
+            <span>{{vm.week.number}}</span>
+        </dd>
+        <dt><span data-translate="advertiserApp.week.year">Year</span></dt>
+        <dd>
+            <span>{{vm.week.year}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="weekmySuffix-detail.edit({id:vm.week.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
