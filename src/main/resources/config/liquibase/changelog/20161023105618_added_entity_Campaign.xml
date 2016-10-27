@@ -24,36 +24,39 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="name_short" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="product" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="spot_amount" type="integer">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="start_date" type="timestamp">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="end_date" type="timestamp">
                 <constraints nullable="true" />
             </column>
-                        <column name="campaign_state_id" type="bigint">
+
+            <column name="campaign_state_id" type="bigint">
                 <constraints unique="true" nullable="true" />
-            </column>            <column name="business_id" type="bigint">
+            </column>
+
+            <column name="business_id" type="bigint">
                 <constraints unique="true" nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="campaign" columnName="start_date" columnDataType="datetime"/>
         <dropDefaultValue tableName="campaign" columnName="end_date" columnDataType="datetime"/>
-        
+
         <createTable tableName="campaign_price_schedule">
             <column name="price_schedules_id" type="bigint">
                 <constraints nullable="false"/>
@@ -64,6 +67,6 @@
         </createTable>
 
         <addPrimaryKey columnNames="campaigns_id, price_schedules_id" tableName="campaign_price_schedule"/>
-        
+
     </changeSet>
 </databaseChangeLog>

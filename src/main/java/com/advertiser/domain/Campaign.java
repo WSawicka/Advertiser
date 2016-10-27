@@ -51,12 +51,12 @@ public class Campaign implements Serializable {
     @JoinColumn(unique = true)
     private Business business;
 
-    @OneToMany(mappedBy = "campaign")
+    @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Spot> spots = new HashSet<>();
 
-    @OneToMany(mappedBy = "campaign")
+    @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SpotInfo> spotInfos = new HashSet<>();
@@ -68,7 +68,7 @@ public class Campaign implements Serializable {
                inverseJoinColumns = @JoinColumn(name="price_schedules_id", referencedColumnName="ID"))
     private Set<PriceSchedule> priceSchedules = new HashSet<>();
 
-    @ManyToMany(mappedBy = "campaigns")
+    @ManyToMany(mappedBy = "campaigns", fetch = FetchType.LAZY)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Report> reports = new HashSet<>();

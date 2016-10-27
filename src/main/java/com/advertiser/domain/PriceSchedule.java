@@ -39,7 +39,7 @@ public class PriceSchedule implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PriceScheduleHour> priceScheduleHours = new HashSet<>();
 
-    @ManyToMany(mappedBy = "priceSchedules")
+    @ManyToMany(mappedBy = "priceSchedules", fetch = FetchType.LAZY)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Campaign> campaigns = new HashSet<>();

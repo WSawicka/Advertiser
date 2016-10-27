@@ -45,7 +45,7 @@ public class SpotInfo implements Serializable {
     @Column(name = "music")
     private String music;
 
-    @OneToMany(mappedBy = "spotInfo")
+    @OneToMany(mappedBy = "spotInfo", fetch = FetchType.LAZY)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Spot> spots = new HashSet<>();
