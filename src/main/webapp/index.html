@@ -11,6 +11,8 @@
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css">
+    <!--<link rel="stylesheet" href="app/calendar/materialFullCalendar.css">-->
     <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
     <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.css">
     <!-- endinject -->
@@ -48,6 +50,10 @@
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src='bower_components/fullcalendar/dist/jquery.min.js'></script>
+    <script src='bower_components/fullcalendar/dist/moment.min.js'></script>
+    <script src='bower_components/fullcalendar/dist/fullcalendar.js'></script>
+    <script src='bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
     <script src="bower_components/messageformat/messageformat.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/sockjs-client/dist/sockjs.js"></script>
@@ -192,6 +198,8 @@
     <script src="app/components/alert/alert-error.directive.js"></script>
     <script src="app/components/alert/alert.service.js"></script>
     <script src="app/components/alert/alert.directive.js"></script>
+    <script src="app/calendar/calendar.state.js"></script>
+    <script src="app/calendar/calendar.controller.js"></script>
     <script src="app/blocks/interceptor/notification.interceptor.js"></script>
     <script src="app/blocks/interceptor/errorhandler.interceptor.js"></script>
     <script src="app/blocks/interceptor/auth-expired.interceptor.js"></script>
