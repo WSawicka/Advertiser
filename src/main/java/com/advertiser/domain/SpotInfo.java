@@ -51,6 +51,7 @@ public class SpotInfo implements Serializable {
     private Set<Spot> spots = new HashSet<>();
 
     @ManyToOne
+    @JsonIgnore
     private Campaign campaign;
 
     public Long getId() {

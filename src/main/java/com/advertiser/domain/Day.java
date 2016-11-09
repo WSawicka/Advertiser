@@ -1,21 +1,26 @@
 package com.advertiser.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
 import com.advertiser.domain.enumeration.DayName;
+import org.hibernate.annotations.Cache;
+import org.joda.time.DateTime;
 
 /**
  * A Day.
  */
 @Entity
+@BatchSize(size = 7)
 @Table(name = "day")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Day implements Serializable {
@@ -26,6 +31,9 @@ public class Day implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    //TODO zamienic number + dayName na LocalDate
+    //TODO klase, ktora przechowuje date w formacie YYYY-MM-DD, bez czasu
+
     @Column(name = "number")
     private Integer number;
 
@@ -33,13 +41,25 @@ public class Day implements Serializable {
     @Column(name = "day_name")
     private DayName dayName;
 
-    @OneToMany(mappedBy = "day")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @BatchSize(size = 10)
+    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Hour> hours = new HashSet<>();
 
     @ManyToOne
     private Week week;
+
+    public Day(){}
+
+    public Day(DayName name, Integer number, Week week){
+        this.dayName = name;
+        this.number = number;
+        this.week = week;
+
+        for (int i=0; i<24; i++){
+            Hour hour = new Hour(i, this);
+            hours.add(hour);
+        }
+    }
 
     public Long getId() {
         return id;
@@ -115,17 +135,16 @@ public class Day implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Day day = (Day) o;
-        if(day.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, day.id);
+
+        if (day.id != null && !id.equals(day.id)) return false;
+        if (!number.equals(day.number)) return false;
+        if (dayName != day.dayName) return false;
+        return week.equals(day.week);
+
     }
 
     @Override

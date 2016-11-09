@@ -1,11 +1,13 @@
 package com.advertiser.service.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import java.util.*;
 
+import com.advertiser.domain.Hour;
 import com.advertiser.domain.enumeration.DayName;
+import com.advertiser.service.mapper.CampaignMapper;
+import com.advertiser.service.mapper.HourMapper;
+import com.advertiser.service.mapper.SpotMapper;
 
 /**
  * A DTO for the Day entity.
@@ -13,14 +15,24 @@ import com.advertiser.domain.enumeration.DayName;
 public class DayDTO implements Serializable {
 
     private Long id;
-
     private Integer number;
-
     private DayName dayName;
+    private Set<HourDTO> hours = new HashSet<>();
 
+    public DayDTO(){}
+
+    public DayDTO (DayName name, Integer number) {
+        this.dayName = name;
+        this.number = number;
+
+        for (int i = 0; i < 24; i++) {
+            HourDTO hour = new HourDTO(i);
+            hours.add(hour);
+        }
+    }
 
     private Long weekId;
-    
+
     public Long getId() {
         return id;
     }
@@ -28,6 +40,7 @@ public class DayDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public Integer getNumber() {
         return number;
     }
@@ -35,6 +48,7 @@ public class DayDTO implements Serializable {
     public void setNumber(Integer number) {
         this.number = number;
     }
+
     public DayName getDayName() {
         return dayName;
     }
@@ -49,6 +63,25 @@ public class DayDTO implements Serializable {
 
     public void setWeekId(Long weekId) {
         this.weekId = weekId;
+    }
+
+    public Set<HourDTO> getHours() {
+        return hours;
+    }
+
+    public void setHours(Set<HourDTO> hours) {
+        this.hours = hours;
+    }
+
+    public void setHoursDTO(Set<Hour> hours, HourMapper hourMapper, SpotMapper spotMapper,
+                            CampaignMapper campaignMapper) {
+        for(Hour hour : hours){
+            HourDTO hourDTO = hourMapper.hourToHourDTO(hour);
+            List spots = new ArrayList();
+            spots.addAll(hour.getSpots());
+            hourDTO.setSpotsDTO(new HashSet<>(spots), spotMapper, campaignMapper);
+            this.hours.add(hourDTO);
+        }
     }
 
     @Override

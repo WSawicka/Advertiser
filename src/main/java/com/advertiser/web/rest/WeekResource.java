@@ -1,15 +1,14 @@
 package com.advertiser.web.rest;
 
+import com.advertiser.service.mapper.*;
 import com.codahale.metrics.annotation.Timed;
 import com.advertiser.domain.Week;
 
 import com.advertiser.repository.WeekRepository;
 import com.advertiser.web.rest.util.HeaderUtil;
 import com.advertiser.service.dto.WeekDTO;
-import com.advertiser.service.mapper.WeekMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * REST controller for managing Week.
@@ -31,12 +27,13 @@ import java.util.stream.Collectors;
 public class WeekResource {
 
     private final Logger log = LoggerFactory.getLogger(WeekResource.class);
-        
-    @Inject
-    private WeekRepository weekRepository;
 
-    @Inject
-    private WeekMapper weekMapper;
+    @Inject private WeekRepository weekRepository;
+    @Inject private WeekMapper weekMapper;
+    @Inject private DayMapper dayMapper;
+    @Inject private HourMapper hourMapper;
+    @Inject private SpotMapper spotMapper;
+    @Inject private CampaignMapper campaignMapper;
 
     /**
      * POST  /weeks : Create a new week.
@@ -122,6 +119,24 @@ public class WeekResource {
                 result,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/year/{year}/weeks/{weekNumber}")
+    public WeekDTO getWeekBy(@PathVariable Integer year, @PathVariable Integer weekNumber)
+            throws IllegalAccessException {
+        Week week = weekRepository.findByNumberAndYear(weekNumber, year);
+        if (week == null) {
+            week = weekRepository.save(new Week(weekNumber, year));
+        }
+        WeekDTO weekDTO = weekMapper.weekToWeekDTO(week);
+        setDaysHoursSpotsTo(weekDTO, week);
+        return weekDTO;
+    }
+
+    private void setDaysHoursSpotsTo(WeekDTO weekDTO, Week week){
+        List days = new ArrayList();
+        days.addAll(week.getDays());
+        weekDTO.setDaysDTO(new HashSet<>(days), dayMapper, hourMapper, spotMapper, campaignMapper);
     }
 
     /**

@@ -3,6 +3,7 @@ package com.advertiser.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -53,16 +54,13 @@ public class Campaign implements Serializable {
 
     @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY)
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Spot> spots = new HashSet<>();
 
     @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY)
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SpotInfo> spotInfos = new HashSet<>();
 
     @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "campaign_price_schedule",
                joinColumns = @JoinColumn(name="campaigns_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="price_schedules_id", referencedColumnName="ID"))
@@ -70,7 +68,6 @@ public class Campaign implements Serializable {
 
     @ManyToMany(mappedBy = "campaigns", fetch = FetchType.LAZY)
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Report> reports = new HashSet<>();
 
     public Long getId() {

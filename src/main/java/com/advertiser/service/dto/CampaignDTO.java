@@ -1,5 +1,7 @@
 package com.advertiser.service.dto;
 
+import com.advertiser.domain.Spot;
+
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,24 +15,17 @@ import java.util.Objects;
 public class CampaignDTO implements Serializable {
 
     private Long id;
-
     private String name;
-
     private String nameShort;
-
     private String product;
-
     private Integer spotAmount;
-
     private ZonedDateTime startDate;
-
     private ZonedDateTime endDate;
 
-
     private Long campaignStateId;
-    
     private Long businessId;
-    
+    private Set<Spot> spots = new HashSet<>();
+
     private Set<PriceScheduleDTO> priceSchedules = new HashSet<>();
 
     public Long getId() {
@@ -105,6 +100,14 @@ public class CampaignDTO implements Serializable {
 
     public void setPriceSchedules(Set<PriceScheduleDTO> priceSchedules) {
         this.priceSchedules = priceSchedules;
+    }
+
+    public Set<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(Set<Spot> spots) {
+        this.spots = spots;
     }
 
     @Override

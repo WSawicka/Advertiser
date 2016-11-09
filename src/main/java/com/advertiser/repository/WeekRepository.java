@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface WeekRepository extends JpaRepository<Week,Long> {
 
+    Week findByNumberAndYear(Integer weekNumber, Integer year);
 }

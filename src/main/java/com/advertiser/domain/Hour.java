@@ -1,10 +1,13 @@
 package com.advertiser.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,16 +27,25 @@ public class Hour implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    //TODO zamienic number na LocalTime, by miec od razu dostep do czasu (i tylko czasu, bezdaty)
+
     @Column(name = "number")
     private Integer number;
 
-    @OneToMany(mappedBy = "hour")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @BatchSize(size = 10)
+    @OneToMany(mappedBy = "hour", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Spot> spots = new HashSet<>();
 
     @ManyToOne
+    @JsonIgnore
     private Day day;
+
+    public Hour(){}
+
+    public Hour(Integer number, Day day){
+        this.number = number;
+        this.day = day;
+    }
 
     public Long getId() {
         return id;
@@ -96,17 +108,14 @@ public class Hour implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Hour hour = (Hour) o;
-        if(hour.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, hour.id);
+        if (hour.id != null && !id.equals(hour.id)) return false;
+        if (!number.equals(hour.number)) return false;
+        return day.equals(hour.day);
+
     }
 
     @Override

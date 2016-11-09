@@ -14,6 +14,7 @@ public interface CampaignMapper {
 
     @Mapping(source = "campaignState.id", target = "campaignStateId")
     @Mapping(source = "business.id", target = "businessId")
+    @Mapping(target = "priceSchedule", ignore = true)
     CampaignDTO campaignToCampaignDTO(Campaign campaign);
 
     List<CampaignDTO> campaignsToCampaignDTOs(List<Campaign> campaigns);

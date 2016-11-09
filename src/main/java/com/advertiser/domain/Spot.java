@@ -1,5 +1,6 @@
 package com.advertiser.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -26,9 +27,11 @@ public class Spot implements Serializable {
     private ZonedDateTime dateTime;
 
     @ManyToOne
+    @JsonIgnore
     private Hour hour;
 
     @ManyToOne
+    @JsonIgnore
     private Campaign campaign;
 
     @ManyToOne
@@ -96,17 +99,17 @@ public class Spot implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Spot spot = (Spot) o;
-        if(spot.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, spot.id);
+
+        if (!id.equals(spot.id)) return false;
+        if (!dateTime.equals(spot.dateTime)) return false;
+        if (!hour.equals(spot.hour)) return false;
+        if (!campaign.equals(spot.campaign)) return false;
+        return spotInfo.equals(spot.spotInfo);
+
     }
 
     @Override

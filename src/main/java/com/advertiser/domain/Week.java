@@ -1,19 +1,22 @@
 package com.advertiser.domain;
 
+import com.advertiser.domain.enumeration.DayName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import java.util.*;
 
 /**
- * not an ignored comment                                                      
- * 
+ * not an ignored comment
+ *
  */
 @ApiModel(description = ""
     + "not an ignored comment                                                 "
@@ -35,10 +38,23 @@ public class Week implements Serializable {
     @Column(name = "year")
     private Integer year;
 
-    @OneToMany(mappedBy = "week")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(mappedBy = "week", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Day> days = new HashSet<>();
+
+    public Week() {}
+
+    public Week(Integer weekNumber, Integer year) {
+        this.number = weekNumber;
+        this.year = year;
+
+        for(int i=1; i<=7; i++) {
+            DateTime dateTime = new DateTime().withYear(year).withWeekOfWeekyear(weekNumber).withDayOfWeek(i);
+            String dayName = dateTime.dayOfWeek().getAsText().toUpperCase();
+            int dayNum = dateTime.getDayOfMonth();
+            Day day = new Day(DayName.valueOf(dayName), dayNum, this);
+            days.add(day);
+        }
+    }
 
     public Long getId() {
         return id;
@@ -101,17 +117,15 @@ public class Week implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Week week = (Week) o;
-        if(week.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, week.id);
+
+        if (!id.equals(week.id)) return false;
+        if (!number.equals(week.number)) return false;
+        return year.equals(week.year);
+
     }
 
     @Override

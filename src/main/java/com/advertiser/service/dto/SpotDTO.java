@@ -13,16 +13,14 @@ import java.util.Objects;
 public class SpotDTO implements Serializable {
 
     private Long id;
-
     private ZonedDateTime dateTime;
-
-
     private Long hourId;
-    
     private Long campaignId;
-    
     private Long spotInfoId;
-    
+
+
+    private CampaignDTO campaignDTO;
+
     public Long getId() {
         return id;
     }
@@ -60,6 +58,14 @@ public class SpotDTO implements Serializable {
 
     public void setSpotInfoId(Long spotInfoId) {
         this.spotInfoId = spotInfoId;
+    }
+
+    public CampaignDTO getCampaignDTO() {
+        return campaignDTO;
+    }
+
+    public void setCampaignDTO(CampaignDTO campaignDTO) {
+        this.campaignDTO = campaignDTO;
     }
 
     @Override

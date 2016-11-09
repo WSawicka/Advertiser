@@ -1,2 +1,3 @@
 id;name;name_short;product;spot_amount;start_date;end_date;campaign_state_id;business_id
-1;Fiat auto świąteczna promocja;FŚP;auto;200;2016-10-28 00:00:00;2016-12-28 00:00:00;1;8
+1;Fiat auto świąteczna promocja;FŚP;auto;200;2016-10-28 00:00:00;2016-12-28 00:00:00;2;8
+2;80% zniżki w Aldo;ALD;buty;250;2016-11-20 00:00:00;2017-01-20 00:00:00;1;18

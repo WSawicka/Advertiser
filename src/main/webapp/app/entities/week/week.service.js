@@ -20,7 +20,15 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getWeekFromYear' : {
+                method: 'GET',
+                url: 'api/year/:year/weeks/:weekNumber',
+                params: {
+                    year: '@year',
+                    weekNumber: '@weekNumber'
+                }
+            }
         });
     }
 })();
