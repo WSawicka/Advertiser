@@ -19,7 +19,9 @@
             "dateTime": "Date Time",
             "hour": "Hour",
             "campaign": "Campaign",
-            "spotInfo": "Spot Info"
+            "spotInfo": "Spot Info",
+            "spotName": "Spot Name",
+            "spotNumber": "Spot Number"
         }
     }
 }

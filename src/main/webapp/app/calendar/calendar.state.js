@@ -30,5 +30,55 @@
                     }]
                 }
             })
+            .state('calendar-details', {
+                parent: 'calendar',
+                url: '/details/{date}/{hour}',
+                params: {
+                    spots: '@spots',
+                    date: '@date',
+                    hour: '@hour'
+                },
+                data: {
+                    authorities: ['ROLE_USER']
+                },
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
+                        templateUrl: 'app/calendar/calendar-details.html',
+                        controller: 'CalendarDetailsController',
+                        controllerAs: 'vm',
+                        backdrop: 'static',
+                        size: 'lg'
+                    }).result.then(function() {
+                        $state.go('calendar', null, { reload: 'calendar' });
+                    }, function() {
+                        $state.go('calendar');
+                    });
+                }]
+            })
+            .state('calendar-details.edit', {
+                parent: 'calendar-details',
+                url: '/{id}/edit',
+                data: {
+                    authorities: ['ROLE_USER']
+                },
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
+                        templateUrl: 'app/calendar/calendar-details-edit.html',
+                        controller: 'CalendarDetailsEditController',
+                        controllerAs: 'vm',
+                        backdrop: 'static',
+                        size: 'lg',
+                        resolve: {
+                            entity: ['Spot', function(Spot) {
+                                return Spot.get({id : $stateParams.id}).$promise;
+                            }]
+                        }
+                    }).result.then(function() {
+                        $state.go('calendar', {}, { reload: 'calendar' });
+                    }, function() {
+                        $state.go('calendar');
+                    });
+                }]
+            })
     }
 })();

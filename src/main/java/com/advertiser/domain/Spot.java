@@ -26,6 +26,12 @@ public class Spot implements Serializable {
     @Column(name = "date_time")
     private ZonedDateTime dateTime;
 
+`    @Column(name = "spot_name")
+    private String spotName;
+
+    @Column(name = "spot_number")
+    private Integer spotNumber;
+
     @ManyToOne
     @JsonIgnore
     private Hour hour;
@@ -56,6 +62,22 @@ public class Spot implements Serializable {
 
     public void setDateTime(ZonedDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getSpotName() {
+        return spotName;
+    }
+
+    public void setSpotName(String spotName) {
+        this.spotName = spotName;
+    }
+
+    public Integer getSpotNumber() {
+        return spotNumber;
+    }
+
+    public void setSpotNumber(Integer spotNumber) {
+        this.spotNumber = spotNumber;
     }
 
     public Hour getHour() {

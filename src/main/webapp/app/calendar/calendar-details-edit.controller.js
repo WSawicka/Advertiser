@@ -3,11 +3,11 @@
 
     angular
         .module('advertiserApp')
-        .controller('SpotMySuffixDialogController', SpotMySuffixDialogController);
+        .controller('CalendarDetailsEditController', CalendarDetailsEditController);
 
-    SpotMySuffixDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Spot', 'Week', 'Day', 'Hour', 'Campaign', 'SpotInfo'];
+    CalendarDetailsEditController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Spot', 'Week', 'Day', 'Hour', 'Campaign', 'SpotInfo'];
 
-    function SpotMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Spot, Week, Day, Hour, Campaign, SpotInfo) {
+    function CalendarDetailsEditController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Spot, Week, Day, Hour, Campaign, SpotInfo) {
         var vm = this;
 
         vm.spot = entity;
@@ -47,7 +47,6 @@
             $uibModalInstance.close(result);
             vm.isSaving = false;
         }
-
         function onSaveError () {
             vm.isSaving = false;
         }
@@ -64,7 +63,6 @@
                 if(camp.id == id) return camp;
             }
         }
-
         function getHourIdFrom(date){
             var dateMoment = moment(date);
             var weekID = getWeekIdBy(dateMoment.isoWeek());

@@ -9,7 +9,6 @@ import com.advertiser.service.dto.CampaignDTO;
 import com.advertiser.service.mapper.CampaignMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Campaign.
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class CampaignResource {
 
     private final Logger log = LoggerFactory.getLogger(CampaignResource.class);
-        
+
     @Inject
     private CampaignRepository campaignRepository;
 
@@ -122,6 +122,14 @@ public class CampaignResource {
                 result,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/campaignsBefore/dateTime/{dateTime}")
+    @Timed
+    public List<CampaignDTO> getAvailableCampaigns(@PathVariable String dateTime){
+        ZonedDateTime dt = ZonedDateTime.of(LocalDateTime.parse(dateTime), ZonedDateTime.now().getZone());
+        List<Campaign> campaigns = campaignRepository.findAllAvailableCampaigns(dt);
+        return campaignMapper.campaignsToCampaignDTOs(campaigns);
     }
 
     /**

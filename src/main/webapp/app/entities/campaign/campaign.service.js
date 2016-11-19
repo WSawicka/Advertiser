@@ -22,7 +22,15 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getAvailableCampaigns': {
+                method: 'GET',
+                isArray: true,
+                url: 'api/campaignsBefore/dateTime/:dateTime',
+                params: {
+                    dateTime: '@dateTime'
+                }
+            }
         });
     }
 })();

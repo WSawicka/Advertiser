@@ -23,6 +23,8 @@
                     <th><span data-translate="advertiserApp.spot.hour">Hour</span></th>
                     <th><span data-translate="advertiserApp.spot.campaign">Campaign</span></th>
                     <th><span data-translate="advertiserApp.spot.spotInfo">Spot Info</span></th>
+                    <th><span data-translate="advertiserApp.spot.spotName">Spot Name</span></th>
+                    <th><span data-translate="advertiserApp.spot.spotNumber">Spot Number</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -38,6 +40,12 @@
                     </td>
                     <td>
                         <a ui-sref="spot-infomySuffix-detail({id:spot.spotInfoId})">{{spot.spotInfoId}}</a>
+                    </td>
+                    <td>
+                        <a>{{spot.spotName}}</a>
+                    </td>
+                    <td>
+                        <a>{{spot.spotNumber}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

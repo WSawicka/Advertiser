@@ -17,7 +17,8 @@ public class SpotDTO implements Serializable {
     private Long hourId;
     private Long campaignId;
     private Long spotInfoId;
-
+    private String spotName;
+    private Integer spotNumber;
 
     private CampaignDTO campaignDTO;
 
@@ -68,6 +69,22 @@ public class SpotDTO implements Serializable {
         this.campaignDTO = campaignDTO;
     }
 
+    public String getSpotName() {
+        return spotName;
+    }
+
+    public void setSpotName(String spotName) {
+        this.spotName = spotName;
+    }
+
+    public Integer getSpotNumber() {
+        return spotNumber;
+    }
+
+    public void setSpotNumber(Integer spotNumber) {
+        this.spotNumber = spotNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -92,8 +109,9 @@ public class SpotDTO implements Serializable {
     @Override
     public String toString() {
         return "SpotDTO{" +
-            "id=" + id +
-            ", dateTime='" + dateTime + "'" +
+            "dateTime=" + dateTime +
+            ", spotName='" + spotName +
+            ", spotNumber=" + spotNumber +
             '}';
     }
 }
