@@ -34,9 +34,10 @@
                 parent: 'calendar',
                 url: '/details/{date}/{hour}',
                 params: {
-                    spots: '@spots',
                     date: '@date',
-                    hour: '@hour'
+                    hour: '@hour',
+                    spots: '@spots',
+                    campaigns: 'campaigns'
                 },
                 data: {
                     authorities: ['ROLE_USER']
@@ -55,7 +56,7 @@
                     });
                 }]
             })
-            .state('calendar-details.edit', {
+            /*.state('calendar-details.edit', {
                 parent: 'calendar-details',
                 url: '/{id}/edit',
                 data: {
@@ -79,6 +80,6 @@
                         $state.go('calendar');
                     });
                 }]
-            })
+            })*/
     }
 })();

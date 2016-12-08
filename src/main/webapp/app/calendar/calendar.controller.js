@@ -52,7 +52,12 @@
                     loadData();
                 }
             });
+            calendar.tab('show');
         });
+
+        window.setTimeout(function() {
+            calendar.fullCalendar('render');
+        }, 50);
 
         function loadData() {
             calendar.fullCalendar('option', 'contentHeight', 580);
@@ -77,25 +82,19 @@
         }
 
         function loadDataDetails(date){
-            var dateTime = moment(date).subtract('1', 'hours').add('1', 'months').toJSON();
-            vm.campaigns = Campaign.getAvailableCampaigns({dateTime: d},
+            vm.campaigns = Campaign.getAvailableCampaigns({dateTime: moment(date).toJSON()},
                 function(resolve){
-                    showDetails(dateTime);
+                    showDetails(date);
                 });
         }
 
         function showDetails(dateTime){
-            var date = dateTime.getFullYear()+'-'+dateTime.getMonth()+'-'+dateTime.getDate();
-            var hour = dateTime.getHours();
+            var dt = moment(dateTime);
+            var date = dt.year() + "-" + dt.month() + "-" + dt.date();
+            var hour = dt.hour();
 
-            var day = getDayBy(dateTime.getDate());
-            var spots = getSpotsIn(day, hour);
-
-            while (spots.length < 5) {
-                var spot = new Spot();
-                spots.push(spot);
-            }
-            $state.go('calendar-details', {'spots' : spots, 'date': date, 'hour': hour});
+            var spots = getSpotsIn(getDayBy(dt.date()), hour);
+            $state.go('calendar-details', {'date': date, 'hour': hour, 'spots' : spots, 'campaigns': vm.campaigns});
         }
 
         function getHours(days){

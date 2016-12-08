@@ -6,38 +6,74 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group">
-            <dl class="dl-horizontal jh-entity-details" ng-repeat="spot in vm.spots | orderBy: 'spotNumber'">
-                <dt>Spot {{spot.spotNumber || vm.spots.indexOf(spot)+1}}</dt>
+            <dl class="dl-horizontal jh-entity-details"
+                ng-repeat="spot in vm.spots | orderBy: 'spotNumber'" ng-hide="vm.spots.length <= 0">
+                <dt>Spot {{spot.spotNumber}}</dt>
                 <dd>
                     <span>{{spot.spotName}}</span>
                     <span>{{spot.campaignDTO.name}}</span>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="calendar-details.edit({id:spot.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="spotmySuffix.delete({id:spot.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
-                            </button>
-                        </div>
-                    </td>
+                    <div>Spot info: {{spot.spotInfoId}}</div>
+
+                    <span class="btn-group flex-btn-group-container">
+                        <button type="submit" ng-hide="spot.spotNumber <= 1">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </button>
+                        <button type="submit" ng-hide="spot.spotNumber == vm.spots.length">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="calendar-details.edit({id:spot.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="spotmySuffix.delete({id:spot.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </span>
+                </dd>
+            </dl>
+            <dl ng-hide="vm.spots.length >= 5">
+                <dd class="no-padding-right">
+                    <!--<span class="col-md-5">
+                        <md-autocomplete md-autoselect="true"
+                                         md-selected-item="selectedCampaign"
+                                         md-items="item in vm.campaigns"
+                                         md-search-text="searchText"
+                                         md-item-text="item.name"
+                                         md-min-length="0"
+                                         placeholder="Wpisz kampanię...">
+                            <md-item-template>
+                                <span md-highlight-text="searchText">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                Nie znaleziono kampanii: "{{searchText}}".
+                            </md-not-found>
+                        </md-autocomplete>
+                    </span>
+                    <span class="col-md-5">
+                        <md-autocomplete md-autoselect="true"
+                                         md-selected-item="selectedSpot"
+                                         md-items="iItem in vm.spotInfos"
+                                         md-search-text="searchText2"
+                                         md-item-text="iItem.name"
+                                         md-min-length="0"
+                                         placeholder="Wpisz spot...">
+                            <md-item-template>
+                                <span md-highlight-text="searchText2" md-highlight-flags="^i">{{iItem.name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                Nie znaleziono info: "{{searchText}}".
+                            </md-not-found>
+                        </md-autocomplete>
+                    </span>-->
+
+                    <button class="btn btn-primary" type="submit" ng-disabled="editForm.$invalid || vm.isSaving">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span>Add</span>
+                    </button>
                 </dd>
             </dl>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
-            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
-        </button>
-        <button type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
-        </button>
-    </div>
 </form>

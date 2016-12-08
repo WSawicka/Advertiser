@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -36,6 +37,9 @@ public class Day implements Serializable {
 
     @Column(name = "number")
     private Integer number;
+
+    @Column(name = "date_time")
+    private ZonedDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "day_name")
@@ -80,6 +84,14 @@ public class Day implements Serializable {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public ZonedDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(ZonedDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public DayName getDayName() {

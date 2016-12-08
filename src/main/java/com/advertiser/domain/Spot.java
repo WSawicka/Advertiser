@@ -26,7 +26,7 @@ public class Spot implements Serializable {
     @Column(name = "date_time")
     private ZonedDateTime dateTime;
 
-`    @Column(name = "spot_name")
+    @Column(name = "spot_name")
     private String spotName;
 
     @Column(name = "spot_number")

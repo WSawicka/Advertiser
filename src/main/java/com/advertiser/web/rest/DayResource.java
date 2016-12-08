@@ -1,5 +1,6 @@
 package com.advertiser.web.rest;
 
+import com.advertiser.web.rest.errors.CustomParameterizedException;
 import com.codahale.metrics.annotation.Timed;
 import com.advertiser.domain.Day;
 
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
 public class DayResource {
 
     private final Logger log = LoggerFactory.getLogger(DayResource.class);
-        
+
     @Inject
     private DayRepository dayRepository;
 
@@ -123,6 +124,32 @@ public class DayResource {
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    //Przerzucic do serwisu, pamietac o @Transactional
+    /*public void whatever() {
+        var itemsToUpdate = dayRepository.findByDatesBetween(dateFrom, dateTo).stream()
+            .map(day -> hour) // to moze byc flat map, nie jestem pewien
+            .filter(hour -> between(hourFrom, hourTo))
+            .filter(hour -> hour.getSpots < 5)
+            .collectToList();
+
+        for(int i = 0; i < campaignSpotsLimit; i++) {
+            if(itemsToUpdate.size() - 1 < i) {
+                itemsToUpdate.get(i).getSpots.add(newSpot);
+            } else {
+                //jeżeli uzupełnił w mniejszej ilości godzin niż jest limit kampanii,
+                //zwróć rozmiar listy itemsToUpdate i odpowiednie info
+                //w przeciwnym razie pomyślnie wykonano task
+            }
+        }
+
+        hoursRepo.saveAll(itemsToUpdate);
+
+        //TODO ogarnąć CustomParameterizedException
+        //TODO ogarnąć @ExceptionHandler
+
+        return itemsUpdated;
+    }*/
 
     /**
      * DELETE  /days/:id : delete the "id" day.

@@ -1,6 +1,7 @@
 package com.advertiser.service.dto;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 import com.advertiser.domain.Hour;
@@ -16,6 +17,7 @@ public class DayDTO implements Serializable {
 
     private Long id;
     private Integer number;
+    private ZonedDateTime dateTime;
     private DayName dayName;
     private Set<HourDTO> hours = new HashSet<>();
 
@@ -47,6 +49,14 @@ public class DayDTO implements Serializable {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public ZonedDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(ZonedDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public DayName getDayName() {
