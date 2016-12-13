@@ -15,6 +15,7 @@
         vm.week;
         vm.days;
         vm.hours;
+        var selectedHourId;
 
         $(document).ready(function() {
             calendar.fullCalendar({
@@ -40,8 +41,8 @@
                     loadData();
                 },
 
-                eventClick: function(date) {
-                    loadDataDetails(date);
+                eventClick: function(event) {
+                    loadDataDetails(event.start);
                 },
 
                 dayClick: function(date, allDay, jsEvent, view){
@@ -90,11 +91,27 @@
 
         function showDetails(dateTime){
             var dt = moment(dateTime);
-            var date = dt.year() + "-" + dt.month() + "-" + dt.date();
+            var day = dt.date();
+            var dayObj = getDayBy(day);
+            var date = dt.year() + "-" + (dt.month()+1) + "-" + dt.date();
             var hour = dt.hour();
 
             var spots = getSpotsIn(getDayBy(dt.date()), hour);
-            $state.go('calendar-details', {'date': date, 'hour': hour, 'spots' : spots, 'campaigns': vm.campaigns});
+            var temp = getHourBy(hour, dayObj.hours);
+            selectedHourId = temp.id;
+            dateTime = moment(dateTime).subtract({'hour': 1});
+            dateTime = moment(dateTime).toDate();
+            goToDetailWindow(dateTime, date, hour, spots);
+        }
+
+        function goToDetailWindow(dateTime, date, hour, spots){
+            $state.go('calendar-details',
+                {'dateTime': dateTime,
+                    'date': date,
+                    'hour': hour,
+                    'hourId': selectedHourId,
+                    'spots' : spots,
+                    'campaigns': vm.campaigns});
         }
 
         function getHours(days){

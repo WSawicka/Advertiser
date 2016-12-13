@@ -34,8 +34,10 @@
                 parent: 'calendar',
                 url: '/details/{date}/{hour}',
                 params: {
+                    dateTime: '@dateTime',
                     date: '@date',
                     hour: '@hour',
+                    hourId: '@hourId',
                     spots: '@spots',
                     campaigns: 'campaigns'
                 },
@@ -48,7 +50,19 @@
                         controller: 'CalendarDetailsController',
                         controllerAs: 'vm',
                         backdrop: 'static',
-                        size: 'lg'
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    campaignDTO: null,
+                                    campaignId: null,
+                                    dateTime: null,
+                                    spotInfoId: null,
+                                    spotName: null,
+                                    spotNumber: null
+                                };
+                            }
+                        }
                     }).result.then(function() {
                         $state.go('calendar', null, { reload: 'calendar' });
                     }, function() {
@@ -56,30 +70,29 @@
                     });
                 }]
             })
-            /*.state('calendar-details.edit', {
+            .state('calendar-details.delete', {
                 parent: 'calendar-details',
-                url: '/{id}/edit',
+                url: '/{id}/delete',
                 data: {
                     authorities: ['ROLE_USER']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
-                        templateUrl: 'app/calendar/calendar-details-edit.html',
-                        controller: 'CalendarDetailsEditController',
+                        templateUrl: 'app/calendar/calendar-details-delete.html',
+                        controller: 'CalendarDetailsDeleteController',
                         controllerAs: 'vm',
-                        backdrop: 'static',
-                        size: 'lg',
+                        size: 'md',
                         resolve: {
                             entity: ['Spot', function(Spot) {
                                 return Spot.get({id : $stateParams.id}).$promise;
                             }]
                         }
                     }).result.then(function() {
-                        $state.go('calendar', {}, { reload: 'calendar' });
+                        $state.go('calendar', null, { reload: 'calendar' });
                     }, function() {
                         $state.go('calendar');
                     });
                 }]
-            })*/
+            })
     }
 })();

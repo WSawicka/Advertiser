@@ -128,8 +128,7 @@ public class SpotResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/spots/{id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.DELETE)
     @Timed
     public ResponseEntity<Void> deleteSpot(@PathVariable Long id) {
         log.debug("REST request to delete Spot : {}", id);

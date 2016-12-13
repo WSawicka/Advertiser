@@ -1,4 +1,3 @@
-<form name="editForm" role="form" ng-submit="vm.save()">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
@@ -6,74 +5,56 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-            <dl class="dl-horizontal jh-entity-details"
+            <dl class="dl-horizontal jh-entity-details" id="spotList"
                 ng-repeat="spot in vm.spots | orderBy: 'spotNumber'" ng-hide="vm.spots.length <= 0">
                 <dt>Spot {{spot.spotNumber}}</dt>
                 <dd>
-                    <span>{{spot.spotName}}</span>
-                    <span>{{spot.campaignDTO.name}}</span>
+                    <span>{{spot.spotName}} {{spot.campaignDTO.name}}</span>
+                    <select id="change.select_campaign" ng-model="vm.campaigns" class="edit-hidden">
+                        <option ng-repeat="campaign in vm.campaigns">{{campaign.name}}</option>
+                    </select>
+                    <select id="change.select_spotInfo" ng-model="vm.spotInfos" class="edit-hidden">
+                        <option ng-repeat="spotInfo in vm.spotInfos">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
+                    </select>
                     <div>Spot info: {{spot.spotInfoId}}</div>
 
                     <span class="btn-group flex-btn-group-container">
-                        <button type="submit" ng-hide="spot.spotNumber <= 1">
+                        <button type="submit" name="up" ng-click="moveUp(spot)"
+                                ng-hide="spot.spotNumber <= 1">
                             <span class="glyphicon glyphicon-chevron-up"></span>
                         </button>
-                        <button type="submit" ng-hide="spot.spotNumber == vm.spots.length">
+                        <button type="submit" name="down" ng-click="moveDown(spot)"
+                                ng-hide="spot.spotNumber == vm.spots.length">
                             <span class="glyphicon glyphicon-chevron-down"></span>
                         </button>
-                        <button type="submit"
-                                ui-sref="calendar-details.edit({id:spot.id})"
+                        <button type="submit" ng-click="edit(spot)"
                                 class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
                         <button type="submit"
-                                ui-sref="spotmySuffix.delete({id:spot.id})"
+                                ui-sref="calendar-details.delete({id:spot.id})"
                                 class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <button type="submit" class="edit-hidden">
+                            <span>Save</span>
                         </button>
                     </span>
                 </dd>
             </dl>
             <dl ng-hide="vm.spots.length >= 5">
                 <dd class="no-padding-right">
-                    <!--<span class="col-md-5">
-                        <md-autocomplete md-autoselect="true"
-                                         md-selected-item="selectedCampaign"
-                                         md-items="item in vm.campaigns"
-                                         md-search-text="searchText"
-                                         md-item-text="item.name"
-                                         md-min-length="0"
-                                         placeholder="Wpisz kampanię...">
-                            <md-item-template>
-                                <span md-highlight-text="searchText">{{item.name}}</span>
-                            </md-item-template>
-                            <md-not-found>
-                                Nie znaleziono kampanii: "{{searchText}}".
-                            </md-not-found>
-                        </md-autocomplete>
-                    </span>
-                    <span class="col-md-5">
-                        <md-autocomplete md-autoselect="true"
-                                         md-selected-item="selectedSpot"
-                                         md-items="iItem in vm.spotInfos"
-                                         md-search-text="searchText2"
-                                         md-item-text="iItem.name"
-                                         md-min-length="0"
-                                         placeholder="Wpisz spot...">
-                            <md-item-template>
-                                <span md-highlight-text="searchText2" md-highlight-flags="^i">{{iItem.name}}</span>
-                            </md-item-template>
-                            <md-not-found>
-                                Nie znaleziono info: "{{searchText}}".
-                            </md-not-found>
-                        </md-autocomplete>
-                    </span>-->
-
-                    <button class="btn btn-primary" type="submit" ng-disabled="editForm.$invalid || vm.isSaving">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <span>Add</span>
-                    </button>
+                    <form name="newForm" role="form" novalidate ng-submit="vm.save()">
+                        <select id="select_campaign" ng-model="vm.campaigns">
+                            <option ng-repeat="campaign in vm.campaigns">{{campaign.name}}</option>
+                        </select>
+                        <select id="select_spotInfo" ng-model="vm.spotInfos">
+                            <option ng-repeat="spotInfo in vm.spotInfos">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
+                        </select>
+                        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-plus"></span><span>Add</span>
+                        </button>
+                    </form>
                 </dd>
             </dl>
         </div>
-</form>

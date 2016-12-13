@@ -1,5 +1,6 @@
 package com.advertiser.repository;
 
+import com.advertiser.domain.Campaign;
 import com.advertiser.domain.SpotInfo;
 
 import org.springframework.data.jpa.repository.*;
@@ -11,5 +12,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface SpotInfoRepository extends JpaRepository<SpotInfo,Long> {
-
+    List<SpotInfo> findAllByCampaignId(Long campaignId);
 }

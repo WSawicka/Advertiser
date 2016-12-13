@@ -20,7 +20,15 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getAllSpotInfosIn' : {
+                method: 'GET',
+                isArray: true,
+                url: 'api/spot-infos/campaignId/:campaignId',
+                params: {
+                    campaign: '@campaignId'
+                }
+            }
         });
     }
 })();
