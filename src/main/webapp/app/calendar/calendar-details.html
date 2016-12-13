@@ -9,16 +9,16 @@
                 ng-repeat="spot in vm.spots | orderBy: 'spotNumber'" ng-hide="vm.spots.length <= 0">
                 <dt>Spot {{spot.spotNumber}}</dt>
                 <dd>
-                    <span>{{spot.spotName}} {{spot.campaignDTO.name}}</span>
-                    <select id="change.select_campaign" ng-model="vm.campaigns" class="edit-hidden">
-                        <option ng-repeat="campaign in vm.campaigns">{{campaign.name}}</option>
+                    <span ng-hide="!show(spot)">{{spot.spotName}} {{spot.campaignDTO.name}}</span>
+                    <select id="edit_select_campaign" ng-model="vm.campaignsEdit" ng-hide="show(spot)">
+                        <option ng-repeat="campaign in vm.campaignsEdit">{{campaign.name}}</option>
                     </select>
-                    <select id="change.select_spotInfo" ng-model="vm.spotInfos" class="edit-hidden">
-                        <option ng-repeat="spotInfo in vm.spotInfos">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
+                    <select id="edit_select_spotInfo" ng-model="vm.spotInfosEdit" ng-hide="show(spot)">
+                        <option ng-repeat="spotInfo in vm.spotInfosEdit">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
                     </select>
-                    <div>Spot info: {{spot.spotInfoId}}</div>
+                    <div  ng-hide="!show(spot)">Spot info: {{spot.spotInfoId}}</div>
 
-                    <span class="btn-group flex-btn-group-container">
+                    <span class="btn-group flex-btn-group-container" ng-hide="!show(spot)">
                         <button type="submit" name="up" ng-click="moveUp(spot)"
                                 ng-hide="spot.spotNumber <= 1">
                             <span class="glyphicon glyphicon-chevron-up"></span>
@@ -36,8 +36,11 @@
                                 class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
-                        <button type="submit" class="edit-hidden">
-                            <span>Save</span>
+                    </span>
+                    <span class="btn-group flex-btn-group-container" ng-hide="show(spot)"
+                          ng-disabled="vm.isSavingEdit">
+                        <button class="btn btn-primary" type="submit" ng-click="vm.saveEdit()">
+                            <span class="glyphicon glyphicon-ok"></span>
                         </button>
                     </span>
                 </dd>

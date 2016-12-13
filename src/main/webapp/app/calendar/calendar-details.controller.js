@@ -21,17 +21,27 @@
         vm.spotInfos = [];
         vm.spotInfosAll = [];
 
+        vm.campaignsEdit = $stateParams.campaigns;
+        vm.campaignsAllEdit = $stateParams.campaigns;
+        vm.spotInfosEdit = [];
+        vm.spotInfosAllEdit = [];
+
         vm.clear = clear;
         vm.save = save;
+        vm.saveEdit = saveEdit;
 
         var selectedCampaign;
         var selectedSpotInfo;
+        var selectedCampaignEdit;
+        var selectedSpotInfoEdit;
+        var isEditing = false;
+        var spotToEdit;
 
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }
 
-        function save () {
+        function save() {
             vm.isSaving = true;
             vm.newSpot.id = null;
             vm.newSpot.campaignDTO = selectedCampaign;
@@ -46,19 +56,34 @@
             }
         }
 
+        function saveEdit(){
+            vm.isSavingEdit = true;
+            spotToEdit.campaignDTO = selectedCampaignEdit;
+            spotToEdit.campaignId = selectedCampaignEdit.id;
+            spotToEdit.spotInfoId = selectedSpotInfoEdit.id;
+            spotToEdit.spotName = selectedCampaignEdit.nameShort;
+            Spot.update(spotToEdit, onSaveSuccess, onSaveError);
+        }
+
         function onSaveSuccess (result) {
             $scope.$emit('advertiserApp:spotUpdate', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
+            vm.isSavingEdit = false;
         }
 
         function onSaveSuccessNotClose (result) {
             vm.isSaving = false;
+            vm.isSavingEdit = false;
         }
 
         function onSaveError () {
             vm.isSaving = false;
         }
+
+        $scope.show = function () {
+            return !(isEditing == true && this.spot == spotToEdit);
+        };
 
         function getCampaignWith(name){
             for (var camp in vm.campaignsAll){
@@ -67,9 +92,9 @@
             }
         }
 
-        function getSpotInfoWith(name){
-            for(var si in vm.spotInfosAll){
-                var spotInfo = vm.spotInfosAll[si];
+        function getSpotInfoWith(name, spotInfoList){
+            for(var si in spotInfoList){
+                var spotInfo = spotInfoList[si];
                 var stringName = spotInfo.producer + ", " + spotInfo.performer + ", " + spotInfo.length + "s";
                 if(stringName == name) {
                     return spotInfo;
@@ -94,6 +119,7 @@
         }
 
         $(document).ready(function() {
+
             $scope.moveUp = function(){
                 var selected = this.spot;
                 var over = getSpotOver(selected);
@@ -113,17 +139,28 @@
             };
 
             $scope.edit = function(){
-                var spot = this.spot;
-                //hide visible and show hidden
-                /*var visibleBf = this.$parent.$parent.getElementsByClassName('edit-visibleBf');
-                for (var el = 0; el < visibleBf.length; el ++) {
-                    visibleBf[el].style.display = 'none';
-                }
-                var hiddenBf = this.$parent.$parent.getElementsByClassName('edit-hiddenBf');
-                for (var el = 0; el < hiddenBf.length; el ++) {
-                    hiddenBf[el].style.display = 'inline';
-                }*/
+                isEditing = true;
+                spotToEdit = this.spot;
             };
+
+            $('#edit_select_campaign').on('change', function () {
+                vm.spotInfosEdit = [];
+                var sel = $("#edit_select_campaign").val();
+                if(sel != null && sel != ""){
+                    selectedCampaignEdit = getCampaignWith(sel);
+                    var campaignId = selectedCampaignEdit.id;
+                    if (campaignId != null) {
+                        vm.spotInfosEdit = SpotInfo.getAllSpotInfosIn({campaignId: campaignId},
+                            function(resolve){
+                                vm.spotInfosAllEdit = vm.spotInfosEdit;
+                            });
+                    }
+                }
+            });
+
+            $('#edit_select_spotInfo').on('change', function(){
+                selectedSpotInfoEdit = getSpotInfoWith($("#edit_select_spotInfo").val(), vm.spotInfosAllEdit);
+            });
 
             $('#select_campaign').on('change', function() {
                 vm.spotInfos = [];
@@ -139,8 +176,9 @@
                     }
                 }
             });
+
             $('#select_spotInfo').on('change', function(){
-                selectedSpotInfo = getSpotInfoWith($("#select_spotInfo").val());
+                selectedSpotInfo = getSpotInfoWith($("#select_spotInfo").val(), vm.spotInfosAll);
             });
         })
     }
