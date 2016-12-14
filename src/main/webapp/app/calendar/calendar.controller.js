@@ -82,36 +82,30 @@
                 });
         }
 
-        function loadDataDetails(date){
-            vm.campaigns = Campaign.getAvailableCampaigns({dateTime: moment(date).toJSON()},
-                function(resolve){
-                    showDetails(date);
-                });
-        }
-
-        function showDetails(dateTime){
+        function loadDataDetails(dateTime){
             var dt = moment(dateTime);
             var day = dt.date();
             var dayObj = getDayBy(day);
             var date = dt.year() + "-" + (dt.month()+1) + "-" + dt.date();
             var hour = dt.hour();
 
-            var spots = getSpotsIn(getDayBy(dt.date()), hour);
             var temp = getHourBy(hour, dayObj.hours);
             selectedHourId = temp.id;
+
+            var dateJSON = moment(dateTime).toJSON();
             dateTime = moment(dateTime).subtract({'hour': 1});
             dateTime = moment(dateTime).toDate();
-            goToDetailWindow(dateTime, date, hour, spots);
+            goToDetailWindow(dateTime, dateJSON, date, hour);
         }
 
-        function goToDetailWindow(dateTime, date, hour, spots){
-            $state.go('calendar-details',
-                {'dateTime': dateTime,
-                    'date': date,
-                    'hour': hour,
-                    'hourId': selectedHourId,
-                    'spots' : spots,
-                    'campaigns': vm.campaigns});
+        function goToDetailWindow(dateTime, dateJSON, date, hour){
+            $state.go('calendar-details', {
+                'dateTime': dateTime,
+                'dateJSON': dateJSON,
+                'date': date,
+                'hour': hour,
+                'hourId': selectedHourId
+            });
         }
 
         function getHours(days){

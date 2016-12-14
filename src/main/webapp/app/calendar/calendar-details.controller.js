@@ -5,24 +5,26 @@
         .module('advertiserApp')
         .controller('CalendarDetailsController', CalendarDetailsController);
 
-    CalendarDetailsController.$inject = ['$scope', '$stateParams', '$uibModalInstance','entity', 'SpotInfo', 'Spot'];
+    CalendarDetailsController.$inject = ['$scope', '$stateParams', '$uibModalInstance','entity', 'Campaign', 'SpotInfo', 'Spot'];
 
-    function CalendarDetailsController ($scope, $stateParams, $uibModalInstance, entity, SpotInfo, Spot) {
+    function CalendarDetailsController ($scope, $stateParams, $uibModalInstance, entity, Campaign, SpotInfo, Spot) {
         var vm = this;
-
         vm.newSpot = entity;
         vm.dateTime = $stateParams.dateTime;
+        vm.dateJSON = $stateParams.dateJSON;
         vm.date = $stateParams.date;
         vm.hour = $stateParams.hour;
         vm.hourId = $stateParams.hourId;
-        vm.spots = $stateParams.spots;
-        vm.campaigns = $stateParams.campaigns;
-        vm.campaignsAll = $stateParams.campaigns;
+        vm.dayId = $stateParams.dayId;
+
+        vm.spots = [];
+        vm.campaigns = [];
+        vm.campaignsAll = [];
         vm.spotInfos = [];
         vm.spotInfosAll = [];
 
-        vm.campaignsEdit = $stateParams.campaigns;
-        vm.campaignsAllEdit = $stateParams.campaigns;
+        vm.campaignsEdit = [];
+        vm.campaignsAllEdit = [];
         vm.spotInfosEdit = [];
         vm.spotInfosAllEdit = [];
 
@@ -38,7 +40,8 @@
         var spotToEdit;
 
         function clear () {
-            $uibModalInstance.dismiss('cancel');
+            $scope.$emit('advertiserApp:spotUpdate', null);
+            $uibModalInstance.close();
         }
 
         function save() {
@@ -52,7 +55,7 @@
             vm.newSpot.spotName = selectedCampaign.nameShort;
             vm.newSpot.spotNumber = vm.spots.length+1;
             if(vm.newSpot.id == null) {
-                Spot.save(vm.newSpot, onSaveSuccess, onSaveError);
+                Spot.save(vm.newSpot, onSaveSuccessNotClose, onSaveError);
             }
         }
 
@@ -75,6 +78,12 @@
         function onSaveSuccessNotClose (result) {
             vm.isSaving = false;
             vm.isSavingEdit = false;
+            vm.spotInfos = [];
+            vm.spotInfosEdit = [];
+            vm.spotInfosAll = [];
+            vm.spotInfosAllEdit = [];
+            loadData();
+            loadSpots();
         }
 
         function onSaveError () {
@@ -85,40 +94,25 @@
             return !(isEditing == true && this.spot == spotToEdit);
         };
 
-        function getCampaignWith(name){
-            for (var camp in vm.campaignsAll){
-                var campaign = vm.campaignsAll[camp];
-                if(campaign.name == name) return campaign;
-            }
+        function loadData(){
+            vm.campaigns = Campaign.getAvailableCampaigns({dateTime: vm.dateJSON},
+                function(resolve){
+                    vm.campaignsEdit = resolve;
+                    vm.campaignsAll = resolve;
+                    vm.campaignsAllEdit = resolve;
+                });
         }
 
-        function getSpotInfoWith(name, spotInfoList){
-            for(var si in spotInfoList){
-                var spotInfo = spotInfoList[si];
-                var stringName = spotInfo.producer + ", " + spotInfo.performer + ", " + spotInfo.length + "s";
-                if(stringName == name) {
-                    return spotInfo;
-                }
-            }
-        }
-
-        function getSpot(spotNumber, value) {
-            for (var s in vm.spots){
-                var spot = vm.spots[s];
-                if(spot.spotNumber == spotNumber + value)
-                    return spot;
-            }
-        }
-
-        function getSpotOver(spot){
-            return getSpot(spot.spotNumber, -1);
-        }
-
-        function getSpotBelow(spot){
-            return getSpot(spot.spotNumber, 1);
+        function loadSpots(){
+            vm.spots = Spot.getAllSpotsByHourId({hourId: vm.hourId},
+                function(resolve){
+                    var set = "set";
+                });
         }
 
         $(document).ready(function() {
+            loadData();
+            loadSpots();
 
             $scope.moveUp = function(){
                 var selected = this.spot;
@@ -180,6 +174,39 @@
             $('#select_spotInfo').on('change', function(){
                 selectedSpotInfo = getSpotInfoWith($("#select_spotInfo").val(), vm.spotInfosAll);
             });
-        })
+        });
+
+        function getCampaignWith(name){
+            for (var camp in vm.campaignsAll){
+                var campaign = vm.campaignsAll[camp];
+                if(campaign.name == name) return campaign;
+            }
+        }
+
+        function getSpotInfoWith(name, spotInfoList){
+            for(var si in spotInfoList){
+                var spotInfo = spotInfoList[si];
+                var stringName = spotInfo.producer + ", " + spotInfo.performer + ", " + spotInfo.length + "s";
+                if(stringName == name) {
+                    return spotInfo;
+                }
+            }
+        }
+
+        function getSpot(spotNumber, value) {
+            for (var s in vm.spots){
+                var spot = vm.spots[s];
+                if(spot.spotNumber == spotNumber + value)
+                    return spot;
+            }
+        }
+
+        function getSpotOver(spot){
+            return getSpot(spot.spotNumber, -1);
+        }
+
+        function getSpotBelow(spot){
+            return getSpot(spot.spotNumber, 1);
+        }
     }
 })();

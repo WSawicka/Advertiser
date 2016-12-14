@@ -1,5 +1,7 @@
 package com.advertiser.web.rest;
 
+import com.advertiser.domain.Campaign;
+import com.advertiser.service.mapper.CampaignMapper;
 import com.codahale.metrics.annotation.Timed;
 import com.advertiser.domain.Spot;
 
@@ -28,6 +30,9 @@ import java.util.Optional;
 public class SpotResource {
 
     private final Logger log = LoggerFactory.getLogger(SpotResource.class);
+
+    @Inject
+    private CampaignMapper campaignMapper;
 
     @Inject
     private SpotRepository spotRepository;
@@ -98,6 +103,13 @@ public class SpotResource {
         log.debug("REST request to get all Spots");
         List<Spot> spots = spotRepository.findAll();
         return spotMapper.spotsToSpotDTOs(spots);
+    }
+
+    @GetMapping("/spots/hourId/{hourId}")
+    @Timed
+    public List<SpotDTO> getAllSpotsByHourId(@PathVariable Long hourId ){
+        List<Spot> spots = spotRepository.findAllSpotsByHourId(hourId);
+        return spotMapper.spotsToSpotDTOs(spots, campaignMapper);
     }
 
     /**

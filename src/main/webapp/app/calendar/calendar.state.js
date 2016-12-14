@@ -35,11 +35,10 @@
                 url: '/details/{date}/{hour}',
                 params: {
                     dateTime: '@dateTime',
+                    dateJSON: '@dateJSON',
                     date: '@date',
                     hour: '@hour',
-                    hourId: '@hourId',
-                    spots: '@spots',
-                    campaigns: 'campaigns'
+                    hourId: '@hourId'
                 },
                 data: {
                     authorities: ['ROLE_USER']
@@ -88,9 +87,9 @@
                             }]
                         }
                     }).result.then(function() {
-                        $state.go('calendar', null, { reload: 'calendar' });
+                        $state.go('calendar-details', null, { reload: 'calendar-details' });
                     }, function() {
-                        $state.go('calendar');
+                        $state.go('calendar-details');
                     });
                 }]
             })

@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface SpotRepository extends JpaRepository<Spot,Long> {
 
+    List<Spot> findAllSpotsByHourId(Long hourId);
 }

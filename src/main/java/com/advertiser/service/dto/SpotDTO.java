@@ -1,5 +1,9 @@
 package com.advertiser.service.dto;
 
+import com.advertiser.domain.Campaign;
+import com.advertiser.service.mapper.CampaignMapper;
+
+import javax.inject.Inject;
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.HashSet;

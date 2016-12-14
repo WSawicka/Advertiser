@@ -47,10 +47,9 @@ public class SpotInfo implements Serializable {
 
     @OneToMany(mappedBy = "spotInfo", fetch = FetchType.LAZY)
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Spot> spots = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JsonIgnore
     private Campaign campaign;
 

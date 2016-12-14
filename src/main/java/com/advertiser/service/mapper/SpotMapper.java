@@ -16,8 +16,10 @@ public interface SpotMapper {
     @Mapping(source = "campaign.id", target = "campaignId")
     @Mapping(source = "spotInfo.id", target = "spotInfoId")
     SpotDTO spotToSpotDTO(Spot spot);
+    SpotDTO spotToSpotDTO(Spot spot, CampaignMapper cm);
 
     List<SpotDTO> spotsToSpotDTOs(List<Spot> spots);
+    List<SpotDTO> spotsToSpotDTOs(List<Spot> spots, CampaignMapper cm);
 
     @Mapping(source = "hourId", target = "hour")
     @Mapping(source = "campaignId", target = "campaign")

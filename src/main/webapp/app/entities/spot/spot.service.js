@@ -21,7 +21,15 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getAllSpotsByHourId' : {
+                method: 'GET',
+                isArray: true,
+                url: 'api/spots/hourId/:hourId',
+                params: {
+                    hourId: '@hourId'
+                }
+            }
         });
     }
 })();
