@@ -25,6 +25,7 @@
                     <th><span data-translate="advertiserApp.campaign.spotAmount">Spot Amount</span></th>
                     <th><span data-translate="advertiserApp.campaign.startDate">Start Date</span></th>
                     <th><span data-translate="advertiserApp.campaign.endDate">End Date</span></th>
+                    <th><span>Color</span></th>
                     <th><span data-translate="advertiserApp.campaign.campaignState">Campaign State</span></th>
                     <th><span data-translate="advertiserApp.campaign.business">Business</span></th>
                     <th><span data-translate="advertiserApp.campaign.priceSchedule">Price Schedule</span></th>
@@ -40,6 +41,10 @@
                     <td>{{campaign.spotAmount}}</td>
                     <td>{{campaign.startDate | date:'medium'}}</td>
                     <td>{{campaign.endDate | date:'medium'}}</td>
+                    <td class="input-color">
+                        <div class="color-box-big"
+                             ng-style="{'background-color': getColorHexFrom(campaign)}"></div>
+                    </td>
                     <td>
                         <a ui-sref="statemySuffix-detail({id:campaign.campaignStateId})">{{campaign.campaignStateId}}</a>
                     </td>

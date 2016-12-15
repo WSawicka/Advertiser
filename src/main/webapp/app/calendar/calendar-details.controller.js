@@ -9,6 +9,8 @@
 
     function CalendarDetailsController ($scope, $stateParams, $uibModalInstance, entity, Campaign, SpotInfo, Spot) {
         var vm = this;
+        vm.uibMI = $uibModalInstance;
+
         vm.newSpot = entity;
         vm.dateTime = $stateParams.dateTime;
         vm.dateJSON = $stateParams.dateJSON;
@@ -137,6 +139,23 @@
                 spotToEdit = this.spot;
             };
 
+            $scope.delete = function(){
+                var spotToDelete = this.spot;
+                if (!(vm.spots.length == spotToDelete.spotNumber)) {
+                    for (var s in vm.spots) {
+                        var spot = vm.spots[s];
+                        if (spotToDelete.spotNumber < spot.spotNumber) {
+                            spot.spotNumber--;
+                            Spot.update(spot);
+                        }
+                    }
+                }
+                Spot.delete({id: spotToDelete.id}, function () {
+                    loadData();
+                    loadSpots();
+                });
+            };
+
             $('#edit_select_campaign').on('change', function () {
                 vm.spotInfosEdit = [];
                 var sel = $("#edit_select_campaign").val();
@@ -174,6 +193,8 @@
             $('#select_spotInfo').on('change', function(){
                 selectedSpotInfo = getSpotInfoWith($("#select_spotInfo").val(), vm.spotInfosAll);
             });
+
+            $scope.$on('eventName', function(event, data) { console.log(data); });
         });
 
         function getCampaignWith(name){

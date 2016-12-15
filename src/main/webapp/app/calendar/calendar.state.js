@@ -72,6 +72,10 @@
             .state('calendar-details.delete', {
                 parent: 'calendar-details',
                 url: '/{id}/delete',
+                params : {
+                    spots: '@spots',
+                    uibMI: '@uibMI'
+                },
                 data: {
                     authorities: ['ROLE_USER']
                 },

@@ -16,6 +16,7 @@
         vm.days;
         vm.hours;
         var selectedHourId;
+        var colors;
 
         $(document).ready(function() {
             calendar.fullCalendar({
@@ -77,7 +78,7 @@
                         var s = spots[spot];
                         var date = s.dateTime.replace("T", " ");
                         var number = s.spotNumber;
-                        addEvent(s.spotName, date, number);
+                        addEvent(s.spotName, date, number, getColorHexFrom(s.campaignDTO.color));
                     }
                 });
         }
@@ -152,14 +153,27 @@
             }
         }
 
-        function addEvent(title, start, idRes) {
+        function getColorHexFrom(name){
+            for(var i in colors){
+                var color = colors[i];
+                if(color.name.toLowerCase() == name.toLowerCase())
+                    return color.value;
+            }
+        }
+
+        function addEvent(title, start, idRes, color) {
             var eventObject = {
                 title: title,
                 start: start,
                 resourceId: idRes,
-                allDay: false
+                allDay: false,
+                color: color
             };
             calendar.fullCalendar('renderEvent', eventObject);
         }
+
+        $.getJSON("/app/json/color_variables.json", function(result){
+            colors = result;
+        });
     }
 })();

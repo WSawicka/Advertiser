@@ -44,6 +44,9 @@ public class Campaign implements Serializable {
     @Column(name = "end_date")
     private ZonedDateTime endDate;
 
+    @Column(name = "color")
+    private String color;
+
     @OneToOne
     @JoinColumn(unique = true)
     private State campaignState;
@@ -154,6 +157,14 @@ public class Campaign implements Serializable {
 
     public void setEndDate(ZonedDateTime endDate) {
         this.endDate = endDate;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public State getCampaignState() {

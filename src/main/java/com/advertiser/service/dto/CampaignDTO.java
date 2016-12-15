@@ -21,6 +21,7 @@ public class CampaignDTO implements Serializable {
     private Integer spotAmount;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
+    private String color;
 
     private Long campaignStateId;
     private Long businessId;
@@ -76,6 +77,14 @@ public class CampaignDTO implements Serializable {
 
     public void setEndDate(ZonedDateTime endDate) {
         this.endDate = endDate;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public Long getCampaignStateId() {

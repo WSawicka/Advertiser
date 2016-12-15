@@ -16,6 +16,12 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.campaignstates = State.query({filter: 'campaign-is-null'});
+
+        vm.colors = [];
+        $.getJSON("/app/json/color_variables.json", function(result){
+            vm.colors = result;
+        });
+
         $q.all([vm.campaign.$promise, vm.campaignstates.$promise]).then(function() {
             if (!vm.campaign.campaignStateId) {
                 return $q.reject();
@@ -24,7 +30,9 @@
         }).then(function(campaignState) {
             vm.campaignstates.push(campaignState);
         });
+
         vm.businesses = Business.query({filter: 'campaign-is-null'});
+
         $q.all([vm.campaign.$promise, vm.businesses.$promise]).then(function() {
             if (!vm.campaign.businessId) {
                 return $q.reject();
@@ -33,6 +41,7 @@
         }).then(function(business) {
             vm.businesses.push(business);
         });
+
         vm.spots = Spot.query();
         vm.spotinfos = SpotInfo.query();
         vm.priceschedules = PriceSchedule.query();

@@ -32,8 +32,9 @@
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
                         <button type="submit"
-                                ui-sref="calendar-details.delete({id:spot.id})"
+                                ng-click="delete(spot)"
                                 class="btn btn-danger btn-sm">
+                            <!--ui-sref="calendar-details.delete({spots:vm.spots, uibMI: vm.uibMI, id:spot.id})"-->
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </span>

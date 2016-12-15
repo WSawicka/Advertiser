@@ -40,39 +40,54 @@
         <div class="form-group">
             <label class="control-label" data-translate="advertiserApp.campaign.startDate" for="field_startDate">Start Date</label>
                 <div class="input-group">
-                    <input id="field_startDate" type="text" class="form-control" name="startDate" datetime-picker="{{dateformat}}" ng-model="vm.campaign.startDate" is-open="vm.datePickerOpenStatus.startDate"
+                    <input id="field_startDate" type="text" class="form-control" name="startDate" datetime-picker="{{dateformat}}"
+                           ng-model="vm.campaign.startDate" is-open="vm.datePickerOpenStatus.startDate"
                       />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('startDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('startDate')">
+                            <i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
         </div>
         <div class="form-group">
             <label class="control-label" data-translate="advertiserApp.campaign.endDate" for="field_endDate">End Date</label>
                 <div class="input-group">
-                    <input id="field_endDate" type="text" class="form-control" name="endDate" datetime-picker="{{dateformat}}" ng-model="vm.campaign.endDate" is-open="vm.datePickerOpenStatus.endDate"
+                    <input id="field_endDate" type="text" class="form-control" name="endDate" datetime-picker="{{dateformat}}"
+                           ng-model="vm.campaign.endDate" is-open="vm.datePickerOpenStatus.endDate"
                       />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('endDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('endDate')">
+                            <i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
         </div>
 
         <div class="form-group">
+            <label>Color</label>
+            <select class="form-control" id="field_campaignColor" name="campaignColor" ng-model="vm.campaign.color">
+                <option ng-repeat="color in vm.colors"><div class="input-color"><div class="color-box"
+                    ng-style="{'background-color': color.value}"></div>{{color.name}}</div></option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label data-translate="advertiserApp.campaign.campaignState" for="field_campaignState">Campaign State</label>
-            <select class="form-control" id="field_campaignState" name="campaignState" ng-model="vm.campaign.campaignStateId" ng-options="state.id as state.id for state in vm.campaignstates | orderBy:'id'">
+            <select class="form-control" id="field_campaignState" name="campaignState" ng-model="vm.campaign.campaignStateId"
+                    ng-options="state.id as state.id for state in vm.campaignstates | orderBy:'id'">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label data-translate="advertiserApp.campaign.business" for="field_business">Business</label>
-            <select class="form-control" id="field_business" name="business" ng-model="vm.campaign.businessId" ng-options="business.id as business.id for business in vm.businesses | orderBy:'id'">
+            <select class="form-control" id="field_business" name="business" ng-model="vm.campaign.businessId"
+                    ng-options="business.id as business.id for business in vm.businesses | orderBy:'id'">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label data-translate="advertiserApp.campaign.priceSchedule" for="field_priceSchedule">Price Schedule</label>
-            <select class="form-control" id="field_priceSchedule" multiple name="priceSchedule" ng-model="vm.campaign.priceSchedules" ng-options="priceSchedule as priceSchedule.id for priceSchedule in vm.priceschedules track by priceSchedule.id"></select>
+            <select class="form-control" id="field_priceSchedule" multiple name="priceSchedule" ng-model="vm.campaign.priceSchedules"
+                    ng-options="priceSchedule as priceSchedule.id for priceSchedule in vm.priceschedules track by priceSchedule.id"></select>
         </div>
     </div>
     <div class="modal-footer">
