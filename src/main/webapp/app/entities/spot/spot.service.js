@@ -29,6 +29,11 @@
                 params: {
                     hourId: '@hourId'
                 }
+            },
+            'getCampaignsWithAmounts': {
+                method: 'GET',
+                isArray: true,
+                url: 'api/campaigns/amounts'
             }
         });
     }

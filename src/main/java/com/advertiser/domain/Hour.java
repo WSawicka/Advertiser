@@ -32,7 +32,7 @@ public class Hour implements Serializable {
     @Column(name = "number")
     private Integer number;
 
-    @BatchSize(size = 10)
+    @BatchSize(size = 168)
     @OneToMany(mappedBy = "hour", fetch = FetchType.EAGER)
     private Set<Spot> spots = new HashSet<>();
 

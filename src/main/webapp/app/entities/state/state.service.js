@@ -20,7 +20,14 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getWithId': {
+                method: 'GET',
+                url: 'api/states/:id',
+                params: {
+                    id: '@id'
+                }
+            }
         });
     }
 })();

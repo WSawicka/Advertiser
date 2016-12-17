@@ -45,7 +45,7 @@ public class Day implements Serializable {
     @Column(name = "day_name")
     private DayName dayName;
 
-    @BatchSize(size = 10)
+    @BatchSize(size = 7)
     @OneToMany(mappedBy = "day", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Hour> hours = new HashSet<>();
 

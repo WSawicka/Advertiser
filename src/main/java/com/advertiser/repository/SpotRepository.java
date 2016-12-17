@@ -13,4 +13,6 @@ import java.util.List;
 public interface SpotRepository extends JpaRepository<Spot,Long> {
 
     List<Spot> findAllSpotsByHourId(Long hourId);
+
+    Long countByCampaignId(Long id);
 }

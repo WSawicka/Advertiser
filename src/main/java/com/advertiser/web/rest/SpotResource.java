@@ -1,6 +1,8 @@
 package com.advertiser.web.rest;
 
 import com.advertiser.domain.Campaign;
+import com.advertiser.repository.CampaignRepository;
+import com.advertiser.service.dto.CampaignDTO;
 import com.advertiser.service.mapper.CampaignMapper;
 import com.codahale.metrics.annotation.Timed;
 import com.advertiser.domain.Spot;
@@ -19,8 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing Spot.
@@ -36,6 +37,9 @@ public class SpotResource {
 
     @Inject
     private SpotRepository spotRepository;
+
+    @Inject
+    private CampaignRepository campaignRepository;
 
     @Inject
     private SpotMapper spotMapper;
@@ -110,6 +114,23 @@ public class SpotResource {
     public List<SpotDTO> getAllSpotsByHourId(@PathVariable Long hourId ){
         List<Spot> spots = spotRepository.findAllSpotsByHourId(hourId);
         return spotMapper.spotsToSpotDTOs(spots, campaignMapper);
+    }
+
+    @GetMapping("/campaigns/amounts")
+    public List<Map<String, Object>> getAmountOfSpotsWithCampaigns(){
+        List<Map<String, Object>> resolve = new ArrayList<>();
+
+        List<Campaign> campaigns = campaignRepository.findAllWithEagerRelationships();
+        List<CampaignDTO> campaignsDTO = campaignMapper.campaignsToCampaignDTOs(campaigns);
+
+        for(CampaignDTO campaign : campaignsDTO){
+            Map<String, Object> map = new HashMap<>();
+            Long amount = spotRepository.countByCampaignId(campaign.getId());
+            map.put("campaign", campaign);
+            map.put("amount", amount);
+            resolve.add(map);
+        }
+        return resolve;
     }
 
     /**

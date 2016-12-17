@@ -7,6 +7,7 @@ import com.advertiser.domain.Week;
 import com.advertiser.repository.WeekRepository;
 import com.advertiser.web.rest.util.HeaderUtil;
 import com.advertiser.service.dto.WeekDTO;
+import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -129,14 +130,8 @@ public class WeekResource {
             week = weekRepository.save(new Week(weekNumber, year));
         }
         WeekDTO weekDTO = weekMapper.weekToWeekDTO(week);
-        setDaysHoursSpotsTo(weekDTO, week);
+        weekDTO.setDaysDTO(week.getDays(), dayMapper, hourMapper, spotMapper, campaignMapper);
         return weekDTO;
-    }
-
-    private void setDaysHoursSpotsTo(WeekDTO weekDTO, Week week){
-        List days = new ArrayList();
-        days.addAll(week.getDays());
-        weekDTO.setDaysDTO(new HashSet<>(days), dayMapper, hourMapper, spotMapper, campaignMapper);
     }
 
     /**
