@@ -27,8 +27,6 @@ public class Hour implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //TODO zamienic number na LocalTime, by miec od razu dostep do czasu (i tylko czasu, bezdaty)
-
     @Column(name = "number")
     private Integer number;
 

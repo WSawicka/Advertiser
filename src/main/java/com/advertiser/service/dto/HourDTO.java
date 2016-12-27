@@ -60,8 +60,10 @@ public class HourDTO implements Serializable {
     public void setSpotsDTO(Set<Spot> spots, SpotMapper spotMapper, CampaignMapper campaignMapper) {
         for(Spot spot : spots){
             SpotDTO spotDTO = spotMapper.spotToSpotDTO(spot);
-            Campaign campaign = spot.getCampaign();
-            spotDTO.setCampaignDTO(campaignMapper.campaignToCampaignDTO(campaign));
+            if (campaignMapper != null) {
+                Campaign campaign = spot.getCampaign();
+                spotDTO.setCampaignDTO(campaignMapper.campaignToCampaignDTO(campaign));
+            }
             this.spots.add(spotDTO);
         }
     }

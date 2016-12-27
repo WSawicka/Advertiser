@@ -3,6 +3,7 @@
     display: none;
 }
 
+
 /*campaignMySuffix*/
 .input-color {
     position: relative;
@@ -19,7 +20,6 @@
     left: 5px;
     top: 5px;
 }
-
 .color-box-big {
     width: 20px;
     height: 20px;
@@ -29,8 +29,17 @@
     left: 15px;
     top: 25px;
 }
-
 .red {
     color: red;
     font-weight: bold;
+}
+
+
+
+/* centered columns styles */
+.centered {
+    align-content: center;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
 }

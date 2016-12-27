@@ -1,6 +1,7 @@
 package com.advertiser.web.rest;
 
-import com.advertiser.web.rest.errors.CustomParameterizedException;
+import com.advertiser.service.mapper.HourMapper;
+import com.advertiser.service.mapper.SpotMapper;
 import com.codahale.metrics.annotation.Timed;
 import com.advertiser.domain.Day;
 
@@ -10,7 +11,6 @@ import com.advertiser.service.dto.DayDTO;
 import com.advertiser.service.mapper.DayMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Day.
@@ -38,6 +38,12 @@ public class DayResource {
 
     @Inject
     private DayMapper dayMapper;
+
+    @Inject
+    private HourMapper hourMapper;
+
+    @Inject
+    private SpotMapper spotMapper;
 
     /**
      * POST  /days : Create a new day.
@@ -104,6 +110,20 @@ public class DayResource {
         return dayMapper.daysToDayDTOs(days);
     }
 
+    @GetMapping("/days/startDate/{startDate}/endDate/{endDate}")
+    public List<DayDTO> getAllDaysBetween(@PathVariable String startDate, @PathVariable String endDate) {
+        ZonedDateTime sd = ZonedDateTime.parse(startDate);
+        ZonedDateTime ed = ZonedDateTime.parse(endDate);
+        List<Day> days = dayRepository.findAllBetween(sd, ed);
+        List<DayDTO> daysDTO = new ArrayList<>();
+        for (Day day : days){
+            DayDTO dayDTO = dayMapper.dayToDayDTO(day);
+            dayDTO.setHoursDTO(day.getHours(), hourMapper, spotMapper, null);
+            daysDTO.add(dayDTO);
+        }
+        return daysDTO;
+    }
+
     /**
      * GET  /days/:id : get the "id" day.
      *
@@ -124,32 +144,6 @@ public class DayResource {
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
-    //Przerzucic do serwisu, pamietac o @Transactional
-    /*public void whatever() {
-        var itemsToUpdate = dayRepository.findByDatesBetween(dateFrom, dateTo).stream()
-            .map(day -> hour) // to moze byc flat map, nie jestem pewien
-            .filter(hour -> between(hourFrom, hourTo))
-            .filter(hour -> hour.getSpots < 5)
-            .collectToList();
-
-        for(int i = 0; i < campaignSpotsLimit; i++) {
-            if(itemsToUpdate.size() - 1 < i) {
-                itemsToUpdate.get(i).getSpots.add(newSpot);
-            } else {
-                //jeżeli uzupełnił w mniejszej ilości godzin niż jest limit kampanii,
-                //zwróć rozmiar listy itemsToUpdate i odpowiednie info
-                //w przeciwnym razie pomyślnie wykonano task
-            }
-        }
-
-        hoursRepo.saveAll(itemsToUpdate);
-
-        //TODO ogarnąć CustomParameterizedException
-        //TODO ogarnąć @ExceptionHandler
-
-        return itemsUpdated;
-    }*/
 
     /**
      * DELETE  /days/:id : delete the "id" day.

@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,6 +59,10 @@ public class Day implements Serializable {
         this.dayName = name;
         this.number = number;
         this.week = week;
+
+        DateTime d = new DateTime().withYear(week.getYear()).withWeekOfWeekyear(week.getNumber()).withDayOfMonth(this.number);
+        this.dateTime = ZonedDateTime.of(d.getYear(), d.getMonthOfYear(), d.getDayOfMonth(), 0, 0, 0, 0,
+            ZoneId.of(d.getZone().getID(), ZoneId.SHORT_IDS));
 
         for (int i=0; i<24; i++){
             Hour hour = new Hour(i, this);

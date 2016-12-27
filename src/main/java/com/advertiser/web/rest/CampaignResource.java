@@ -1,5 +1,9 @@
 package com.advertiser.web.rest;
 
+import com.advertiser.domain.Spot;
+import com.advertiser.repository.HourRepository;
+import com.advertiser.service.DayService;
+import com.advertiser.service.dto.SpotDTO;
 import com.codahale.metrics.annotation.Timed;
 import com.advertiser.domain.Campaign;
 
@@ -15,11 +19,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +43,13 @@ public class CampaignResource {
     private CampaignRepository campaignRepository;
 
     @Inject
+    private HourRepository hourRepository;
+
+    @Inject
     private CampaignMapper campaignMapper;
+
+    @Inject
+    private DayService dayService;
 
     /**
      * POST  /campaigns : Create a new campaign.
@@ -130,6 +143,26 @@ public class CampaignResource {
         ZonedDateTime dt = ZonedDateTime.of(LocalDateTime.parse(dateTime), ZonedDateTime.now().getZone());
         List<Campaign> campaigns = campaignRepository.findAllAvailableCampaigns(dt);
         return campaignMapper.campaignsToCampaignDTOs(campaigns);
+    }
+
+    @GetMapping("/generate/campaign/check/{hoursPreferred}/{startDate}/{endDate}")
+    public List<Integer> checkIfPossibleToGenerateSpots(@PathVariable List<Integer> hoursPreferred,
+             @PathVariable String startDate, @PathVariable String endDate){
+        List<Integer> results = new ArrayList<>();
+        Integer allHours = hourRepository.findAllAvailableHours(startDate, endDate);
+        Integer preferredHours = hourRepository.findAllAvailablePreferredHours(startDate, endDate, hoursPreferred);
+        results.add(allHours);
+        results.add(preferredHours);
+        return results;
+    }
+
+    @GetMapping("/generate/campaign/{id}/{toGenerate}/{spotInfoId}/{spotsLimit}/{hoursPreferred}")
+    public List<SpotDTO> generateSpots(@PathVariable Long id, @PathVariable Long toGenerate, @PathVariable Long spotInfoId,
+            @PathVariable Integer spotsLimit, @PathVariable List<Integer> hoursPreferred){
+        CampaignDTO campaignDTO = campaignMapper.campaignToCampaignDTO(campaignRepository.findOne(id));
+        List<SpotDTO> spotsToGenerate = dayService.generateSpotsFor
+            (campaignMapper.campaignDTOToCampaign(campaignDTO), toGenerate, spotInfoId, spotsLimit, hoursPreferred);
+        return spotsToGenerate;
     }
 
     /**

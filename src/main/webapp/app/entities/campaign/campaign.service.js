@@ -30,6 +30,28 @@
                 params: {
                     dateTime: '@dateTime'
                 }
+            },
+            'checkIfPossible' : {
+                method : 'GET',
+                isArray: true,
+                url : 'api/generate/campaign/check/:hoursPreferred/:startDate/:endDate',
+                params : {
+                    hoursPreferred: '@hoursPreferred',
+                    startDate: '@startDate',
+                    endDate: '@endDate'
+                }
+            },
+            'generateSpotsInCampaign' : {
+                method : 'GET',
+                isArray: true,
+                url : 'api/generate/campaign/:id/:toGenerate/:spotInfoId/:spotsLimit/:hoursPreferred',
+                params : {
+                    id: '@id',
+                    toGenerate: '@toGenerate',
+                    spotInfoId: '@spotInfoId',
+                    spotsLimit: '@spotsLimit',
+                    hoursPreferred: '@hoursPreferred'
+                }
             }
         });
     }

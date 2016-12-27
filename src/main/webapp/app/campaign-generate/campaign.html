@@ -15,8 +15,8 @@
                 <th><span>Color</span></th>
                 <th><span data-translate="advertiserApp.campaign.campaignState">Campaign State</span></th>
                 <th><span data-translate="advertiserApp.campaign.priceSchedule">Price Schedule</span></th>
-                <th><span data-translate="advertiserApp.campaign.spotAmount">Max Spot Amount</span></th>
-                <th><span>Spot amount</span></th>
+                <th><span>Max Amount</span></th>
+                <th><span>Amount</span></th>
                 <th></th>
             </tr>
             </thead>
@@ -37,11 +37,12 @@
                     <a class="form-control-static" ui-sref="price-schedulemySuffix-detail({id: priceSchedule.id})">{{priceSchedule.id}}</a>{{$last ? '' : ', '}}
                 </span></td>
                 <td>{{c.campaign.spotAmount}}</td>
-                <td><span ng-bind="::c.amount" ng-class="{red: (c < c.campaign.spotAmount)}"></span></td>
+                <td><span ng-bind="::c.amount" ng-class="{red: (c.amount < c.campaign.spotAmount)}"></span></td>
 
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
-                        <button type="submit" class="btn btn-primary btn-sm" ui-sref="campaign-generate">
+                        <button type="submit" class="btn btn-primary btn-sm"
+                                ui-sref="campaign-generate({campaign: c.campaign, amount: c.amount})">
                             <span class="glyphicon glyphicon-pencil"></span>
                             <span>GENERUJ</span>
                         </button>

@@ -22,6 +22,7 @@
                     <th><span data-translate="advertiserApp.day.number">Number</span></th>
                     <th><span data-translate="advertiserApp.day.dayName">Day Name</span></th>
                     <th><span data-translate="advertiserApp.day.week">Week</span></th>
+                    <th><span>DateTime</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td>
                         <a ui-sref="weekmySuffix-detail({id:day.weekId})">{{day.weekId}}</a>
                     </td>
+                    <td>{{day.dateTime}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

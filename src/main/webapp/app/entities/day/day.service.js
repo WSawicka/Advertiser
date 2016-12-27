@@ -20,7 +20,16 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getAllBetween' : {
+                method: 'GET',
+                url: 'api/days/startDate/:startDate/endDate/:endDate',
+                isArray: true,
+                params: {
+                    dayStart: '@startDate',
+                    dayEnd: '@endDate'
+                }
+            }
         });
     }
 })();

@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
             .state('campaign', {
-                parent: 'entity',
+                parent: 'app',
                 url: '/campaign',
                 data: {
                     authorities: ['ROLE_USER'],
@@ -32,11 +32,14 @@
                 }
             })
             .state('campaign-generate', {
-                parent: 'entity',
-                url: '/campaign-generate',
+                parent: 'app',
+                url: '/campaign/generate',
+                params: {
+                    campaign: '@campaign',
+                    amount: '@amount'
+                },
                 data: {
-                    authorities: ['ROLE_USER'],
-                    pageTitle: 'advertiserApp.campaign.home.title'
+                    authorities: ['ROLE_USER']
                 },
                 views: {
                     'content@': {
@@ -52,7 +55,7 @@
                         return $translate.refresh();
                     }]
                 }
-            })
+            });
     }
 
 })();
