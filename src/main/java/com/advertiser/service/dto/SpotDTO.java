@@ -26,6 +26,18 @@ public class SpotDTO implements Serializable {
 
     private CampaignDTO campaignDTO;
 
+    public SpotDTO(){}
+
+    public SpotDTO(ZonedDateTime dt, Long hourId, CampaignDTO campaignDTO, Long spotInfoId, Integer spotNumber){
+        this.dateTime = dt;
+        this.hourId = hourId;
+        this.campaignId = campaignDTO.getId();
+        this.campaignDTO = campaignDTO;
+        this.spotInfoId = spotInfoId;
+        this.spotName = campaignDTO.getNameShort();
+        this.spotNumber = spotNumber;
+    }
+
     public Long getId() {
         return id;
     }

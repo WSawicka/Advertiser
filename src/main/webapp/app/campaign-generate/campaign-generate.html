@@ -24,30 +24,33 @@
     </div>
     <br/>
     <div>
-        <div class="col-md-12">
-            <select id="select_spotInfo" ng-model="vm.spotInfos">
-                <option ng-repeat="spotInfo in vm.spotInfos">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
-            </select>
-        </div>
-        <div class="form-group col-md-12">
-            <label class="control-label">Preferred hours</label>
-            <div class="input-group">
-                <md-checkbox id="night" ng-model="vm.night">00 - 05</md-checkbox>
-                <md-checkbox id="morning" ng-model="vm.morning">06 - 11</md-checkbox>
-                <md-checkbox id="day" ng-model="vm.day">12 - 17</md-checkbox>
-                <md-checkbox id="evening" ng-model="vm.evening">18 - 23</md-checkbox>
+        <div ng-click="changed()">
+            <div class="col-md-12">
+                <select id="select_spotInfo" ng-model="vm.spotInfos">
+                    <option ng-repeat="spotInfo in vm.spotInfos">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
+                </select>
+            </div>
+            <div class="form-group col-md-12">
+                <label class="control-label">Preferred hours</label>
+                <div class="input-group">
+                    <md-checkbox id="night" ng-model="vm.night">00 - 05</md-checkbox>
+                    <md-checkbox id="morning" ng-model="vm.morning">06 - 11</md-checkbox>
+                    <md-checkbox id="day" ng-model="vm.day">12 - 17</md-checkbox>
+                    <md-checkbox id="evening" ng-model="vm.evening">18 - 23</md-checkbox>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">Max amount of spots per day</label>
+                <div>
+                    <input type="number" class="form-control" id="spotsPerDay" ng-value="vm.spotsPerDay" min="0" max="24"/>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <p ng-show="vm.isPossible">Spots, that can be inserted in preferred hours: {{vm.spotsInHoursPreferred}}.
+                    Spots in other hours: {{vm.spotsInOtherHours}}</p>
             </div>
         </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">Max amount of spots per day</label>
-            <div>
-                <input type="number" class="form-control" id="spotsPerDay" ng-value="vm.spotsPerDay" min="0" max="24"/>
-            </div>
-        </div>
-        <div class="col-md-12" ng-show="vm.isPossible">
-            <p>Spots, that can be inserted in preferred hours: {{vm.campaign.spotAmount - vm.spotsInHoursPreferred}}.
-                Spots in other hours: {{vm.spotsInOtherHours}}</p>
-        </div>
+
         <div class="col-md-12">
             <button type="button" class="btn btn-default" ng-click="checkIfPossible()">
                 <span class="glyphicon glyphicon-question-sign"></span>&nbsp;<span>Check</span>

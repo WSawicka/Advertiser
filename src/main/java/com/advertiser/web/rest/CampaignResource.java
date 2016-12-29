@@ -157,8 +157,8 @@ public class CampaignResource {
     }
 
     @GetMapping("/generate/campaign/{id}/{toGenerate}/{spotInfoId}/{spotsLimit}/{hoursPreferred}")
-    public List<SpotDTO> generateSpots(@PathVariable Long id, @PathVariable Long toGenerate, @PathVariable Long spotInfoId,
-            @PathVariable Integer spotsLimit, @PathVariable List<Integer> hoursPreferred){
+    public List<SpotDTO> generateSpots(@PathVariable Long id, @PathVariable List<Integer> toGenerate,
+          @PathVariable Long spotInfoId, @PathVariable Integer spotsLimit, @PathVariable List<Integer> hoursPreferred){
         CampaignDTO campaignDTO = campaignMapper.campaignToCampaignDTO(campaignRepository.findOne(id));
         List<SpotDTO> spotsToGenerate = dayService.generateSpotsFor
             (campaignMapper.campaignDTOToCampaign(campaignDTO), toGenerate, spotInfoId, spotsLimit, hoursPreferred);

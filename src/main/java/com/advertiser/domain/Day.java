@@ -33,9 +33,6 @@ public class Day implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //TODO zamienic number + dayName na LocalDate
-    //TODO klase, ktora przechowuje date w formacie YYYY-MM-DD, bez czasu
-
     @Column(name = "number")
     private Integer number;
 
