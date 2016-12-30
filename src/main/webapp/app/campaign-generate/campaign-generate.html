@@ -26,17 +26,24 @@
     <div>
         <div ng-click="changed()">
             <div class="col-md-12">
-                <select id="select_spotInfo" ng-model="vm.spotInfos">
+                <select id="select_spotInfo" ng-model="vm.spotInfos" class="col-md-4">
                     <option ng-repeat="spotInfo in vm.spotInfos">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
-                </select>
+                </select><p id="ifSelectedSpotInfo" ng-show="vm.notSelectedSpotInfo" class="col-md-6" style="color: red">You must select one!</p>
             </div>
-            <div class="form-group col-md-12">
+            <div class="col-md-12">
                 <label class="control-label">Preferred hours</label>
-                <div class="input-group">
+                <div class="col-md-12">
                     <md-checkbox id="night" ng-model="vm.night">00 - 05</md-checkbox>
                     <md-checkbox id="morning" ng-model="vm.morning">06 - 11</md-checkbox>
                     <md-checkbox id="day" ng-model="vm.day">12 - 17</md-checkbox>
                     <md-checkbox id="evening" ng-model="vm.evening">18 - 23</md-checkbox>
+                    <div>
+                        <md-checkbox id="withPeaks" class="col-md-3" ng-model="vm.withPeaks">With multiple peaks</md-checkbox>&nbsp;
+                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[0]" min="0" max="5" step="1"></md-slider>&nbsp;
+                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[1]" min="6" max="11" step="1"></md-slider>&nbsp;
+                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[2]" min="12" max="17" step="1"></md-slider>&nbsp;
+                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[3]" min="18" max="23" step="1"></md-slider>
+                    </div>
                 </div>
             </div>
             <div class="form-group col-md-6">

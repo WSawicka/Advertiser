@@ -156,12 +156,13 @@ public class CampaignResource {
         return results;
     }
 
-    @GetMapping("/generate/campaign/{id}/{toGenerate}/{spotInfoId}/{spotsLimit}/{hoursPreferred}")
-    public List<SpotDTO> generateSpots(@PathVariable Long id, @PathVariable List<Integer> toGenerate,
-          @PathVariable Long spotInfoId, @PathVariable Integer spotsLimit, @PathVariable List<Integer> hoursPreferred){
+    @GetMapping("/generate/campaign/{generationForm}/{id}/{toGenerate}/{spotInfoId}/{spotsLimit}/{hoursPreferred}/{peaks}")
+    public List<SpotDTO> generateSpots(@PathVariable String generationForm, @PathVariable Long id,
+          @PathVariable List<Integer> toGenerate, @PathVariable Long spotInfoId, @PathVariable Integer spotsLimit,
+          @PathVariable List<Integer> hoursPreferred, @PathVariable List<Integer> peaks){
         CampaignDTO campaignDTO = campaignMapper.campaignToCampaignDTO(campaignRepository.findOne(id));
-        List<SpotDTO> spotsToGenerate = dayService.generateSpotsFor
-            (campaignMapper.campaignDTOToCampaign(campaignDTO), toGenerate, spotInfoId, spotsLimit, hoursPreferred);
+        List<SpotDTO> spotsToGenerate = dayService.generateSpotsFor (generationForm,
+            campaignMapper.campaignDTOToCampaign(campaignDTO), toGenerate, spotInfoId, spotsLimit, hoursPreferred, peaks);
         return spotsToGenerate;
     }
 

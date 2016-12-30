@@ -15,20 +15,26 @@
         vm.isPossible = false;
         vm.spotInfos = [];
         vm.spotInfosAll = [];
-        vm.spotsPerDay = 6;  //default value
+        vm.notSelectedSpotInfo = false;
+
+        vm.spotsPerDay = 12;  //default value
         vm.daysBetween = [];
 
         vm.night = false;
-        vm.morning = false;
+        vm.morning = true;
         vm.day = true;
         vm.evening = false;
 
         vm.hoursPreferred = [];
+        vm.peaks = [5, 7, 15, 18];
+        vm.withPeaks = false;
 
         vm.allSpotsToGenerate = vm.campaign.spotAmount - vm.amount;
         vm.spotsInHoursPreferred = 0;
         vm.allPreferredHours = 0; // info from db
         vm.spotsInOtherHours = 0;
+
+        var generationType = ["default", "xorshift"];
 
         loadData();
 
@@ -56,28 +62,35 @@
         $(document).ready(function() {
             $scope.changed = function () {
                 vm.isPossible = false;
+                vm.notSelectedSpotInfo = false;
             };
 
             $scope.checkIfPossible = function () {
                 vm.hoursPreferred = [];
-                if(vm.night) vm.hoursPreferred.push([0], [1], [2], [3], [4], [5]);
-                if(vm.morning) vm.hoursPreferred.push([6], [7], [8], [9], [10], [11]);
-                if(vm.day) vm.hoursPreferred.push([12], [13], [14], [15], [16], [17]);
-                if(vm.evening) vm.hoursPreferred.push([18], [19], [20], [21], [22], [23]);
+                if (vm.night) vm.hoursPreferred.push([0], [1], [2], [3], [4], [5]);
+                if (vm.morning) vm.hoursPreferred.push([6], [7], [8], [9], [10], [11]);
+                if (vm.day) vm.hoursPreferred.push([12], [13], [14], [15], [16], [17]);
+                if (vm.evening) vm.hoursPreferred.push([18], [19], [20], [21], [22], [23]);
 
-                // TODO: sprawdź, czy spotInfo jest zaznaczony
+                if (Array.isArray(vm.spotInfos)) {
+                    vm.notSelectedSpotInfo = true;
+                    return;
+                }
+                else
+                    vm.notSelectedSpotInfo = false;
 
                 Campaign.checkIfPossible({hoursPreferred: vm.hoursPreferred, startDate: vm.campaign.startDate,
                         endDate: vm.campaign.endDate}, function (result) {
                     vm.spotsPerDay = parseInt(document.getElementById("spotsPerDay").value, 10);
                     var allHours = result[0]; // possible hours between the dates
-                    vm.allPreferredHours = result[1]; // possible & preferred hours between the dates
+                    vm.allPreferredHours = result[0]; // possible & preferred hours between the dates
 
                     //check if it's possible to sets spots accordingly to spots per day limit
                     var amountOfHoursPref = vm.hoursPreferred.length;
                     var amountOfDays = moment(vm.campaign.endDate).diff(vm.campaign.startDate, 'days');
 
-                    var morePlaceThanSpotsToGenerate = amountOfHoursPref * amountOfDays >= vm.allSpotsToGenerate;
+                    var morePlaceThanSpotsToGenerate = (vm.spotsPerDay > amountOfHoursPref) ?
+                        amountOfHoursPref * amountOfDays >= vm.allSpotsToGenerate : vm.spotsPerDay * amountOfDays >= vm.allSpotsToGenerate;
                     var possibleToSetSpotsInOtherHours = vm.spotsPerDay > amountOfHoursPref;
                     if (allHours >= vm.allSpotsToGenerate) {
                         if (morePlaceThanSpotsToGenerate) { //no need for other hours
@@ -99,8 +112,14 @@
                 var spotGenerated = 0;
                 var toGenerate = [vm.spotsInHoursPreferred, vm.spotsInOtherHours];
                 var spotInfoId = getSpotInfoWith(vm.spotInfos, vm.spotInfosAll).id;
-                Campaign.generateSpotsInCampaign({id: vm.campaign.id, toGenerate: toGenerate, spotInfoId: spotInfoId,
-                        spotsLimit: vm.spotsPerDay, hoursPreferred: vm.hoursPreferred},
+                var generationForm = generationType[1]; // better random
+
+                if (!vm.withPeaks)
+                    vm.peaks = [11];
+
+                Campaign.generateSpotsInCampaign({generationForm: generationForm, id: vm.campaign.id,
+                        toGenerate: toGenerate, spotInfoId: spotInfoId,
+                        spotsLimit: vm.spotsPerDay, hoursPreferred: vm.hoursPreferred, peaks: vm.peaks},
                     function (result) {
                         for(var res in result) {
                             var spot = result[res];

@@ -44,13 +44,15 @@
             'generateSpotsInCampaign' : {
                 method : 'GET',
                 isArray: true,
-                url : 'api/generate/campaign/:id/:toGenerate/:spotInfoId/:spotsLimit/:hoursPreferred',
+                url : 'api/generate/campaign/:generationForm/:id/:toGenerate/:spotInfoId/:spotsLimit/:hoursPreferred/:peaks',
                 params : {
+                    generationForm: '@generationForm',
                     id: '@id',
                     toGenerate: '@toGenerate',
                     spotInfoId: '@spotInfoId',
                     spotsLimit: '@spotsLimit',
-                    hoursPreferred: '@hoursPreferred'
+                    hoursPreferred: '@hoursPreferred',
+                    peaks: '@peaks'
                 }
             }
         });
