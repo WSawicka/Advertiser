@@ -48,10 +48,10 @@ public class Week implements Serializable {
         this.year = year;
 
         for(int i=1; i<=7; i++) {
-            DateTime dateTime = new DateTime().withYear(year).withWeekOfWeekyear(weekNumber).withDayOfWeek(i);
+            DateTime dateTime = new DateTime().withWeekyear(year).withWeekOfWeekyear(weekNumber).withDayOfWeek(i).withTime(0, 0, 0, 0);
             String dayName = dateTime.dayOfWeek().getAsText().toUpperCase();
             int dayNum = dateTime.getDayOfMonth();
-            Day day = new Day(DayName.valueOf(dayName), dayNum, this);
+            Day day = new Day(DayName.valueOf(dayName), dayNum, this, dateTime);
             days.add(day);
         }
     }

@@ -17,37 +17,41 @@
                         <option ng-repeat="spotInfo in vm.spotInfosEdit">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
                     </select>
                     <div  ng-hide="!show(spot)">Spot info: {{spot.spotInfoId}}</div>
+                    <div ng-show="vm.editMode">
+                        Product: {{spot.campaignDTO.product}}; Time, Author, ...
+                    </div>
 
-                    <span class="btn-group flex-btn-group-container" ng-hide="!show(spot)">
-                        <button type="submit" name="up" ng-click="moveUp(spot)"
-                                ng-hide="spot.spotNumber <= 1">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                        </button>
-                        <button type="submit" name="down" ng-click="moveDown(spot)"
-                                ng-hide="spot.spotNumber == vm.spots.length">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </button>
-                        <button type="submit" ng-click="edit(spot)"
-                                class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                        <button type="submit"
-                                ng-click="delete(spot)"
-                                class="btn btn-danger btn-sm">
-                            <!--ui-sref="calendar-details.delete({spots:vm.spots, uibMI: vm.uibMI, id:spot.id})"-->
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                    </span>
-                    <span class="btn-group flex-btn-group-container" ng-hide="show(spot)"
-                          ng-disabled="vm.isSavingEdit">
-                        <button class="btn btn-primary" type="submit" ng-click="vm.saveEdit()">
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </button>
-                    </span>
+                    <div ng-show="vm.editMode">
+                        <span class="btn-group flex-btn-group-container" ng-hide="!show(spot)">
+                            <button type="submit" name="up" ng-click="moveUp(spot)"
+                                    ng-hide="spot.spotNumber <= 1">
+                                <span class="glyphicon glyphicon-chevron-up"></span>
+                            </button>
+                            <button type="submit" name="down" ng-click="moveDown(spot)"
+                                    ng-hide="spot.spotNumber == vm.spots.length">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                            <button type="submit" ng-click="edit(spot)"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button type="submit"
+                                    ng-click="delete(spot)"
+                                    class="btn btn-danger btn-sm">
+                               <!--ui-sref="calendar-details.delete({spots:vm.spots, uibMI: vm.uibMI, id:spot.id})"-->
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                        <span class="btn-group flex-btn-group-container" ng-hide="show(spot)"
+                               ng-disabled="vm.isSavingEdit">
+                            <button class="btn btn-primary" type="submit" ng-click="vm.saveEdit()">
+                               <span class="glyphicon glyphicon-ok"></span></button>
+                        </span>
+                    </div>
                 </dd>
             </dl>
             <dl ng-hide="vm.spots.length >= 5">
-                <dd class="no-padding-right">
+                <dd class="no-padding-right" ng-show="vm.editMode">
                     <form name="newForm" role="form" novalidate ng-submit="vm.save()">
                         <select id="select_campaign" ng-model="vm.campaigns">
                             <option ng-repeat="campaign in vm.campaigns">{{campaign.name}}</option>

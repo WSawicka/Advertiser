@@ -34,6 +34,7 @@
         vm.allPreferredHours = 0; // info from db
         vm.spotsInOtherHours = 0;
 
+        var spotGenerated = 0;
         var generationType = ["default", "xorshift"];
 
         loadData();
@@ -109,7 +110,10 @@
             };
 
             $scope.generate = function () {
-                var spotGenerated = 0;
+                generateSpots();
+            };
+
+            function generateSpots() {
                 var toGenerate = [vm.spotsInHoursPreferred, vm.spotsInOtherHours];
                 var spotInfoId = getSpotInfoWith(vm.spotInfos, vm.spotInfosAll).id;
                 var generationForm = generationType[1]; // better random
@@ -121,16 +125,22 @@
                         toGenerate: toGenerate, spotInfoId: spotInfoId,
                         spotsLimit: vm.spotsPerDay, hoursPreferred: vm.hoursPreferred, peaks: vm.peaks},
                     function (result) {
-                        for(var res in result) {
-                            var spot = result[res];
-                            if (spot.hasOwnProperty("id")) {
-                                Spot.save(spot);
-                                spotGenerated++;
-                            }
-                        }
-                        alert(spotGenerated + " spots was generated.")
+                        $.when($.ajax(saveSpots(result))).then(function () {
+                            alert(spotGenerated + " spots was generated.")
+                        })
                     });
             }
+
+            function saveSpots(spots) {
+                for(var s in spots) {
+                    var spot = spots[s];
+                    if (spot.hasOwnProperty("id")) {
+                        Spot.save(spot);
+                        spotGenerated++;
+                    }
+                }
+            }
+
         });
     }
 })();

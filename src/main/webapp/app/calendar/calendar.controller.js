@@ -5,31 +5,42 @@
         .module('advertiserApp')
         .controller('CalendarController', CalendarController);
 
-    CalendarController.$inject = ['$scope', '$state', 'Spot', 'Week', 'Campaign'];
+    CalendarController.$inject = ['$scope', '$state', '$cookies', '$stateParams', 'Spot', 'Week', 'Campaign'];
 
-    function CalendarController ($scope, $state, Spot, Week, Campaign) {
+    function CalendarController ($scope, $state, $cookies, stateParams, Spot, Week, Campaign) {
         var vm = this;
         var calendar = $('#calendar');
+        var c = $cookies.getAll();
+        vm.editMode = ($cookies.get('editMode') == "true");
+        vm.dateNowCalendar = $cookies.get('dateNowCalendar') + "";
 
         vm.campaigns = [];
         vm.week;
         vm.days;
         vm.hours;
+
+        vm.pickDate;
+        vm.openCalendar = openCalendar;
+        vm.datePickerOpenStatus = {};
+        vm.datePickerOpenStatus.pickDate = false;
+
         var selectedHourId;
         var colors;
 
         $(document).ready(function() {
             calendar.fullCalendar({
-                editable: true,
+                editable: false,
                 eventDurationEditable: false,
                 defaultView: 'agendaWeek',
                 allDaySlot: false,
+                height: 'auto',
                 slotDuration: "00:60:00",
                 defaultEventMinutes: '30:00',
                 defaultTimedEventDuration: "00:60:00",
                 groupByDateAndResource: true,
                 displayEventTime: false,
                 firstDay: '1',
+                defaultDate: vm.dateNowCalendar,
                 resources: [
                     { id: '1' , title: ' ' },
                     { id: '2' , title: ' ' },
@@ -38,8 +49,10 @@
                     { id: '5' , title: ' ' }
                 ],
 
-                viewAfterAllRender: function (view, element) {
-                    loadData();
+                viewRender: function (view, element) {
+                    var date = calendar.fullCalendar('getDate');
+                    $cookies.put('dateNowCalendar', date);
+                    vm.dateNowCalendar = date;
                 },
 
                 eventClick: function(event) {
@@ -55,17 +68,30 @@
                 }
             });
             calendar.tab('show');
+
+            $scope.changeEditMode = function () {
+                $cookies.put('editMode', vm.editMode);
+            };
+
+            $scope.goToDate = function () {
+                var newDate = moment(vm.pickDate);
+                $('#calendar').fullCalendar('gotoDate', newDate);
+            }
         });
 
         window.setTimeout(function() {
             calendar.fullCalendar('render');
-        }, 50);
+        }, 40);
+
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
+        }
 
         function loadData() {
-            calendar.fullCalendar('option', 'contentHeight', 580);
-            var date = calendar.fullCalendar('getDate');
+            var date = vm.dateNowCalendar;
             var weekNumber = moment(date).isoWeek();
             var year = moment(date).year();
+            var cookies = $cookies.getAll();
 
             vm.week = Week.getWeekFromYear({weekNumber: weekNumber, year: year},
                 function(successData) {

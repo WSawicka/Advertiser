@@ -39,10 +39,14 @@
                     <md-checkbox id="evening" ng-model="vm.evening">18 - 23</md-checkbox>
                     <div>
                         <md-checkbox id="withPeaks" class="col-md-3" ng-model="vm.withPeaks">With multiple peaks</md-checkbox>&nbsp;
-                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[0]" min="0" max="5" step="1"></md-slider>&nbsp;
-                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[1]" min="6" max="11" step="1"></md-slider>&nbsp;
-                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[2]" min="12" max="17" step="1"></md-slider>&nbsp;
-                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[3]" min="18" max="23" step="1"></md-slider>
+                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[0]"
+                                   min="0" max="5" step="1" aria-label="00 - 05"></md-slider>&nbsp;
+                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[1]"
+                                   min="6" max="11" step="1" aria-label="06 - 11"></md-slider>&nbsp;
+                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[2]"
+                                   min="12" max="17" step="1" aria-label="12 - 17"></md-slider>&nbsp;
+                        <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[3]"
+                                   min="18" max="23" step="1" aria-label="18 - 23"></md-slider>
                     </div>
                 </div>
             </div>

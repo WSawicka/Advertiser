@@ -52,14 +52,20 @@ public class Day implements Serializable {
 
     public Day(){}
 
-    public Day(DayName name, Integer number, Week week){
+    public Day(DayName name, Integer number, Week week, DateTime dt){
         this.dayName = name;
         this.number = number;
         this.week = week;
 
-        DateTime d = new DateTime().withYear(week.getYear()).withWeekOfWeekyear(week.getNumber()).withDayOfMonth(this.number);
-        this.dateTime = ZonedDateTime.of(d.getYear(), d.getMonthOfYear(), d.getDayOfMonth(), 0, 0, 0, 0,
-            ZoneId.of(d.getZone().getID(), ZoneId.SHORT_IDS));
+        ZonedDateTime zdt = ZonedDateTime.of(dt.getYear(),
+            dt.getMonthOfYear(),
+            dt.getDayOfMonth(),
+            dt.getHourOfDay(),
+            dt.getMinuteOfHour(),
+            dt.getSecondOfMinute(),
+            dt.getMillisOfSecond() * 1_000_000,
+            ZoneId.of(dt.getZone().getID(), ZoneId.SHORT_IDS));
+        this.dateTime = zdt;
 
         for (int i=0; i<24; i++){
             Hour hour = new Hour(i, this);

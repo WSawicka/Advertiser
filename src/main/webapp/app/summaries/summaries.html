@@ -1,1 +1,28 @@
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div class="col-xl-12">
+    <div ng-click="resetPerMonth()">
+        <h4>Campaigns and spots per month</h4>
+        <div class="col-xl-12" >
+            <input type="number" class="form-control col-xl-6" ng-model="vm.year" min="2000" max="2050"/>
+            <select class="col-xl-6" ng-model="vm.selectedMonth" layout="row" layout-align="center"
+                    ng-click="setMonth()">
+                <option ng-repeat="month in vm.months">{{month.name}}</option>
+            </select>
+        </div>
+        <div ng-show="vm.showPerMonth">
+            <div id="campaignsPerMonthContainer" class="col-xl-12" style="width: 950px; height: 370px; margin: auto"></div>
+            <div id="spotsPerMonthContainer" class="col-xl-12" style="width: 950px; height: 370px; margin: auto"></div>
+        </div>
+    </div>
+
+    <div ng-click="resetPerYear()">
+        <h4>Campaigns and spots per year</h4>
+        <div class="col-xl-12" ng-click="setYear()">
+            <input type="number" class="form-control col-xl-6" ng-model="vm.year" min="2000" max="2050"/>
+        </div>
+        <div ng-show="vm.showPerYear">
+            <div id="campaignsPerYearContainer" class="col-xl-12" style="width: 950px; height: 370px; margin: auto"></div>
+            <!--<div id="campaignsFromBusinessPerYearContainer" class="col-xl-12" style="width: 950px; height: 370px; margin: auto"></div>-->
+            <div id="spotsPerYearContainer" class="col-xl-12" style="width: 950px; height: 370px; margin: auto"></div>
+        </div>
+    </div>
+</div>

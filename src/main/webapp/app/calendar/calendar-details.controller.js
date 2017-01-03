@@ -5,9 +5,9 @@
         .module('advertiserApp')
         .controller('CalendarDetailsController', CalendarDetailsController);
 
-    CalendarDetailsController.$inject = ['$scope', '$stateParams', '$uibModalInstance','entity', 'Campaign', 'SpotInfo', 'Spot'];
+    CalendarDetailsController.$inject = ['$scope', '$cookies', '$stateParams', '$uibModalInstance','entity', 'Campaign', 'SpotInfo', 'Spot'];
 
-    function CalendarDetailsController ($scope, $stateParams, $uibModalInstance, entity, Campaign, SpotInfo, Spot) {
+    function CalendarDetailsController ($scope, $cookies, $stateParams, $uibModalInstance, entity, Campaign, SpotInfo, Spot) {
         var vm = this;
         vm.uibMI = $uibModalInstance;
 
@@ -18,6 +18,7 @@
         vm.hour = $stateParams.hour;
         vm.hourId = $stateParams.hourId;
         vm.dayId = $stateParams.dayId;
+        vm.editMode = ($cookies.get('editMode') == "true");
 
         vm.spots = [];
         vm.campaigns = [];

@@ -5,73 +5,220 @@
         .module('advertiserApp')
         .controller('SummariesController', SummariesController);
 
-    SummariesController.$inject = ['$scope', '$state'];
+    SummariesController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Week', 'Day'];
 
-    function SummariesController($scope, Principal, LoginService, $state) {
+    function SummariesController($scope, Principal, LoginService, $state, Week, Day) {
+        var vm = this;
+
+        vm.months = [ {name:"January", value:0}, {name:"February", value:1}, {name:"March", value:2},
+            {name:"April", value:3}, {name:"May", value:4}, {name:"June", value:5}, {name:"July", value:6},
+            {name:"August", value:7}, {name:"September", value:8}, {name:"October", value:9},
+            {name:"November", value:10}, {name:"December", value:11}];
+        vm.year = 2016;
+        vm.selectedMonth = vm.months[0];
+
+        vm.showPerMonth = false;
+        vm.campaignsInMonthData = [];
+        vm.campaignsInMonthCategories = [];
+        vm.spotsInMonthData = [];
+        vm.spotsInMonthCategories = [];
+
+        vm.showPerYear = false;
+        vm.yearCategories = [];
+        vm.campaignsInYearData = [];
+        vm.spotsInYearData = [];
+        var campaignYearIDs = [[],[],[],[],[],[],[],[],[],[],[],[]];
+
         $(function () {
-            $('#container').highcharts({
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Monthly Average Rainfall'
-                },
-                subtitle: {
-                    text: 'Source: WorldClimate.com'
-                },
-                xAxis: {
-                    categories: [
-                        'Jan',
-                        'Feb',
-                        'Mar',
-                        'Apr',
-                        'May',
-                        'Jun',
-                        'Jul',
-                        'Aug',
-                        'Sep',
-                        'Oct',
-                        'Nov',
-                        'Dec'
-                    ]
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Rainfall (mm)'
+            function createCampaignMonthChart() {
+                $('#campaignsPerMonthContainer').highcharts({
+                    chart: {type: 'line'},
+                    title: {text: 'Campaigns in ' + vm.selectedMonth},
+                    xAxis: { categories: vm.campaignsInMonthCategories },
+                    yAxis: {min: 0, title: {text: 'Amount'}},
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                        '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {column: {pointPadding: 0.2, borderWidth: 0}},
+                    series: [{ name: 'Campaigns', data: vm.campaignsInMonthData }]
+                });
+            }
+
+            function createSpotMonthChart() {
+                $('#spotsPerMonthContainer').highcharts({
+                    chart: {type: 'line'},
+                    title: {text: 'Spots in ' + vm.selectedMonth},
+                    xAxis: { categories: vm.spotsInMonthCategories },
+                    yAxis: {min: 0, title: {text: 'Amount'}},
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                        '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {column: {pointPadding: 0.2, borderWidth: 0}},
+                    series: [{ name: 'Spots', data: vm.spotsInMonthData }]
+                });
+            }
+
+            function createCampaignYearChart() {
+                $('#campaignsPerYearContainer').highcharts({
+                    chart: {type: 'line'},
+                    title: {text: 'Campaigns in ' + vm.year},
+                    xAxis: { categories: vm.yearCategories },
+                    yAxis: {min: 0, title: {text: 'Amount'}},
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                        '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {column: {pointPadding: 0.2, borderWidth: 0}},
+                    series: [{ name: 'Campaigns', data: vm.campaignsInYearData }]
+                });
+            }
+
+            function createSpotYearChart() {
+                $('#spotsPerYearContainer').highcharts({
+                    chart: {type: 'line'},
+                    title: {text: 'Spots in ' + vm.year},
+                    xAxis: { categories: vm.yearCategories },
+                    yAxis: {min: 0, title: {text: 'Amount'}},
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                        '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {column: {pointPadding: 0.2, borderWidth: 0}},
+                    series: [{ name: 'Spots', data: vm.spotsInYearData }]
+                });
+            }
+
+            function getCampaignAmountIn(day) {
+                var campaignIds = [];
+                for (var h in day.hours) {
+                    var hour = day.hours[h];
+                    for (var s in hour.spots) {
+                        var spot = hour.spots[s];
+                        if ($.inArray(spot.campaignId, campaignIds) == -1) {
+                            campaignIds.push(spot.campaignId);
+                        }
                     }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
+                }
+                return campaignIds.length;
+            }
+
+            function setCampaignAmountIn(day, month) { //used for campaigns per year - to prevent counting duplicates
+                for (var h in day.hours) {
+                    var hour = day.hours[h];
+                    for (var s in hour.spots) {
+                        var spot = hour.spots[s];
+                        if ($.inArray(spot.campaignId, campaignYearIDs[month]) == -1) {
+                            campaignYearIDs[month].push(spot.campaignId);
+                        }
                     }
-                },
-                series: [{
-                    name: 'Tokyo',
-                    data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                }
+            }
 
-                }, {
-                    name: 'New York',
-                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+            function getSpotAmountIn(day) {
+                var spots = 0;
+                for (var h in day.hours) {
+                    var hour = day.hours[h];
+                    for(var s in hour.spots)
+                        spots++;
+                }
+                return spots;
+            }
 
-                }, {
-                    name: 'London',
-                    data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+            $(document).ready(function () {
+                $scope.setMonth = function () {
+                    var d = moment.utc(0);
+                    var startDate = moment(d).year(vm.year).month(vm.selectedMonth).date(1).toJSON();
+                    var endDate = moment(startDate).endOf('month'); //2016-12-26T00:00:00+01:00
+                    endDate = moment(endDate).utcOffset("+00:00").toJSON();
+                    Day.getAllBetween({startDate: startDate, endDate: endDate},
+                        function (result) {
+                            var days = result;
+                            for (var d in days) {
+                                var day = days[d];
+                                vm.campaignsInMonthCategories[d] = parseInt(d) + 1;
+                                vm.campaignsInMonthData[d] = getCampaignAmountIn(day);
+                                vm.spotsInMonthCategories[d] = parseInt(d) + 1;
+                                vm.spotsInMonthData[d] = getSpotAmountIn(day);
+                            }
+                            createCampaignMonthChart();
+                            createSpotMonthChart();
+                            vm.showPerMonth = true;
+                        });
+                };
 
-                }, {
-                    name: 'Berlin',
-                    data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+                $scope.setYear = function () {
+                    var d = moment.utc(0);
+                    var startDate = moment(d).year(vm.year).month(0).date(1).toJSON();
+                    var endDate = moment(d).year(vm.year+1).month(0).date(1).toJSON();
+                    endDate = moment(endDate).subtract(1, 'hours').toJSON();
 
-                }]
+                    Day.getAllBetween({startDate: startDate, endDate: endDate},
+                        function (result) {
+                            var days = result;
+
+                            for (var m in vm.months){
+                                var month = vm.months[m];
+                                vm.yearCategories[m] = month.name;
+                                vm.campaignsInYearData[m] = 0;
+                                vm.spotsInYearData[m] = 0;
+                            }
+
+                            for (var d in days){
+                                var day = days[d];
+                                if (moment(day.dateTime).year() == vm.year) {
+                                    var month = moment(day.dateTime).month();
+                                    setCampaignAmountIn(day, month);
+                                    var amountOfSpots = getSpotAmountIn(day);
+                                    vm.spotsInYearData[month] += amountOfSpots;
+                                }
+                            }
+
+                            for (var c in campaignYearIDs){
+                                vm.campaignsInYearData[c] = campaignYearIDs[c].length;
+                            }
+                            createCampaignYearChart();
+                            createSpotYearChart();
+                            vm.showPerYear = true;
+                        });
+                };
+
+                $scope.resetPerMonth = function () {
+                    vm.showPerMonth = false;
+                    $("#campaignsPerMonthContainer").empty();
+                    $("#spotsPerMonthContainer").empty();
+                    vm.campaignsInMonthCategories = [];
+                    vm.campaignsInMonthData = [];
+                    vm.spotsInMonthCategories = [];
+                    vm.spotsInMonthData = [];
+                };
+
+                $scope.resetPerYear = function () {
+                    vm.showPerYear = false;
+                    $("#campaignsPerYearContainer").empty();
+                    $("#spotsPerYearContainer").empty();
+                    vm.campaignsInYearCategories = [];
+                    vm.campaignsInYearData = [];
+                    vm.spotsInYearCategories = [];
+                    vm.spotsInYearData = [];
+                };
             });
         });
     }

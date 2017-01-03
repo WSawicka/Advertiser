@@ -1,7 +1,20 @@
 <div ng-cloak>
     <div class="row">
+        <div class="col-lg-12 form-inline">
+            <div class="form-group row" style="margin: auto auto">
+                <input id="pickDate" type="text" class="form-control" name="pickDate" datetime-picker="{{dateformat}}"
+                       ng-model="vm.pickDate" is-open="vm.datePickerOpenStatus.pickDate" style="margin-top: 0px; padding-top: 0px"
+                       ng-click="vm.openCalendar('pickDate')" readonly/>
+                <button class="btn btn-default" ng-click="goToDate()">GO</button>
+            </div>
+        </div>
+
         <div class="col-md-12">
             <div id="calendar" style="height: 600px"></div>
+        </div>
+
+        <div ng-click="changeEditMode()">
+            <md-checkbox id="editMode" style="float: right; margin: 6px" ng-model="vm.editMode">Edit mode</md-checkbox>
         </div>
     </div>
 </div>

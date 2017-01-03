@@ -112,8 +112,8 @@ public class DayResource {
 
     @GetMapping("/days/startDate/{startDate}/endDate/{endDate}")
     public List<DayDTO> getAllDaysBetween(@PathVariable String startDate, @PathVariable String endDate) {
-        ZonedDateTime sd = ZonedDateTime.parse(startDate);
-        ZonedDateTime ed = ZonedDateTime.parse(endDate);
+        ZonedDateTime sd = ZonedDateTime.parse(startDate); //2016-12-26T00:00:00+01:00
+        ZonedDateTime ed = ZonedDateTime.parse(endDate + ".000Z");
         List<Day> days = dayRepository.findAllBetween(sd, ed);
         List<DayDTO> daysDTO = new ArrayList<>();
         for (Day day : days){

@@ -13,7 +13,7 @@
                 parent: 'app',
                 url: '/calendarView',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_USER']
                 },
                 views: {
                     'content@': {

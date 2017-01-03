@@ -8,7 +8,8 @@
 .fc-time-grid-event.fc-v-event.fc-event {
   border-radius: 4px;
   border: none;
-  padding: 5px;
+  padding-top: 5px;
+  padding-left: 2px;
   opacity: .65;
   left: 0 !important;
   right: 0 !important;
