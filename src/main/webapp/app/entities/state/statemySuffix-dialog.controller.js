@@ -9,6 +9,7 @@
 
     function StateMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, State, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.state = entity;
         vm.clear = clear;

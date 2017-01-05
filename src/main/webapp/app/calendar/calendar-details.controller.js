@@ -11,6 +11,7 @@
         var vm = this;
         vm.uibMI = $uibModalInstance;
 
+        vm.authorities = ['ROLE_ADMIN'];
         vm.newSpot = entity;
         vm.dateTime = $stateParams.dateTime;
         vm.dateJSON = $stateParams.dateJSON;

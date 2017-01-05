@@ -9,11 +9,12 @@
 
     function ReportMySuffixDeleteController($uibModalInstance, entity, Report) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.report = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
-        
+
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }

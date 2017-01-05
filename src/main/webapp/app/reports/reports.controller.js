@@ -9,6 +9,8 @@
 
     function ReportController($scope, Principal, LoginService, $state, Week, Day) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
+
         vm.year = 2016;
 
         $(document).ready(function () {

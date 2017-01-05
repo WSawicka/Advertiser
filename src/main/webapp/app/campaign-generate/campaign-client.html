@@ -1,0 +1,42 @@
+<div>
+    <h2 data-translate="advertiserApp.campaign.home.title">Campaigns</h2>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr>
+                <th><span data-translate="advertiserApp.campaign.startDate">Start Date</span></th>
+                <th><span data-translate="advertiserApp.campaign.endDate">End Date</span></th>
+                <th><span data-translate="advertiserApp.campaign.campaignState">Campaign State</span></th>
+                <th><span data-translate="advertiserApp.campaign.priceSchedule">Price Schedule</span></th>
+                <th><span>Max Amount</span></th>
+                <th><span>Amount</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="c in vm.campaigns track by c.campaign.id">
+                <td>{{c.campaign.startDate | date:'medium'}}</td>
+                <td>{{c.campaign.endDate | date:'medium'}}</td>
+                <td>{{c.campaign.campaignState.toLowerCase()}}</td>
+                <td><span ng-repeat="priceSchedule in c.campaign.priceSchedules">
+                    <a class="form-control-static" ui-sref="price-schedulemySuffix-detail({id: priceSchedule.id})">{{priceSchedule.id}}</a>{{$last ? '' : ', '}}
+                </span></td>
+                <td>{{c.campaign.spotAmount}}</td>
+                <td><span ng-bind="::c.amount" ng-class="{red: (c.amount < c.campaign.spotAmount)}"></span></td>
+
+                <td class="text-right">
+
+                    <div has-authority="ROLE_USER">
+                        <button type="button" class="btn btn-default btn-sm"
+                                ui-sref="campaign-show({campaign: c.campaign})">
+                            <span class="glyphicon glyphicon-arrow-right"></span>
+                            <span>Szczegóły</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

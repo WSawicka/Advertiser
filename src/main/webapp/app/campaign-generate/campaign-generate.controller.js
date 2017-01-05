@@ -9,6 +9,7 @@
 
     function CampaignGenerateController ($scope, $stateParams, Campaign, State, Spot, SpotInfo, Day) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.campaign = $stateParams.campaign;
         vm.amount = $stateParams.amount;

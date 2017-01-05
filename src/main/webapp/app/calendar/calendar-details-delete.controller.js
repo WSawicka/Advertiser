@@ -9,6 +9,7 @@
 
     function CalendarDetailsDeleteController($uibModalInstance, $stateParams, entity, Spot) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
         var uibMIparent = $stateParams.uibMI;
 
         var spots = [];

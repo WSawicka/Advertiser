@@ -9,6 +9,7 @@
 
     function SummariesController($scope, Principal, LoginService, $state, Week, Day) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.months = [ {name:"January", value:0}, {name:"February", value:1}, {name:"March", value:2},
             {name:"April", value:3}, {name:"May", value:4}, {name:"June", value:5}, {name:"July", value:6},

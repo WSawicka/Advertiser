@@ -9,7 +9,8 @@
 
     function WeekMySuffixController ($scope, $state, Week) {
         var vm = this;
-        
+        vm.authorities = ['ROLE_ADMIN'];
+
         vm.weeks = [];
 
         loadAll();

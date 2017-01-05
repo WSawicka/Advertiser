@@ -5,13 +5,13 @@
         <table class="jh-table table table-striped">
             <thead>
             <tr>
-                <th><span data-translate="advertiserApp.campaign.nameShort">Name Short</span></th>
-                <th><span data-translate="advertiserApp.campaign.name">Name</span></th>
-                <th><span data-translate="advertiserApp.campaign.product">Product</span></th>
-                <th><span data-translate="advertiserApp.campaign.business">Business</span></th>
+                <th has-authority="ROLE_ADMIN"><span data-translate="advertiserApp.campaign.nameShort">Name Short</span></th>
+                <th has-authority="ROLE_ADMIN"><span data-translate="advertiserApp.campaign.name">Name</span></th>
+                <th has-authority="ROLE_ADMIN"><span data-translate="advertiserApp.campaign.product">Product</span></th>
+                <th has-authority="ROLE_ADMIN"><span data-translate="advertiserApp.campaign.business">Business</span></th>
                 <th><span data-translate="advertiserApp.campaign.startDate">Start Date</span></th>
                 <th><span data-translate="advertiserApp.campaign.endDate">End Date</span></th>
-                <th><span>Color</span></th>
+                <th has-authority="ROLE_ADMIN"><span>Color</span></th>
                 <th><span data-translate="advertiserApp.campaign.campaignState">Campaign State</span></th>
                 <th><span data-translate="advertiserApp.campaign.priceSchedule">Price Schedule</span></th>
                 <th><span>Max Amount</span></th>
@@ -21,13 +21,13 @@
             </thead>
             <tbody>
             <tr ng-repeat="c in vm.campaigns track by c.campaign.id">
-                <td>{{c.campaign.nameShort}}</td>
-                <td>{{c.campaign.name}}</td>
-                <td>{{c.campaign.product}}</td>
-                <td><span ng-bind="::getCampaignBusiness(c.campaign)"></span></td>
+                <td has-authority="ROLE_ADMIN">{{c.campaign.nameShort}}</td>
+                <td has-authority="ROLE_ADMIN">{{c.campaign.name}}</td>
+                <td has-authority="ROLE_ADMIN">{{c.campaign.product}}</td>
+                <td has-authority="ROLE_ADMIN"><span ng-bind="::getCampaignBusiness(c.campaign)"></span></td>
                 <td>{{c.campaign.startDate | date:'medium'}}</td>
                 <td>{{c.campaign.endDate | date:'medium'}}</td>
-                <td class="input-color">
+                <td  has-authority="ROLE_ADMIN" class="input-color">
                     <div class="color-box-big"
                          ng-style="{'background-color': getColorHexFrom(c.campaign)}"></div>
                 </td>
@@ -39,14 +39,22 @@
                 <td><span ng-bind="::c.amount" ng-class="{red: (c.amount < c.campaign.spotAmount)}"></span></td>
 
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+
+                    <div has-authority="ROLE_USER">
+                        <button type="button" class="btn btn-default btn-sm"
+                                ui-sref="campaign-show({campaign: c.campaign})">
+                            <span class="glyphicon glyphicon-arrow-right"></span>
+                            <span>Szczegóły</span>
+                        </button>
+                    </div>
+                    <div class="btn-group flex-btn-group-container"  has-authority="ROLE_ADMIN">
                         <button type="button" class="btn btn-default btn-sm"
                                 ui-sref="campaign-add-spotInfos({campaign: c.campaign})">
                             <span class="glyphicon glyphicon-plus"></span>
                             <span>Ustaw Info</span>
                         </button>
                     </div>
-                    <div class="btn-group flex-btn-group-container" ng-show="(c.amount==0)">
+                    <div class="btn-group flex-btn-group-container" ng-show="(c.amount==0)"  has-authority="ROLE_ADMIN">
                         <button type="submit" class="btn btn-primary btn-sm"
                                 ui-sref="campaign-generate({campaign: c.campaign, amount: c.amount})">
                             <span class="glyphicon glyphicon-pencil"></span>

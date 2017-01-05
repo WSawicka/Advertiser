@@ -9,7 +9,8 @@
 
     function StateMySuffixController ($scope, $state, State) {
         var vm = this;
-        
+        vm.authorities = ['ROLE_ADMIN'];
+
         vm.states = [];
 
         loadAll();

@@ -9,6 +9,7 @@
 
     function ReportMySuffixDetailController($scope, $rootScope, $stateParams, previousState, entity, Report, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.report = entity;
         vm.previousState = previousState.name;

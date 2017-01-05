@@ -9,6 +9,7 @@
 
     function CampaignAddController ($timeout, $scope, $state, $stateParams, entity, Campaign, State, Business, PriceSchedule) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.campaign = entity;
         vm.cancel = cancel;

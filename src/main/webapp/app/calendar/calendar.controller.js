@@ -9,6 +9,9 @@
 
     function CalendarController ($scope, $state, $cookies, stateParams, Spot, Week, Campaign) {
         var vm = this;
+
+        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+
         var calendar = $('#calendar');
         var c = $cookies.getAll();
         vm.editMode = ($cookies.get('editMode') == "true");

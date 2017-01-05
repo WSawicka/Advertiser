@@ -9,11 +9,12 @@
 
     function PriceScheduleMySuffixDeleteController($uibModalInstance, entity, PriceSchedule) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.priceSchedule = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
-        
+
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }

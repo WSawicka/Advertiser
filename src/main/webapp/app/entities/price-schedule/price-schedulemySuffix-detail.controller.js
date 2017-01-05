@@ -9,6 +9,7 @@
 
     function PriceScheduleMySuffixDetailController($scope, $rootScope, $stateParams, previousState, entity, PriceSchedule, PriceScheduleHour, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.priceSchedule = entity;
         vm.previousState = previousState.name;

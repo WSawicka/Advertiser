@@ -9,6 +9,7 @@
 
     function SpotInfoMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SpotInfo, Spot, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.spotInfo = entity;
         vm.clear = clear;

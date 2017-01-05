@@ -9,7 +9,8 @@
 
     function SpotInfoMySuffixController ($scope, $state, SpotInfo) {
         var vm = this;
-        
+        vm.authorities = ['ROLE_ADMIN'];
+
         vm.spotInfos = [];
 
         loadAll();

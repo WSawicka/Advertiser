@@ -9,7 +9,8 @@
 
     function DayMySuffixController ($scope, $state, Day) {
         var vm = this;
-        
+        vm.authorities = ['ROLE_ADMIN'];
+
         vm.days = [];
 
         loadAll();

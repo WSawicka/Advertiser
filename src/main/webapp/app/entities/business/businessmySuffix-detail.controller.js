@@ -9,6 +9,7 @@
 
     function BusinessMySuffixDetailController($scope, $rootScope, $stateParams, previousState, entity, Business, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.business = entity;
         vm.previousState = previousState.name;

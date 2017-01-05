@@ -9,11 +9,12 @@
 
     function WeekMySuffixDeleteController($uibModalInstance, entity, Week) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.week = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
-        
+
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }

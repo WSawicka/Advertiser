@@ -24,7 +24,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
     </button>
 
-    <button type="button" ui-sref="price-schedulemySuffix-detail.edit({id:vm.priceSchedule.id})" class="btn btn-primary">
+    <button has-authority="ROLE_ADMIN" type="button" ui-sref="price-schedulemySuffix-detail.edit({id:vm.priceSchedule.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
     </button>

@@ -9,11 +9,12 @@
 
     function SpotInfoMySuffixDeleteController($uibModalInstance, entity, SpotInfo) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.spotInfo = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
-        
+
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }

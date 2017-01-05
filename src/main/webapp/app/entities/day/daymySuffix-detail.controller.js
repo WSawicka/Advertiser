@@ -9,6 +9,7 @@
 
     function DayMySuffixDetailController($scope, $rootScope, $stateParams, previousState, entity, Day, Hour, Week) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.day = entity;
         vm.previousState = previousState.name;

@@ -9,6 +9,7 @@
 
     function CampaignAddSpotInfosController ($timeout, $scope, $state, $stateParams, Campaign, SpotInfo, State) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
         vm.campaign = $stateParams.campaign;
 
         vm.spotInfos = [];

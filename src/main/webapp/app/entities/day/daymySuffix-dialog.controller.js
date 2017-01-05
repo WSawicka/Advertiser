@@ -9,6 +9,7 @@
 
     function DayMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Day, Hour, Week) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.day = entity;
         vm.clear = clear;

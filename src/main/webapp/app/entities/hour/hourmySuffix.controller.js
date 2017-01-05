@@ -9,7 +9,8 @@
 
     function HourMySuffixController ($scope, $state, Hour) {
         var vm = this;
-        
+        vm.authorities = ['ROLE_ADMIN'];
+
         vm.hours = [];
 
         loadAll();

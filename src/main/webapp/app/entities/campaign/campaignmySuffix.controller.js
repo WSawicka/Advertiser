@@ -9,6 +9,7 @@
 
     function CampaignMySuffixController ($scope, $state, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.campaigns = [];
         vm.colors = [];

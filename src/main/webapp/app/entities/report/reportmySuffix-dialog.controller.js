@@ -9,6 +9,7 @@
 
     function ReportMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Report, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.report = entity;
         vm.clear = clear;

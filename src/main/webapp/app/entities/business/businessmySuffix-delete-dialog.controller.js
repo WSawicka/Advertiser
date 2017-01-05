@@ -9,11 +9,12 @@
 
     function BusinessMySuffixDeleteController($uibModalInstance, entity, Business) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.business = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
-        
+
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }

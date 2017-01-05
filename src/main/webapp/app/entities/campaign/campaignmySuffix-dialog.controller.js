@@ -9,6 +9,7 @@
 
     function CampaignMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Campaign, State, Business, Spot, SpotInfo, PriceSchedule, Report) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.campaign = entity;
         vm.clear = clear;

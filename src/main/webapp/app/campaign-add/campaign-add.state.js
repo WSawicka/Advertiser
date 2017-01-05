@@ -13,7 +13,7 @@
                 parent: 'app',
                 url: '/campaign-add',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_ADMIN'],
                     pageTitle: 'advertiserApp.campaign.home.title'
                 },
                 views: {
@@ -51,7 +51,7 @@
                 parent: 'campaign-add',
                 url: '/campaign-add/spotInfos',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_ADMIN'],
                     pageTitle: 'advertiserApp.campaign.home.title'
                 },
                 views: {
@@ -77,7 +77,7 @@
                 parent: 'campaign-add-spotInfos',
                 url: '/new',
                 data: {
-                    authorities: ['ROLE_USER']
+                    authorities: ['ROLE_ADMIN']
                 },
                 params : {
                     campaign: '@campaign'
@@ -114,7 +114,7 @@
                 parent: 'campaign-add-spotInfos',
                 url: '/{id}/edit',
                 data: {
-                    authorities: ['ROLE_USER']
+                    authorities: ['ROLE_ADMIN']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({

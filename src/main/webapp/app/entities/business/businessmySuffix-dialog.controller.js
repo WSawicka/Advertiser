@@ -9,6 +9,7 @@
 
     function BusinessMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Business, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.business = entity;
         vm.clear = clear;

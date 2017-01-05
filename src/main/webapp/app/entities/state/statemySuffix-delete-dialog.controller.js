@@ -9,11 +9,12 @@
 
     function StateMySuffixDeleteController($uibModalInstance, entity, State) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.state = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
-        
+
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }

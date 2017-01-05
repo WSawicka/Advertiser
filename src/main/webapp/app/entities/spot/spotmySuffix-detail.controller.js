@@ -9,6 +9,7 @@
 
     function SpotMySuffixDetailController($scope, $rootScope, $stateParams, previousState, entity, Spot, Hour, Campaign, SpotInfo) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.spot = entity;
         vm.previousState = previousState.name;

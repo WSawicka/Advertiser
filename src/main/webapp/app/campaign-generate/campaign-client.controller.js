@@ -3,17 +3,24 @@
 
     angular
         .module('advertiserApp')
-        .controller('CampaignController', CampaignController);
+        .controller('CampaignClientController', CampaignClientController);
 
-    CampaignController.$inject = ['$scope', '$state', 'Campaign', 'State', 'Business', 'Spot'];
+    CampaignClientController.$inject = ['Principal', 'Auth', '$scope', '$state', 'Campaign', 'State', 'Business', 'Spot'];
 
-    function CampaignController ($scope, $state, Campaign, State, Business, Spot) {
+    function CampaignClientController (Principal, Auth, $scope, $state, Campaign, State, Business, Spot) {
         var vm = this;
         vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        vm.auth = Principal.identity();
+        vm.login;
+
+        Principal.identity().then(function(account) {
+            vm.login = account;
+        });
 
         loadAll();
         //TODO: wyświetlać tylko kampanie użytkownika - nowe okno?
 
+        vm.user;
         vm.campaigns = [];
         vm.colors = [];
         vm.states = [];

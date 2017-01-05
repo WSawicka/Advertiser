@@ -9,6 +9,7 @@
 
     function WeekMySuffixDetailController($scope, $rootScope, $stateParams, previousState, entity, Week, Day) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.week = entity;
         vm.previousState = previousState.name;

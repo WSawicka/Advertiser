@@ -9,6 +9,7 @@
 
     function PriceScheduleMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, PriceSchedule, PriceScheduleHour, Campaign) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.priceSchedule = entity;
         vm.clear = clear;

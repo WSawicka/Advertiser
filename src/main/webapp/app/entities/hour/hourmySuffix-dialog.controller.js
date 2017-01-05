@@ -9,6 +9,7 @@
 
     function HourMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Hour, Spot, Day) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.hour = entity;
         vm.clear = clear;

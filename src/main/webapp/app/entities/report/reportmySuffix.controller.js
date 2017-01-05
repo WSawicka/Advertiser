@@ -9,7 +9,8 @@
 
     function ReportMySuffixController ($scope, $state, Report) {
         var vm = this;
-        
+        vm.authorities = ['ROLE_ADMIN'];
+
         vm.reports = [];
 
         loadAll();

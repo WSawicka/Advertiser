@@ -13,7 +13,7 @@
             <div id="calendar" style="height: 600px"></div>
         </div>
 
-        <div ng-click="changeEditMode()">
+        <div has-authority="ROLE_ADMIN" ng-click="changeEditMode()">
             <md-checkbox id="editMode" style="float: right; margin: 6px" ng-model="vm.editMode">Edit mode</md-checkbox>
         </div>
     </div>

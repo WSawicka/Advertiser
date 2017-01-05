@@ -9,6 +9,7 @@
 
     function HourMySuffixDetailController($scope, $rootScope, $stateParams, previousState, entity, Hour, Spot, Day) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.hour = entity;
         vm.previousState = previousState.name;

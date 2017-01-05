@@ -13,7 +13,7 @@
                 parent: 'app',
                 url: '/summaries',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_ADMIN'],
                     pageTitle: 'advertiserApp.campaign.home.title'
                 },
                 views: {

@@ -9,6 +9,7 @@
 
     function CampaignAddSpotInfosDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SpotInfo, Spot) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.campaign = $stateParams.campaign;
         vm.spotInfo = entity;

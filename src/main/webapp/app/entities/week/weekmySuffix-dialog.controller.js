@@ -9,6 +9,7 @@
 
     function WeekMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Week, Day) {
         var vm = this;
+        vm.authorities = ['ROLE_ADMIN'];
 
         vm.week = entity;
         vm.clear = clear;

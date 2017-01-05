@@ -9,7 +9,8 @@
 
     function PriceScheduleMySuffixController ($scope, $state, PriceSchedule) {
         var vm = this;
-        
+        vm.authorities = ['ROLE_ADMIN'];
+
         vm.priceSchedules = [];
 
         loadAll();
