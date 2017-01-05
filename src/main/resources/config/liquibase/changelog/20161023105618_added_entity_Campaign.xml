@@ -45,12 +45,12 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="campaign_state_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+            <column name="campaign_state" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
 
-            <column name="business_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+            <column name="campaign_business" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>

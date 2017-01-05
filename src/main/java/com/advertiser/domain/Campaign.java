@@ -1,5 +1,7 @@
 package com.advertiser.domain;
 
+import com.advertiser.domain.enumeration.CampaignBusiness;
+import com.advertiser.domain.enumeration.CampaignState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -47,13 +49,13 @@ public class Campaign implements Serializable {
     @Column(name = "color")
     private String color;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private State campaignState;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "campaign_state")
+    private CampaignState campaignState;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Business business;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "campaign_business")
+    private CampaignBusiness campaignBusiness;
 
     @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -63,7 +65,8 @@ public class Campaign implements Serializable {
     @JsonIgnore
     private Set<SpotInfo> spotInfos = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH,
+        CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "campaign_price_schedule",
                joinColumns = @JoinColumn(name="campaigns_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="price_schedules_id", referencedColumnName="ID"))
@@ -167,20 +170,15 @@ public class Campaign implements Serializable {
         this.color = color;
     }
 
-    public State getCampaignState() {
+    public CampaignState getCampaignState() {
         return campaignState;
     }
 
-    public Campaign campaignState(State state) {
-        this.campaignState = state;
-        return this;
+    public void setCampaignState(CampaignState campaignState) {
+        this.campaignState = campaignState;
     }
 
-    public void setCampaignState(State state) {
-        this.campaignState = state;
-    }
-
-    public Business getBusiness() {
+    /*public Business getBusiness() {
         return business;
     }
 
@@ -191,6 +189,14 @@ public class Campaign implements Serializable {
 
     public void setBusiness(Business business) {
         this.business = business;
+    }*/
+
+    public CampaignBusiness getCampaignBusiness() {
+        return campaignBusiness;
+    }
+
+    public void setCampaignBusiness(CampaignBusiness campaignBusiness) {
+        this.campaignBusiness = campaignBusiness;
     }
 
     public Set<Spot> getSpots() {

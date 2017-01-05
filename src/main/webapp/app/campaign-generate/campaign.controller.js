@@ -15,7 +15,7 @@
         vm.campaigns = [];
         vm.colors = [];
         vm.states = [];
-        vm.business = [];
+        vm.businesses = [];
 
         $.getJSON("/app/json/color_variables.json", function(result){
             vm.colors = result;
@@ -26,30 +26,20 @@
             Spot.getCampaignsWithAmounts(function(result){
                 vm.campaigns = result;
             });
-            State.query(function(result) {
+            Campaign.getAllCampaignStates(function(result){
                 vm.states = result;
             });
-            Business.query(function(result) {
-                vm.business = result;
+            Campaign.getAllCampaignBusinesses(function(result){
+                vm.businesses = result;
             });
         }
 
-        $scope.getCampaignStateNameFrom = function(){
-            var id = this.c.campaign.campaignStateId;
-            for(var s in vm.states){
-                var state = vm.states[s];
-                if(state.id == id)
-                    return state.name.toLowerCase();
-            }
-        };
-
         $scope.getCampaignBusiness = function () {
-            var id = this.c.campaign.businessId;
-            for(var b in vm.business){
-                var business = vm.business[b];
-                if(business.id == id){
+            var title = this.c.campaign.campaignBusiness;
+            for(var b in vm.businesses){
+                var business = vm.businesses[b];
+                if(title == business.title)
                     return business.name;
-                }
             }
         };
 

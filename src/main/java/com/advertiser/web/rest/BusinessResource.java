@@ -32,7 +32,7 @@ import java.util.stream.StreamSupport;
 public class BusinessResource {
 
     private final Logger log = LoggerFactory.getLogger(BusinessResource.class);
-        
+
     @Inject
     private BusinessRepository businessRepository;
 
@@ -100,14 +100,6 @@ public class BusinessResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<BusinessDTO> getAllBusinesses(@RequestParam(required = false) String filter) {
-        if ("campaign-is-null".equals(filter)) {
-            log.debug("REST request to get all Businesss where campaign is null");
-            return StreamSupport
-                .stream(businessRepository.findAll().spliterator(), false)
-                .filter(business -> business.getCampaign() == null)
-                .map(businessMapper::businessToBusinessDTO)
-                .collect(Collectors.toCollection(LinkedList::new));
-        }
         log.debug("REST request to get all Businesses");
         List<Business> businesses = businessRepository.findAll();
         return businessMapper.businessesToBusinessDTOs(businesses);

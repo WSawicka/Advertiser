@@ -12,15 +12,11 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {PriceScheduleMapper.class, })
 public interface CampaignMapper {
 
-    @Mapping(source = "campaignState.id", target = "campaignStateId")
-    @Mapping(source = "business.id", target = "businessId")
     @Mapping(target = "priceSchedule", ignore = true)
     CampaignDTO campaignToCampaignDTO(Campaign campaign);
 
     List<CampaignDTO> campaignsToCampaignDTOs(List<Campaign> campaigns);
 
-    @Mapping(source = "campaignStateId", target = "campaignState")
-    @Mapping(source = "businessId", target = "business")
     @Mapping(target = "spots", ignore = true)
     @Mapping(target = "spotInfos", ignore = true)
     @Mapping(target = "reports", ignore = true)
@@ -28,23 +24,23 @@ public interface CampaignMapper {
 
     List<Campaign> campaignDTOsToCampaigns(List<CampaignDTO> campaignDTOs);
 
-    default State stateFromId(Long id) {
+    /*default State stateFromId(Long id) {
         if (id == null) {
             return null;
         }
         State state = new State();
         state.setId(id);
         return state;
-    }
+    }*/
 
-    default Business businessFromId(Long id) {
+    /*default Business businessFromId(Long id) {
         if (id == null) {
             return null;
         }
         Business business = new Business();
         business.setId(id);
         return business;
-    }
+    }*/
 
     default PriceSchedule priceScheduleFromId(Long id) {
         if (id == null) {

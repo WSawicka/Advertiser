@@ -1,6 +1,7 @@
 package com.advertiser.web.rest;
 
-import com.advertiser.domain.Spot;
+import com.advertiser.domain.enumeration.CampaignBusiness;
+import com.advertiser.domain.enumeration.CampaignState;
 import com.advertiser.repository.HourRepository;
 import com.advertiser.service.DayService;
 import com.advertiser.service.dto.SpotDTO;
@@ -19,16 +20,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Campaign.
@@ -70,6 +67,7 @@ public class CampaignResource {
         Campaign campaign = campaignMapper.campaignDTOToCampaign(campaignDTO);
         campaign = campaignRepository.save(campaign);
         CampaignDTO result = campaignMapper.campaignToCampaignDTO(campaign);
+        result.setId(campaign.getId());
         return ResponseEntity.created(new URI("/api/campaigns/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("campaign", result.getId().toString()))
             .body(result);
@@ -164,6 +162,25 @@ public class CampaignResource {
         List<SpotDTO> spotsToGenerate = dayService.generateSpotsFor (generationForm,
             campaignMapper.campaignDTOToCampaign(campaignDTO), toGenerate, spotInfoId, spotsLimit, hoursPreferred, peaks);
         return spotsToGenerate;
+    }
+
+    @GetMapping("/campaignStates")
+    public List<String> getAllCampaignStates(){
+        List<CampaignState> states = Arrays.asList(CampaignState.values());
+        return states.stream().map(Object::toString).collect(Collectors.toList());
+    }
+
+    @GetMapping("/campaignBusinesses")
+    public ArrayList getAllCampaignBusinesses(){
+        CampaignBusiness[] businesses = CampaignBusiness.values();
+        ArrayList result = new ArrayList();
+        for(CampaignBusiness business : businesses){
+            Map<String, String> temp = new HashMap<>();
+            temp.put("title", business.name());
+            temp.put("name", business.getName());
+            result.add(temp);
+        }
+        return result;
     }
 
     /**

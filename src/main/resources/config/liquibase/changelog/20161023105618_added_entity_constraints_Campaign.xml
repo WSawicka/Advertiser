@@ -7,29 +7,18 @@
         Added the constraints for entity Campaign.
     -->
     <changeSet id="20161023105618-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="campaign_state_id"
-                                 baseTableName="campaign"
-                                 constraintName="fk_campaign_campaign_state_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="state"/>
-
-        <addForeignKeyConstraint baseColumnNames="business_id"
-                                 baseTableName="campaign"
-                                 constraintName="fk_campaign_business_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="business"/>
 
         <addForeignKeyConstraint baseColumnNames="campaigns_id"
                                  baseTableName="campaign_price_schedule"
                                  constraintName="fk_campaign_price_schedule_campaigns_id"
                                  referencedColumnNames="id"
                                  referencedTableName="campaign"/>
+
         <addForeignKeyConstraint baseColumnNames="price_schedules_id"
                                  baseTableName="campaign_price_schedule"
                                  constraintName="fk_campaign_price_schedule_price_schedules_id"
                                  referencedColumnNames="id"
                                  referencedTableName="price_schedule"/>
-        
+
     </changeSet>
 </databaseChangeLog>

@@ -37,6 +37,16 @@
                   tableName="state"/>
 
         <loadData encoding="UTF-8"
+                  file="config/liquibase/priceSchedule.csv"
+                  separator=";"
+                  tableName="price_schedule"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/priceScheduleHour.csv"
+                  separator=";"
+                  tableName="price_schedule_hour"/>
+
+        <loadData encoding="UTF-8"
                   file="config/liquibase/campaign.csv"
                   separator=";"
                   tableName="campaign"/>

@@ -31,7 +31,7 @@
                     <div class="color-box-big"
                          ng-style="{'background-color': getColorHexFrom(c.campaign)}"></div>
                 </td>
-                <td><span ng-bind="::getCampaignStateNameFrom(c.campaign)"></span></td>
+                <td>{{c.campaign.campaignState.toLowerCase()}}</td>
                 <td><span ng-repeat="priceSchedule in c.campaign.priceSchedules">
                     <a class="form-control-static" ui-sref="price-schedulemySuffix-detail({id: priceSchedule.id})">{{priceSchedule.id}}</a>{{$last ? '' : ', '}}
                 </span></td>
@@ -39,6 +39,13 @@
                 <td><span ng-bind="::c.amount" ng-class="{red: (c.amount < c.campaign.spotAmount)}"></span></td>
 
                 <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="button" class="btn btn-default btn-sm"
+                                ui-sref="campaign-add-spotInfos({campaign: c.campaign})">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span>Ustaw Info</span>
+                        </button>
+                    </div>
                     <div class="btn-group flex-btn-group-container" ng-show="(c.amount==0)">
                         <button type="submit" class="btn btn-primary btn-sm"
                                 ui-sref="campaign-generate({campaign: c.campaign, amount: c.amount})">

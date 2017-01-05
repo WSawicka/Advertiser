@@ -1,6 +1,8 @@
 package com.advertiser.service.dto;
 
 import com.advertiser.domain.Spot;
+import com.advertiser.domain.enumeration.CampaignBusiness;
+import com.advertiser.domain.enumeration.CampaignState;
 
 import java.time.ZonedDateTime;
 import java.io.Serializable;
@@ -23,8 +25,8 @@ public class CampaignDTO implements Serializable {
     private ZonedDateTime endDate;
     private String color;
 
-    private Long campaignStateId;
-    private Long businessId;
+    private CampaignState campaignState;
+    private CampaignBusiness campaignBusiness;
     private Set<Spot> spots = new HashSet<>();
 
     private Set<PriceScheduleDTO> priceSchedules = new HashSet<>();
@@ -87,20 +89,29 @@ public class CampaignDTO implements Serializable {
         this.color = color;
     }
 
-    public Long getCampaignStateId() {
-        return campaignStateId;
+    public CampaignState getCampaignState() {
+        return campaignState;
     }
 
-    public void setCampaignStateId(Long stateId) {
-        this.campaignStateId = stateId;
+    public void setCampaignState(CampaignState campaignState) {
+        this.campaignState = campaignState;
     }
 
-    public Long getBusinessId() {
+    /*public Long getBusinessId() {
         return businessId;
     }
 
     public void setBusinessId(Long businessId) {
         this.businessId = businessId;
+    }
+*/
+
+    public CampaignBusiness getCampaignBusiness() {
+        return campaignBusiness;
+    }
+
+    public void setCampaignBusiness(CampaignBusiness campaignBusiness) {
+        this.campaignBusiness = campaignBusiness;
     }
 
     public Set<PriceScheduleDTO> getPriceSchedules() {

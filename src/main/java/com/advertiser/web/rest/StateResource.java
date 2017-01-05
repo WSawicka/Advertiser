@@ -32,7 +32,7 @@ import java.util.stream.StreamSupport;
 public class StateResource {
 
     private final Logger log = LoggerFactory.getLogger(StateResource.class);
-        
+
     @Inject
     private StateRepository stateRepository;
 
@@ -100,14 +100,6 @@ public class StateResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<StateDTO> getAllStates(@RequestParam(required = false) String filter) {
-        if ("campaign-is-null".equals(filter)) {
-            log.debug("REST request to get all States where campaign is null");
-            return StreamSupport
-                .stream(stateRepository.findAll().spliterator(), false)
-                .filter(state -> state.getCampaign() == null)
-                .map(stateMapper::stateToStateDTO)
-                .collect(Collectors.toCollection(LinkedList::new));
-        }
         log.debug("REST request to get all States");
         List<State> states = stateRepository.findAll();
         return stateMapper.statesToStateDTOs(states);

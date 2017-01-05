@@ -1,0 +1,96 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+    <h3>Create a Campaign</h3>
+    <div class="col-lg-12">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-inline col-lg-6">
+            <label class="control-label" data-translate="advertiserApp.campaign.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                   ng-model="vm.campaign.name" style="width: 380px"/>
+            <p ng-show="(vm.campaign.name == null || vm.campaign.name == '') && vm.showSaveErr == true" class="red">!!!</p>
+        </div>
+        <div class="form-inline col-lg-6">
+            <label class="control-label" data-translate="advertiserApp.campaign.nameShort" for="field_nameShort">Name Short</label>
+            <input type="text" class="form-control" name="nameShort" id="field_nameShort"
+                   ng-model="vm.campaign.nameShort" style="width: 70px"/>
+            <p ng-show="(vm.campaign.nameShort == null || vm.campaign.nameShort == '') && vm.showSaveErr == true" class="red">!!!</p>
+        </div>
+        <div class="form-inline  col-lg-6">
+            <label class="control-label" data-translate="advertiserApp.campaign.startDate" for="field_startDate">Start Date</label>
+            <div class="input-group">
+                <input id="field_startDate" type="text" class="form-control" name="startDate" datetime-picker="{{dateformat}}"
+                       ng-model="vm.campaign.startDate" is-open="vm.datePickerOpenStatus.startDate"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar('startDate')">
+                        <i class="glyphicon glyphicon-calendar"></i></button></span>
+            </div>
+            <p id="startDateError" class="red"></p>
+            <p ng-show="(vm.campaign.startDate == null || vm.campaign.startDate == '') && vm.showSaveErr == true" class="red">!!!</p>
+        </div>
+        <div class="form-inline  col-lg-6">
+            <label class="control-label" data-translate="advertiserApp.campaign.endDate" for="field_endDate">End Date</label>
+            <div class="input-group">
+                <input id="field_endDate" type="text" class="form-control" name="endDate" datetime-picker="{{dateformat}}"
+                       ng-model="vm.campaign.endDate" is-open="vm.datePickerOpenStatus.endDate"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar('endDate')">
+                        <i class="glyphicon glyphicon-calendar"></i></button></span>
+            </div>
+            <p id="endDateError" class="red"></p>
+            <p ng-show="(vm.campaign.endDate == null || vm.campaign.endDate == '') && vm.showSaveErr == true" class="red">!!!</p>
+        </div>
+        <div class="form-inline col-lg-6">
+            <label class="control-label" data-translate="advertiserApp.campaign.business" for="field_business">Business</label>
+            <select class="form-control" id="field_business" name="business" ng-model="vm.campaignBusiness"
+                    ng-options="business.name as business.name for business in vm.businesses | orderBy:'name'">
+                <option value=""></option>
+            </select>
+            <p ng-show="(vm.campaignBusiness == null || vm.campaignBusiness == '') && vm.showSaveErr == true" class="red">!!!</p>
+        </div>
+        <div class="form-inline col-lg-6">
+            <label class="control-label" data-translate="advertiserApp.campaign.product" for="field_product">Product</label>
+            <input type="text" class="form-control" name="product" id="field_product"
+                   ng-model="vm.campaign.product"/>
+            <p ng-show="(vm.campaign.product == null || vm.campaign.product == '') && vm.showSaveErr == true" class="red">!!!</p>
+        </div>
+        <div class="form-inline col-lg-6">
+            <label class="control-label" data-translate="advertiserApp.campaign.spotAmount" for="field_spotAmount">Spot Amount</label>
+            <input type="number" class="form-control" name="spotAmount" id="field_spotAmount"
+                   ng-model="vm.campaign.spotAmount"/>
+            <p ng-show="(vm.campaign.spotAmount == null || vm.campaign.spotAmount == '') && vm.showSaveErr == true" class="red">!!!</p>
+        </div>
+        <div class="form-inline col-lg-6">
+            <div class="form-group row">
+                <label class="control-label">Color</label>
+                <select class="form-control" id="field_campaignColor" name="campaignColor" ng-model="vm.campaign.color">
+                    <div class="input-color"><div class="color-box-big" ng-style="{'background-color': setColor(color.name)}"></div></div>
+                    <option ng-repeat="color in vm.colors">{{color.name}}</option>
+                </select>
+                <div class="input-color" style="margin: 10px;">
+                    <div class="color-box-big"
+                         ng-style="{'background-color': getColorHexFrom(vm.campaign.color)}"></div>
+                </div>
+            </div>
+            <p ng-show="(vm.campaign.color == null || vm.campaign.color == '') && vm.showSaveErr == true" class="red">!!!</p>
+        </div>
+        <div class="form-inline col-lg-12">
+            <label class="control-label" data-translate="advertiserApp.campaign.priceSchedule" for="field_priceSchedule">Price Schedule</label>
+            <select class="form-control" id="field_priceSchedule" multiple name="priceSchedule" ng-model="vm.campaign.priceSchedules"
+                    ng-options="priceSchedule as priceSchedule.name for priceSchedule in vm.priceschedules track by priceSchedule.name"></select>
+
+            <p ng-show="false" class="red">!!!</p>
+        </div>
+    </div>
+    <div class="text-right col-xl-12">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.cancel()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary"
+                ng-hide="vm.saveSuccess">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+        <button type="button" class="btn btn-primary" ng-show="vm.saveSuccess"
+                ui-sref="campaign-add-spotInfos({campaign: vm.campaign})">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Go to create spot info</span>
+        </button>
+    </div>
+</form>

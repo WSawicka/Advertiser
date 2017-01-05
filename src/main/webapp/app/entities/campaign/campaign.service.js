@@ -54,6 +54,16 @@
                     hoursPreferred: '@hoursPreferred',
                     peaks: '@peaks'
                 }
+            },
+            'getAllCampaignStates' : {
+                method: 'GET',
+                isArray: true,
+                url: 'api/campaignStates'
+            },
+            'getAllCampaignBusinesses' : {
+                method: 'GET',
+                isArray: true,
+                url: 'api/campaignBusinesses'
             }
         });
     }

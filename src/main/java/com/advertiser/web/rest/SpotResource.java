@@ -1,6 +1,7 @@
 package com.advertiser.web.rest;
 
 import com.advertiser.domain.Campaign;
+import com.advertiser.domain.enumeration.CampaignBusiness;
 import com.advertiser.repository.CampaignRepository;
 import com.advertiser.service.dto.CampaignDTO;
 import com.advertiser.service.mapper.CampaignMapper;

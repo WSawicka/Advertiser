@@ -25,9 +25,9 @@ public class State implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "campaignState")
+    /*@OneToOne(mappedBy = "campaignState")
     @JsonIgnore
-    private Campaign campaign;
+    private Campaign campaign;*/
 
     public Long getId() {
         return id;
@@ -50,7 +50,7 @@ public class State implements Serializable {
         this.name = name;
     }
 
-    public Campaign getCampaign() {
+    /*public Campaign getCampaign() {
         return campaign;
     }
 
@@ -61,7 +61,7 @@ public class State implements Serializable {
 
     public void setCampaign(Campaign campaign) {
         this.campaign = campaign;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

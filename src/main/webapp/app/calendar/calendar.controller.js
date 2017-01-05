@@ -12,7 +12,8 @@
         var calendar = $('#calendar');
         var c = $cookies.getAll();
         vm.editMode = ($cookies.get('editMode') == "true");
-        vm.dateNowCalendar = $cookies.get('dateNowCalendar') + "";
+        vm.dateNowCalendar = (($cookies.get('dateNowCalendar') + "") == null) ?
+            moment() : ($cookies.get('dateNowCalendar') + "");
 
         vm.campaigns = [];
         vm.week;
