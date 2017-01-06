@@ -1,0 +1,24 @@
+<div>
+    <h2 data-translate="advertiserApp.campaign.home.title">Campaigns</h2>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr>
+                <th><span>Date</span></th>
+                <th><span>Hours</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in vm.data">
+                <td>{{d.day}}</td>
+                <td><span ng-repeat="h in d.hours" style="padding-right: 10px">{{h}}</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" ui-sref="campaign-client"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+        </button>
+    </div>
+</div>

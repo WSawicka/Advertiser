@@ -30,10 +30,21 @@
                     hourId: '@hourId'
                 }
             },
-            'getCampaignsWithAmounts': {
+            'getCampaignsOfUserWithAmounts': {
                 method: 'GET',
                 isArray: true,
-                url: 'api/campaigns/amounts'
+                url: 'api/campaigns/amounts/:userId',
+                params: {
+                    userId: '@userId'
+                }
+            },
+            'getCampaignsDaysSpotsOrdered' : {
+                method: 'GET',
+                isArray: true,
+                url: 'api/campaign/:campaignId/days/spots',
+                params: {
+                    campaignId: '@campaignId'
+                }
             }
         });
     }

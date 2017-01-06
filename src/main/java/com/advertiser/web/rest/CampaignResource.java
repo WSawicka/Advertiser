@@ -3,7 +3,9 @@ package com.advertiser.web.rest;
 import com.advertiser.domain.enumeration.CampaignBusiness;
 import com.advertiser.domain.enumeration.CampaignState;
 import com.advertiser.repository.HourRepository;
+import com.advertiser.repository.SpotRepository;
 import com.advertiser.service.DayService;
+import com.advertiser.service.dto.DayDTO;
 import com.advertiser.service.dto.SpotDTO;
 import com.codahale.metrics.annotation.Timed;
 import com.advertiser.domain.Campaign;
@@ -41,6 +43,9 @@ public class CampaignResource {
 
     @Inject
     private HourRepository hourRepository;
+
+    @Inject
+    private SpotResource spotResource;
 
     @Inject
     private CampaignMapper campaignMapper;
@@ -135,6 +140,12 @@ public class CampaignResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/campaign/{campaignId}")
+    public CampaignDTO getCampaignWithId(@PathVariable Long campaignId){
+        Campaign campaign = campaignRepository.findOneWithEagerRelationships(campaignId);
+        return campaignMapper.campaignToCampaignDTO(campaign);
+    }
+
     @GetMapping("/campaignsBefore/dateTime/{dateTime}")
     @Timed
     public List<CampaignDTO> getAvailableCampaigns(@PathVariable String dateTime){
@@ -181,6 +192,17 @@ public class CampaignResource {
             result.add(temp);
         }
         return result;
+    }
+
+    @GetMapping("/campaigns/all/withAmounts")
+    public List<Map<String, Object>> getAmountOfSpotsWithCampaigns(){
+        List<Map<String, Object>> resolve = new ArrayList<>();
+
+        List<Campaign> campaigns = campaignRepository.findAllWithEagerRelationships();
+        List<CampaignDTO> campaignsDTO = campaignMapper.campaignsToCampaignDTOs(campaigns);
+
+        resolve.addAll(campaignsDTO.stream().map(c -> spotResource.getMappedCampaign(c)).collect(Collectors.toList()));
+        return resolve;
     }
 
     /**

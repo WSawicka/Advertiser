@@ -49,6 +49,9 @@ public class Campaign implements Serializable {
     @Column(name = "color")
     private String color;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "campaign_state")
     private CampaignState campaignState;
@@ -91,6 +94,14 @@ public class Campaign implements Serializable {
     public Campaign name(String name) {
         this.name = name;
         return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setName(String name) {

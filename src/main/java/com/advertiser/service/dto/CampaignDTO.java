@@ -24,6 +24,7 @@ public class CampaignDTO implements Serializable {
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private String color;
+    private Long userId;
 
     private CampaignState campaignState;
     private CampaignBusiness campaignBusiness;
@@ -38,6 +39,15 @@ public class CampaignDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getName() {
         return name;
     }

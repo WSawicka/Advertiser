@@ -12,6 +12,11 @@ import com.advertiser.repository.SpotRepository;
 import com.advertiser.web.rest.util.HeaderUtil;
 import com.advertiser.service.dto.SpotDTO;
 import com.advertiser.service.mapper.SpotMapper;
+import lombok.Getter;
+import lombok.Setter;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,7 +27,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Spot.
@@ -117,21 +124,60 @@ public class SpotResource {
         return spotMapper.spotsToSpotDTOs(spots, campaignMapper);
     }
 
-    @GetMapping("/campaigns/amounts")
-    public List<Map<String, Object>> getAmountOfSpotsWithCampaigns(){
+    @GetMapping("/campaigns/amounts/{userId}")
+    public List<Map<String, Object>> getAmountOfSpotsWithCampaignsOfUser(@PathVariable Long userId){
         List<Map<String, Object>> resolve = new ArrayList<>();
 
-        List<Campaign> campaigns = campaignRepository.findAllWithEagerRelationships();
+        List<Campaign> campaigns = campaignRepository.findAllWithEagerRelationshipsOfUser(userId);
         List<CampaignDTO> campaignsDTO = campaignMapper.campaignsToCampaignDTOs(campaigns);
 
-        for(CampaignDTO campaign : campaignsDTO){
-            Map<String, Object> map = new HashMap<>();
-            Long amount = spotRepository.countByCampaignId(campaign.getId());
-            map.put("campaign", campaign);
-            map.put("amount", amount);
-            resolve.add(map);
-        }
+        resolve.addAll(campaignsDTO.stream().map(this::getMappedCampaign).collect(Collectors.toList()));
         return resolve;
+    }
+
+    public Map<String, Object> getMappedCampaign(CampaignDTO campaign){
+        Map<String, Object> map = new HashMap<>();
+        Long amount = spotRepository.countByCampaignId(campaign.getId());
+        map.put("campaign", campaign);
+        map.put("amount", amount);
+        return map;
+    }
+
+    @GetMapping("/campaign/{campaignId}/days/spots")
+    public Object getSpotsOrderedFrom(@PathVariable Long campaignId){
+        List<DayWithSpotHours> result = new ArrayList<>();
+        List<Spot> spots = spotRepository.findAllByCampaignIdOrderByDateTime(campaignId);
+        for(Spot spot : spots){
+            String day = spot.getDateTime().toLocalDate().toString();
+            String time = spot.getDateTime().toLocalTime().toString();
+            int index = getIndexOf(result, day);
+            if(index != -1){
+                result.get(index).getHours().add(time);
+            } else {
+                DayWithSpotHours dayWithSpotHours = new DayWithSpotHours();
+                dayWithSpotHours.setDay(day);
+                dayWithSpotHours.hours.add(time);
+                result.add(dayWithSpotHours);
+            }
+        }
+        for (DayWithSpotHours day : result){
+            Collections.sort(day.hours);
+        }
+        return result;
+    }
+
+    @Getter
+    @Setter
+    private class DayWithSpotHours{
+        private String day;
+        private List<String> hours = new ArrayList<>();
+    }
+
+    private int getIndexOf(List<DayWithSpotHours> list, String day){
+        for(DayWithSpotHours l : list){
+            if(l.day.equals(day)) return list.indexOf(l);
+        }
+        return -1;
     }
 
     /**

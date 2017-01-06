@@ -5,52 +5,37 @@
         .module('advertiserApp')
         .controller('CampaignClientController', CampaignClientController);
 
-    CampaignClientController.$inject = ['Principal', 'Auth', '$scope', '$state', 'Campaign', 'State', 'Business', 'Spot'];
+    CampaignClientController.$inject = ['Principal', 'Auth', '$scope', '$state', 'User', 'Campaign', 'State', 'Business', 'Spot'];
 
-    function CampaignClientController (Principal, Auth, $scope, $state, Campaign, State, Business, Spot) {
+    function CampaignClientController (Principal, Auth, $scope, $state, User, Campaign, State, Business, Spot) {
         var vm = this;
         vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         vm.auth = Principal.identity();
-        vm.login;
-
-        Principal.identity().then(function(account) {
-            vm.login = account;
-        });
-
-        loadAll();
-        //TODO: wyświetlać tylko kampanie użytkownika - nowe okno?
-
         vm.user;
+
+        setUser();
+
         vm.campaigns = [];
-        vm.colors = [];
         vm.states = [];
-        vm.businesses = [];
 
-        $.getJSON("/app/json/color_variables.json", function(result){
-            vm.colors = result;
-        });
+        function setUser() {
+            Principal.identity().then(function(account) {
+                var login = account.login;
+                User.get({login: login}, function(result){
+                    vm.user = result;
+                    loadAll();
+                });
+            });
+        }
 
-
-        function loadAll() {
-            Spot.getCampaignsWithAmounts(function(result){
+        function loadAll(){
+            Spot.getCampaignsOfUserWithAmounts({userId: vm.user.id}, function(result){
                 vm.campaigns = result;
             });
             Campaign.getAllCampaignStates(function(result){
                 vm.states = result;
             });
-            Campaign.getAllCampaignBusinesses(function(result){
-                vm.businesses = result;
-            });
         }
-
-        $scope.getCampaignBusiness = function () {
-            var title = this.c.campaign.campaignBusiness;
-            for(var b in vm.businesses){
-                var business = vm.businesses[b];
-                if(title == business.title)
-                    return business.name;
-            }
-        };
 
         $scope.getColorHexFrom = function(){
             var name = this.c.campaign.color;

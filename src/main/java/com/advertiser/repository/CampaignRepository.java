@@ -23,4 +23,7 @@ public interface CampaignRepository extends JpaRepository<Campaign,Long> {
 
     @Query("select c from Campaign c where c.endDate > :dateTime and (select count(s) from Spot s where s.campaign = c) < c.spotAmount")
     List<Campaign> findAllAvailableCampaigns(@Param("dateTime") ZonedDateTime dateTime);
+
+    @Query("select distinct c from Campaign c where c.userId = :userId")
+    List<Campaign> findAllWithEagerRelationshipsOfUser(@Param("userId") Long userId);
 }

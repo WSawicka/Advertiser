@@ -21,6 +21,9 @@
             <column name="color" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="user_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </addColumn>
         <dropDefaultValue tableName="campaign" columnName="start_date" columnDataType="datetime"/>

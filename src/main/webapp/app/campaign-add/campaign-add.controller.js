@@ -5,13 +5,22 @@
         .module('advertiserApp')
         .controller('CampaignAddController', CampaignAddController);
 
-    CampaignAddController.$inject = ['$timeout', '$scope', '$state', '$stateParams', 'entity', 'Campaign', 'State', 'Business', 'PriceSchedule'];
+    CampaignAddController.$inject = ['$timeout', '$scope', '$state', '$stateParams', 'entity', 'User', 'Campaign', 'State', 'Business', 'PriceSchedule'];
 
-    function CampaignAddController ($timeout, $scope, $state, $stateParams, entity, Campaign, State, Business, PriceSchedule) {
+    function CampaignAddController ($timeout, $scope, $state, $stateParams, entity, User, Campaign, State, Business, PriceSchedule) {
         var vm = this;
         vm.authorities = ['ROLE_ADMIN'];
 
         vm.campaign = entity;
+        vm.users = [];
+        User.query(function (result) {
+            for(var r in result){
+                var user = result[r];
+                if(user.id > 2)
+                    vm.users.push(user);
+            }
+        });
+
         vm.cancel = cancel;
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
@@ -27,6 +36,7 @@
         vm.datePickerOpenStatus.endDate = false;
 
         vm.campaignBusiness = null;
+        vm.userSelected = null;
 
         vm.colors = [];
         $.getJSON("/app/json/color_variables.json", function(result){
@@ -42,6 +52,14 @@
                 var color = vm.colors[i];
                 if(color.name.toLowerCase() == colorName.toLowerCase())
                     return color.value;
+            }
+        }
+
+        function getUserIdBy(login){
+            for(var u in vm.users){
+                var user = vm.users[u];
+                if(user.login == login)
+                    return user.id;
             }
         }
 
@@ -83,6 +101,7 @@
                 else
                     vm.campaign.campaignState = "BEFORE";
                 vm.campaign.campaignBusiness = getBusinessTitleWith(vm.campaignBusiness);
+                vm.campaign.userId = getUserIdBy(vm.userSelected);
                 Campaign.save(vm.campaign, onSaveSuccess, onSaveError);
             } else
                 vm.showSaveErr = true;
@@ -111,6 +130,7 @@
 
             if (startDate == null || startDate == "") return false;
             if (endDate == null || endDate == "") return false;
+            if (vm.userSelected == null || vm.userSelected == "") return false;
             if (vm.campaign.name == null || vm.campaign.name == "") return false;
             if (vm.campaign.nameShort == null || vm.campaign.nameShort == "") return false;
             if (vm.campaign.product == null || vm.campaign.product == "") return false;

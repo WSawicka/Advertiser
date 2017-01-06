@@ -64,7 +64,20 @@
                 method: 'GET',
                 isArray: true,
                 url: 'api/campaignBusinesses'
+            },
+            'getCampaignsWithAmounts': {
+                method: 'GET',
+                isArray: true,
+                url: 'api/campaigns/all/withAmounts'
+            },
+            'getCampaign':{
+                method: 'GET',
+                url: 'api/campaign/:campaignId',
+                params: {
+                    campaignId: '@campaignId'
+                }
             }
+
         });
     }
 })();

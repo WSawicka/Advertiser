@@ -5,19 +5,19 @@
         .module('advertiserApp')
         .controller('CampaignController', CampaignController);
 
-    CampaignController.$inject = ['$scope', '$state', 'Campaign', 'State', 'Business', 'Spot'];
+    CampaignController.$inject = ['$scope', '$state', 'User', 'Campaign'];
 
-    function CampaignController ($scope, $state, Campaign, State, Business, Spot) {
+    function CampaignController ($scope, $state, User, Campaign) {
         var vm = this;
-        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        vm.authorities = ['ROLE_ADMIN'];
 
         loadAll();
-        //TODO: wyświetlać tylko kampanie użytkownika - nowe okno?
 
         vm.campaigns = [];
         vm.colors = [];
         vm.states = [];
         vm.businesses = [];
+        vm.users = User.query();
 
         $.getJSON("/app/json/color_variables.json", function(result){
             vm.colors = result;
@@ -25,7 +25,7 @@
 
 
         function loadAll() {
-            Spot.getCampaignsWithAmounts(function(result){
+            Campaign.getCampaignsWithAmounts(function(result){
                 vm.campaigns = result;
             });
             Campaign.getAllCampaignStates(function(result){
@@ -51,6 +51,15 @@
                 var color = vm.colors[i];
                 if(color.name.toLowerCase() == name.toLowerCase())
                     return color.value;
+            }
+        };
+
+        $scope.getUserLogin = function(){
+            var userId = this.c.campaign.userId;
+            for(var u in vm.users){
+                var user = vm.users[u];
+                if(user.id == userId)
+                    return user.login;
             }
         };
     }

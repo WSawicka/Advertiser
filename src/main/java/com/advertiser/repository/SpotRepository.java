@@ -3,6 +3,7 @@ package com.advertiser.repository;
 import com.advertiser.domain.Spot;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface SpotRepository extends JpaRepository<Spot,Long> {
     List<Spot> findAllSpotsByHourId(Long hourId);
 
     Long countByCampaignId(Long id);
+
+    List<Spot> findAllByCampaignIdOrderByDateTime(Long campaignId);
 }

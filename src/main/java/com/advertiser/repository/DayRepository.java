@@ -2,6 +2,7 @@ package com.advertiser.repository;
 
 import com.advertiser.domain.Day;
 
+import com.advertiser.service.dto.DayDTO;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
