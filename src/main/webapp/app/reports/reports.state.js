@@ -30,7 +30,7 @@
                         return $translate.refresh();
                     }],
                     entity: ['$stateParams', 'Campaign', function($stateParams, Campaign) {
-                        return Campaign.getCampaignsWithAmountsOfYear({year : $stateParams.year}).$promise;
+                        return Campaign.getCampaignsWithAmountsAndPricesOfYear({year : $stateParams.year}).$promise;
                     }]
                 }
             })

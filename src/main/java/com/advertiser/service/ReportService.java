@@ -6,6 +6,8 @@ import com.advertiser.domain.PriceScheduleHour;
 import com.advertiser.domain.Spot;
 import com.advertiser.repository.CampaignRepository;
 import com.advertiser.repository.SpotRepository;
+import com.advertiser.service.dto.CampaignDTO;
+import com.advertiser.service.mapper.CampaignMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,16 @@ public class ReportService {
         private Double priceAll = 0.0;
     }
 
+    @Setter
+    @Getter
+    private class CampaignReport{
+        private CampaignDTO campaign;
+        private Long amount = 0L;
+        private Double price = 0.0;
+    }
+
     @Inject private CampaignRepository campaignRepository;
+    @Inject private CampaignMapper campaignMapper;
     @Inject private SpotRepository spotRepository;
 
     private Report report;
@@ -50,9 +61,11 @@ public class ReportService {
         List<Campaign> campaigns = campaignRepository.findAllCampaignsBetween(start, end);
         this.report.setCampaignsAmount(campaigns.size());
         for(Campaign campaign : campaigns){
-            if(campaign.getStartDate().isAfter(start) && campaign.getStartDate().isBefore(end))
+            ZonedDateTime csd = campaign.getStartDate();
+            ZonedDateTime ced = campaign.getEndDate();
+            if((csd.isAfter(start) || csd.isEqual(start)) && (csd.isBefore(end) || csd.isEqual(end)))
                 this.report.campaignsStarted++;
-            if(campaign.getEndDate().isAfter(start) && campaign.getEndDate().isBefore(end))
+            if((ced.isAfter(start) || ced.isEqual(start)) && (ced.isBefore(end) || ced.isEqual(end)))
                 this.report.campaignsCompleted++;
         }
         this.report.setSpotsAmount(spotRepository.findAllSpotsBetween(start, end));
@@ -67,6 +80,26 @@ public class ReportService {
         }
 
         return report;
+    }
+
+    public List<CampaignReport> getCampaignsWithAmountsAndPrices(ZonedDateTime start, ZonedDateTime end){
+        List<CampaignReport> result = new ArrayList<>();
+        List<Campaign> campaigns = campaignRepository.findAllCampaignsBetween(start, end);
+        for(Campaign campaign : campaigns){
+            CampaignReport cr = new CampaignReport();
+            cr.setCampaign(campaignMapper.campaignToCampaignDTO(campaign));
+            cr.setAmount(spotRepository.countByCampaignId(campaign.getId()));
+
+            Double priceCampaign = 0.0;
+            List<Spot> spots = spotRepository.findAllByCampaignIdOrderByDateTime(campaign.getId());
+            for(Spot spot : spots){
+                BigDecimal price = getPriceOf(spot.getDateTime(), campaign);
+                 priceCampaign += price.doubleValue();
+            }
+            cr.setPrice(priceCampaign);
+            result.add(cr);
+        }
+        return result;
     }
 
     private BigDecimal getPriceOf(ZonedDateTime dateTime, Campaign campaign){

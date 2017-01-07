@@ -78,6 +78,14 @@
                     year: '@year'
                 }
             },
+            'getCampaignsWithAmountsAndPricesOfYear': {
+                method: 'GET',
+                isArray: true,
+                url: 'api/:year/campaigns/all/withAmounts/withPrice',
+                params: {
+                    year: '@year'
+                }
+            },
             'getCampaign':{
                 method: 'GET',
                 url: 'api/campaign/:campaignId',

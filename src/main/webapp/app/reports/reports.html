@@ -1,62 +1,75 @@
 <div ng-cloak>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" id="reportBody">
+            <h1 style="text-align: center">Raport na rok {{vm.year}}</h1>
             <div class="col-md-10">
                 <h3>Podsumowanie ogólne</h3>
-                <div>
-                        <div class="col-lg-12">
-                            <b class="col-lg-4">Całkowita ilość kampanii</b>
-                            <span class="col-lg-4">{{vm.report.campaignsAmount}}</span>
-                        </div>
-                        <div class="col-lg-12">
-                            <b class="col-lg-4">Ilość kampanii rozpoczętych</b>
-                            <span class="col-lg-4">{{vm.report.campaignsStarted}}</span>
-                        </div>
-                        <div class="col-lg-12">
-                            <b class="col-lg-4">Ilość kampanii zakończonych</b>
-                            <span class="col-lg-4">{{vm.report.campaignsCompleted}}</span>
-                        </div>
-                        <div class="col-lg-12">
-                            <b class="col-lg-4">Całkowita ilość spotów</b>
-                            <span class="col-lg-4">{{vm.report.spotsAmount}}</span>
-                        </div>
-                        <div class="col-lg-12">
-                            <b class="col-lg-4">Średnia ilość spotów na kampanię</b>
-                            <span class="col-lg-4">{{vm.report.spotsPerCampaign}}</span>
-                        </div>
-                        <div class="col-lg-12">
-                            <b class="col-lg-4">Łączna cena za spoty</b>
-                            <span class="col-lg-4">{{vm.report.priceAll}},-</span>
-                        </div>
-                </div>
+                <table>
+                        <tr>
+                            <th width="250px">Całkowita ilość kampanii</th>
+                            <td width="100px">{{vm.report.campaignsAmount}}</td>
+                        </tr>
+                        <tr>
+                            <th width="250px">Ilość kampanii rozpoczętych</th>
+                            <td width="100px">{{vm.report.campaignsStarted}}</td>
+                        </tr>
+                        <tr>
+                            <th width="250px">Ilość kampanii zakończonych</th>
+                            <td width="100px">{{vm.report.campaignsCompleted}}</td>
+                        </tr>
+                        <tr>
+                            <th width="250px">Całkowita ilość spotów</th>
+                            <td width="100px">{{vm.report.spotsAmount}}</td>
+                        </tr>
+                        <tr>
+                            <th width="250px">Średnia ilość spotów na kampanię</th>
+                            <td width="100px">{{vm.report.spotsPerCampaign}}</td>
+                        </tr>
+                        <tr>
+                            <th width="250px">Łączna cena za spoty</th>
+                            <td width="100px">{{vm.report.priceAll}} zł</td>
+                        </tr>
+                </table>
             </div>
             <br/><br/>
             <div id="campaignsPerMonth" class="col-md-12">
                 <h3>Spis zrealizowanych kampanii</h3>
-                <div>
-                    <thead>
-                    <tr>
-                        <th><span>User Login</span></th>
-                        <th><span data-translate="advertiserApp.campaign.name">Name</span></th>
-                        <th><span data-translate="advertiserApp.campaign.product">Product</span></th>
-                        <th><span data-translate="advertiserApp.campaign.startDate">Start Date</span></th>
-                        <th><span data-translate="advertiserApp.campaign.endDate">End Date</span></th>
-                        <th><span>Amount</span></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="c in vm.campaigns track by c.campaign">
-                        <td>{{c.campaign.userId}}</td>
-                        <td>{{c.campaign.name}}</td>
-                        <td>{{c.campaign.product}}</td>
-                        <td>{{c.campaign.startDate | date:'medium'}}</td>
-                        <td>{{c.campaign.endDate | date:'medium'}}</td>
-                        <td><span ng-bind="::c.amount"></span></td>
-                    </tr>
-                    </tbody>
+                <div class="table-responsive">
+                    <table class="jh-table table table-striped">
+                        <div>
+                            <thead>
+                            <tr>
+                                <th><span>User Login</span></th>
+                                <th><span data-translate="advertiserApp.campaign.name">Name</span></th>
+                                <th><span data-translate="advertiserApp.campaign.product">Product</span></th>
+                                <th><span data-translate="advertiserApp.campaign.startDate">Start Date</span></th>
+                                <th><span data-translate="advertiserApp.campaign.endDate">End Date</span></th>
+                                <th><span>Amount</span></th>
+                                <th><span>Price</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="c in vm.campaigns">
+                                    <td><span ng-bind="::getUserLogin(c.campaign.userId)"></span></td>
+                                    <td>{{c.campaign.name}}</td>
+                                    <td>{{c.campaign.product}}</td>
+                                    <td>{{c.campaign.startDate | date:'medium'}}</td>
+                                    <td>{{c.campaign.endDate | date:'medium'}}</td>
+                                    <td>{{c.amount}}</td>
+                                    <td>{{c.price}} zł</td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </table>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-12" id="#bypassme">
+            <button type="button" ng-click="generatePDF()" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-save-file"></span>
+                <span class="hidden-xs hidden-sm">Pobierz PDF</span>
+            </button>
         </div>
     </div>
 </div>

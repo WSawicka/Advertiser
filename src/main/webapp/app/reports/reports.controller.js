@@ -15,7 +15,6 @@
         vm.campaigns = entity;
         vm.users = User.query();
         vm.report = Campaign.getReportGeneral({year: vm.year});
-        vm.isLoaded = false;
 
 
         $scope.getUserLogin = function(){
@@ -25,7 +24,22 @@
                 if(user.id == userId)
                     return user.login;
             }
-            vm.isLoaded = true;
         };
+
+        $scope.generatePDF = function () {
+            html2canvas(document.getElementById('reportBody'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var year = vm.year;
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Report_" + moment().toJSON().toString() + ".pdf");
+                }
+            });
+        }
     }
 })();

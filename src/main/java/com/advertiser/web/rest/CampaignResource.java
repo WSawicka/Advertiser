@@ -223,6 +223,13 @@ public class CampaignResource {
         return resolve;
     }
 
+    @GetMapping("/{year}/campaigns/all/withAmounts/withPrice")
+    public List getAmountPriceOfSpotsWithCampaignsOfYear(@PathVariable Integer year){
+        ZonedDateTime start = ZonedDateTime.of(year, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault());
+        ZonedDateTime end = start.plusYears(1).minusDays(1);
+        return reportService.getCampaignsWithAmountsAndPrices(start, end);
+    }
+
     @GetMapping("/report/{year}")
     public Object getReportFrom(@PathVariable Integer year){
         return reportService.getReportOf(year);
