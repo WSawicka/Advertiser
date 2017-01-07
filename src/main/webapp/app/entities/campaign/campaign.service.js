@@ -70,11 +70,26 @@
                 isArray: true,
                 url: 'api/campaigns/all/withAmounts'
             },
+            'getCampaignsWithAmountsOfYear': {
+                method: 'GET',
+                isArray: true,
+                url: 'api/:year/campaigns/all/withAmounts',
+                params: {
+                    year: '@year'
+                }
+            },
             'getCampaign':{
                 method: 'GET',
                 url: 'api/campaign/:campaignId',
                 params: {
                     campaignId: '@campaignId'
+                }
+            },
+            'getReportGeneral': {
+                method: 'GET',
+                url: 'api/report/:year',
+                params: {
+                    year: '@year'
                 }
             }
 

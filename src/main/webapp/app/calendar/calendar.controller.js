@@ -9,19 +9,17 @@
 
     function CalendarController ($scope, $state, $cookies, stateParams, Spot, Week, Campaign) {
         var vm = this;
-
         vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
 
         var calendar = $('#calendar');
-        var c = $cookies.getAll();
         vm.editMode = ($cookies.get('editMode') == "true");
         vm.dateNowCalendar = (($cookies.get('dateNowCalendar') + "") == null) ?
             moment() : ($cookies.get('dateNowCalendar') + "");
 
         vm.campaigns = [];
-        vm.week;
-        vm.days;
-        vm.hours;
+        vm.week = null;
+        vm.days = [];
+        vm.hours = [];
 
         vm.pickDate;
         vm.openCalendar = openCalendar;
@@ -95,7 +93,14 @@
             var date = vm.dateNowCalendar;
             var weekNumber = moment(date).isoWeek();
             var year = moment(date).year();
-            var cookies = $cookies.getAll();
+
+            Week.getSpotEvents({weekNumber: weekNumber, year: year},
+                function(result) {
+                    for(var r in result){
+                        var spot = result[r];
+                        addEvent(spot.title, spot.start, spot.resourceId, spot.color);
+                    }
+                });
 
             vm.week = Week.getWeekFromYear({weekNumber: weekNumber, year: year},
                 function(successData) {
@@ -103,14 +108,7 @@
                     vm.days = days;
                     var hours = getHours(days);
                     vm.hours = hours;
-                    var spots = getSpots(hours);
-                    for(var spot in spots){
-                        var s = spots[spot];
-                        var date = s.dateTime.replace("T", " ");
-                        var number = s.spotNumber;
-                        addEvent(s.spotName, date, number, getColorHexFrom(s.campaignDTO.color));
-                    }
-                });
+            });
         }
 
         function loadDataDetails(dateTime){

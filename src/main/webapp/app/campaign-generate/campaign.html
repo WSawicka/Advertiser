@@ -55,7 +55,7 @@
                             <span class="glyphicon glyphicon-plus"></span>
                             <span>Info</span>
                         </button>
-                        <button type="submit" class="btn btn-primary btn-sm"
+                        <button type="submit" class="btn btn-primary btn-sm" ng-show="((c.campaign.spotAmount - c.amount) > 0)"
                                 ui-sref="campaign-generate({campaign: c.campaign, amount: c.amount})">
                             <span class="glyphicon glyphicon-arrow-right"></span>
                             <span>Spoty</span>

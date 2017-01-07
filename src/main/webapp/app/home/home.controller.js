@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.account = null;
+        vm.year = 2016;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         vm.register = register;

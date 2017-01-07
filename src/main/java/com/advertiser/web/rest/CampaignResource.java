@@ -5,6 +5,7 @@ import com.advertiser.domain.enumeration.CampaignState;
 import com.advertiser.repository.HourRepository;
 import com.advertiser.repository.SpotRepository;
 import com.advertiser.service.DayService;
+import com.advertiser.service.ReportService;
 import com.advertiser.service.dto.DayDTO;
 import com.advertiser.service.dto.SpotDTO;
 import com.codahale.metrics.annotation.Timed;
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,6 +54,9 @@ public class CampaignResource {
 
     @Inject
     private DayService dayService;
+
+    @Inject
+    private ReportService reportService;
 
     /**
      * POST  /campaigns : Create a new campaign.
@@ -203,6 +208,24 @@ public class CampaignResource {
 
         resolve.addAll(campaignsDTO.stream().map(c -> spotResource.getMappedCampaign(c)).collect(Collectors.toList()));
         return resolve;
+    }
+
+    @GetMapping("/{year}/campaigns/all/withAmounts")
+    public List<Map<String, Object>> getAmountOfSpotsWithCampaignsOfYear(@PathVariable Integer year){
+        List<Map<String, Object>> resolve = new ArrayList<>();
+        ZonedDateTime start = ZonedDateTime.of(year, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault());
+        ZonedDateTime end = start.plusYears(1).minusDays(1);
+
+        List<Campaign> campaigns = campaignRepository.findAllCampaignsBetween(start, end);
+        List<CampaignDTO> campaignsDTO = campaignMapper.campaignsToCampaignDTOs(campaigns);
+
+        resolve.addAll(campaignsDTO.stream().map(c -> spotResource.getMappedCampaign(c)).collect(Collectors.toList()));
+        return resolve;
+    }
+
+    @GetMapping("/report/{year}")
+    public Object getReportFrom(@PathVariable Integer year){
+        return reportService.getReportOf(year);
     }
 
     /**

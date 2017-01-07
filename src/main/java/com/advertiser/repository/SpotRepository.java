@@ -5,6 +5,7 @@ import com.advertiser.domain.Spot;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -18,4 +19,8 @@ public interface SpotRepository extends JpaRepository<Spot,Long> {
     Long countByCampaignId(Long id);
 
     List<Spot> findAllByCampaignIdOrderByDateTime(Long campaignId);
+
+    @Query("select count(s) from Spot s where s.dateTime between :startDate and :endDate")
+    Integer findAllSpotsBetween(@Param("startDate") ZonedDateTime start, @Param("endDate") ZonedDateTime end);
+
 }

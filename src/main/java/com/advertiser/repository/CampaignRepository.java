@@ -26,4 +26,7 @@ public interface CampaignRepository extends JpaRepository<Campaign,Long> {
 
     @Query("select distinct c from Campaign c where c.userId = :userId")
     List<Campaign> findAllWithEagerRelationshipsOfUser(@Param("userId") Long userId);
+
+    @Query("select c from Campaign c where (c.startDate between :startDate and :endDate) or (c.endDate between :startDate and :endDate)")
+    List<Campaign> findAllCampaignsBetween(@Param("startDate") ZonedDateTime start, @Param("endDate") ZonedDateTime end);
 }

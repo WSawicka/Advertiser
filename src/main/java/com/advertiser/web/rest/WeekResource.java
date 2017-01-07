@@ -1,5 +1,9 @@
 package com.advertiser.web.rest;
 
+import com.advertiser.domain.Day;
+import com.advertiser.domain.Hour;
+import com.advertiser.domain.Spot;
+import com.advertiser.service.WeekService;
 import com.advertiser.service.mapper.*;
 import com.codahale.metrics.annotation.Timed;
 import com.advertiser.domain.Week;
@@ -8,6 +12,8 @@ import com.advertiser.repository.WeekRepository;
 import com.advertiser.web.rest.util.HeaderUtil;
 import com.advertiser.service.dto.WeekDTO;
 import com.google.common.collect.Sets;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -35,7 +41,23 @@ public class WeekResource {
     @Inject private HourMapper hourMapper;
     @Inject private SpotMapper spotMapper;
     @Inject private CampaignMapper campaignMapper;
+    @Inject private WeekService weekService;
 
+    @Setter
+    @Getter
+    private class SpotEvent{
+        private String title;
+        private String start;
+        private int resourceId; //spot number
+        private String color;
+
+        public SpotEvent(String title, String start, int resourceId, String color){
+            this.title = title;
+            this.start = start;
+            this.resourceId = resourceId;
+            this.color = color;
+        }
+    }
     /**
      * POST  /weeks : Create a new week.
      *
@@ -132,6 +154,27 @@ public class WeekResource {
         WeekDTO weekDTO = weekMapper.weekToWeekDTO(week);
         weekDTO.setDaysDTO(week.getDays(), dayMapper, hourMapper, spotMapper, campaignMapper);
         return weekDTO;
+    }
+
+    @GetMapping("/events/year/{year}/weeks/{weekNumber}")
+    public List<SpotEvent> getSpotEventsBy(@PathVariable Integer year, @PathVariable Integer weekNumber)
+        throws IllegalAccessException {
+        Week week = weekRepository.findByNumberAndYear(weekNumber, year);
+        if (week == null) {
+            week = weekRepository.save(new Week(weekNumber, year));
+        }
+        List<SpotEvent> result = new ArrayList<>();
+        for(Day day : week.getDays()){
+            for(Hour hour : day.getHours()){
+                for(Spot spot : hour.getSpots()){
+                    String date = spot.getDateTime().toString().replaceAll("T", " ");
+                    SpotEvent event =
+                        new SpotEvent(spot.getSpotName(), date, spot.getSpotNumber(), spot.getCampaign().getColor());
+                    result.add(event);
+                }
+            }
+        }
+        return result;
     }
 
     /**

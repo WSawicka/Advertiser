@@ -11,7 +11,7 @@
         $stateProvider
             .state('reports', {
                 parent: 'app',
-                url: '/reports',
+                url: '/reports/{year}',
                 data: {
                     authorities: ['ROLE_ADMIN'],
                     pageTitle: 'advertiserApp.campaign.home.title'
@@ -28,6 +28,9 @@
                         $translatePartialLoader.addPart('campaign');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
+                    }],
+                    entity: ['$stateParams', 'Campaign', function($stateParams, Campaign) {
+                        return Campaign.getCampaignsWithAmountsOfYear({year : $stateParams.year}).$promise;
                     }]
                 }
             })

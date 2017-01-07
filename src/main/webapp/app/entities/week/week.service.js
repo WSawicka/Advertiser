@@ -28,6 +28,15 @@
                     year: '@year',
                     weekNumber: '@weekNumber'
                 }
+            },
+            'getSpotEvents' : {
+                method: 'GET',
+                isArray: true,
+                url: 'api/events/year/:year/weeks/:weekNumber',
+                params: {
+                    year: '@year',
+                    weekNumber: '@weekNumber'
+                }
             }
         });
     }

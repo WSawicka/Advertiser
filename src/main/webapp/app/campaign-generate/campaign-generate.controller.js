@@ -5,9 +5,9 @@
         .module('advertiserApp')
         .controller('CampaignGenerateController', CampaignGenerateController);
 
-    CampaignGenerateController.$inject = ['$scope', '$stateParams', 'Campaign', 'State', 'Spot', 'SpotInfo', 'Day'];
+    CampaignGenerateController.$inject = ['$scope', '$state', '$stateParams', 'Campaign', 'State', 'Spot', 'SpotInfo', 'Day'];
 
-    function CampaignGenerateController ($scope, $stateParams, Campaign, State, Spot, SpotInfo, Day) {
+    function CampaignGenerateController ($scope, $state, $stateParams, Campaign, State, Spot, SpotInfo, Day) {
         var vm = this;
         vm.authorities = ['ROLE_ADMIN'];
 
@@ -127,8 +127,10 @@
                         spotsLimit: vm.spotsPerDay, hoursPreferred: vm.hoursPreferred, peaks: vm.peaks},
                     function (result) {
                         $.when($.ajax(saveSpots(result))).then(function () {
-                            alert(spotGenerated + " spots was generated.")
-                        })
+                            alert(spotGenerated + " spots was generated.");
+                        });
+
+                        $state.go('campaign');
                     });
             }
 
