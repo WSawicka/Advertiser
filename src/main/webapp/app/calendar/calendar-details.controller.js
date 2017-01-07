@@ -5,13 +5,14 @@
         .module('advertiserApp')
         .controller('CalendarDetailsController', CalendarDetailsController);
 
-    CalendarDetailsController.$inject = ['$scope', '$cookies', '$stateParams', '$uibModalInstance','entity', 'Campaign', 'SpotInfo', 'Spot'];
+    CalendarDetailsController.$inject = ['$scope', '$cookies', '$stateParams', '$uibModalInstance','entity', 'User', 'Campaign', 'SpotInfo', 'Spot'];
 
-    function CalendarDetailsController ($scope, $cookies, $stateParams, $uibModalInstance, entity, Campaign, SpotInfo, Spot) {
+    function CalendarDetailsController ($scope, $cookies, $stateParams, $uibModalInstance, entity, User, Campaign, SpotInfo, Spot) {
         var vm = this;
         vm.uibMI = $uibModalInstance;
 
         vm.authorities = ['ROLE_ADMIN'];
+        vm.users = User.query();
         vm.newSpot = entity;
         vm.dateTime = $stateParams.dateTime;
         vm.dateJSON = $stateParams.dateJSON;
@@ -22,6 +23,7 @@
         vm.editMode = ($cookies.get('editMode') == "true");
 
         vm.spots = [];
+        vm.spotInf = [];
         vm.campaigns = [];
         vm.campaignsAll = [];
         vm.spotInfos = [];
@@ -107,11 +109,41 @@
                 });
         }
 
+        $scope.getUserLogin = function () {
+            var userId = this.spot.campaignDTO.userId;
+            for(var u in vm.users){
+                var user = vm.users[u];
+                if(user.id == userId){
+                    return user.login;
+                }
+            }
+        };
+
+        $scope.getSpotInfo = function () {
+            var spotInfoId = this.spot.spotInfoId;
+            for(var s in vm.spotInf){
+                var spotInfo = vm.spotInf[s];
+                if(spotInfo.id == spotInfoId)
+                    return "Producer: " + spotInfo.producer +
+                        ",   Performer: " + spotInfo.performer + ",   Length: " + spotInfo.length + "s";
+            }
+        };
+
         function loadSpots(){
             vm.spots = Spot.getAllSpotsByHourId({hourId: vm.hourId},
                 function(resolve){
                     var set = "set";
+                    loadSpotInf();
                 });
+        }
+
+        function loadSpotInf(){
+            for(var s in vm.spots){
+                var spot = vm.spots[s];
+                SpotInfo.get({id: spot.spotInfoId}, function (result) {
+                    vm.spotInf.push(result);
+                })
+            }
         }
 
         $(document).ready(function() {

@@ -17,8 +17,10 @@
                         <option ng-repeat="spotInfo in vm.spotInfosEdit">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
                     </select>
                     <div  ng-hide="!show(spot)">Spot info: {{spot.spotInfoId}}</div>
-                    <div ng-show="vm.editMode">
-                        Product: {{spot.campaignDTO.product}}; Time, Author, ...
+                    <div ng-hide="vm.editMode">
+                        <p>Client: <span ng-bind="::getUserLogin(spot.campaignDTO.userId)"></span></p>
+                        <p>Product: {{spot.campaignDTO.product}}</p>
+                        <p><span ng-bind="::getSpotInfo(spot.spotInfoId)"></span></p>
                     </div>
 
                     <div ng-show="vm.editMode">

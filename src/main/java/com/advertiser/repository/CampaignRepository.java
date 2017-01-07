@@ -2,6 +2,7 @@ package com.advertiser.repository;
 
 import com.advertiser.domain.Campaign;
 
+import com.advertiser.domain.enumeration.CampaignState;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
@@ -29,4 +30,7 @@ public interface CampaignRepository extends JpaRepository<Campaign,Long> {
 
     @Query("select c from Campaign c where (c.startDate between :startDate and :endDate) or (c.endDate between :startDate and :endDate)")
     List<Campaign> findAllCampaignsBetween(@Param("startDate") ZonedDateTime start, @Param("endDate") ZonedDateTime end);
+
+    @Query("select c from Campaign c where c.campaignState = :started or c.campaignState = :before")
+    List<Campaign> findAllOfState(@Param("started") CampaignState started, @Param("before") CampaignState before);
 }

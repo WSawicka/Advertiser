@@ -124,6 +124,11 @@ public class CampaignResource {
         return campaignMapper.campaignsToCampaignDTOs(campaigns);
     }
 
+    @GetMapping(value = "campaigns/notCompleted")
+    public List<Campaign> getAllNotCompletedCampaigns(){
+        return campaignRepository.findAllOfState(CampaignState.STARTED, CampaignState.BEFORE);
+    }
+
     /**
      * GET  /campaigns/:id : get the "id" campaign.
      *
