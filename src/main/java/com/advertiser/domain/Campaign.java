@@ -60,11 +60,11 @@ public class Campaign implements Serializable {
     @Column(name = "campaign_business")
     private CampaignBusiness campaignBusiness;
 
-    @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Spot> spots = new HashSet<>();
 
-    @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "campaign", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<SpotInfo> spotInfos = new HashSet<>();
 

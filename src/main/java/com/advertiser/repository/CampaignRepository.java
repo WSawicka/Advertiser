@@ -5,6 +5,7 @@ import com.advertiser.domain.Campaign;
 import com.advertiser.domain.enumeration.CampaignState;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.method.P;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -33,4 +34,7 @@ public interface CampaignRepository extends JpaRepository<Campaign,Long> {
 
     @Query("select c from Campaign c where c.campaignState = :started or c.campaignState = :before")
     List<Campaign> findAllOfState(@Param("started") CampaignState started, @Param("before") CampaignState before);
+
+    @Query("select campaign from Campaign campaign left join fetch campaign.priceSchedules where campaign.name = :name and campaign.startDate = :startDate")
+    Campaign findOneWithNameAndStartDate(@Param("name") String name, @Param("startDate") ZonedDateTime startDate);
 }

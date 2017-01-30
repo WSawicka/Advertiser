@@ -111,6 +111,7 @@
             $scope.$emit('advertiserApp:campaignUpdate', vm.campaign);
             vm.isSaving = false;
             vm.saveSuccess = true;
+            $state.go('campaign');
         }
 
         function onSaveError () {

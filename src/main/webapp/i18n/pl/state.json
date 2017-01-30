@@ -2,22 +2,22 @@
     "advertiserApp": {
         "state" : {
             "home": {
-                "title": "States",
-                "createLabel": "Dodaj State",
-                "createOrEditLabel": "Dodaj lub edytuj: State",
-                "search": "Search for State"
+                "title": "Stan",
+                "createLabel": "Dodaj stan",
+                "createOrEditLabel": "Dodaj lub edytuj: stan",
+                "search": "Wyszukaj stan"
             },
             "created": "A new State is created with identifier {{ param }}",
             "updated": "A State is updated with identifier {{ param }}",
             "deleted": "A State is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć State {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć stan o identyfikatorze {{ id }}?"
             },
             "detail": {
-                "title": "State"
+                "title": "Stan"
             },
-            "name": "Name",
-            "campaign": "Campaign"
+            "name": "Nazwa",
+            "campaign": "Kampania"
         }
     }
 }

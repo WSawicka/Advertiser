@@ -16,11 +16,13 @@
     <link rel="stylesheet" href="app/css/materialFullCalendar.css">
     <link rel="stylesheet" href="app/css/additional_styling.css">
 
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
-    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
     <link rel="stylesheet" href="md-styles.css">
     <!-- endinject -->
     <link rel="stylesheet" href="content/css/vendor.css">
@@ -39,8 +41,10 @@
             <!-- Angular views -->
         </div>
 
-        <div class="footer" ng-cloak>
-            <p>Your Radio Name</p>
+        <div class="footer" ng-cloak style="color: #78909c;">
+            <p class="col-lg-8">Your Radio Name</p>
+
+            <p class="col-lg-3" style="float: right; font-size: xx-small;">Images designed by Madebyoliver from Flaticon</p>
         </div>
     </div>
 
@@ -106,6 +110,10 @@
 
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+
     <script src="app/app.module.js"></script>
     <script src="app/summaries/summaries.state.js"></script>
     <script src="app/summaries/summaries.controller.js"></script>

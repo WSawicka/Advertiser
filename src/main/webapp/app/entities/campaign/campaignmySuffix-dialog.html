@@ -1,48 +1,37 @@
-
 <form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
-        <h4 class="modal-title" id="myCampaignLabel" data-translate="advertiserApp.campaign.home.createOrEditLabel">Create or edit a Campaign</h4>
+        <h4 class="modal-title" id="myCampaignLabel">Edytuj kampanie</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.campaign.id">
-            <label for="id" data-translate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.campaign.id" readonly />
-        </div>
         <div class="form-group">
-            <label class="control-label" data-translate="advertiserApp.campaign.name" for="field_name">Name</label>
+            <label class="control-label" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
-                    ng-model="vm.campaign.name"
-                     />
+                    ng-model="vm.campaign.name"/>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="advertiserApp.campaign.nameShort" for="field_nameShort">Name Short</label>
+            <label class="control-label" for="field_nameShort">Name Short</label>
             <input type="text" class="form-control" name="nameShort" id="field_nameShort"
-                    ng-model="vm.campaign.nameShort"
-                     />
+                    ng-model="vm.campaign.nameShort"/>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="advertiserApp.campaign.product" for="field_product">Product</label>
+            <label class="control-label" for="field_product">Product</label>
             <input type="text" class="form-control" name="product" id="field_product"
-                    ng-model="vm.campaign.product"
-                     />
+                    ng-model="vm.campaign.product"/>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="advertiserApp.campaign.spotAmount" for="field_spotAmount">Spot Amount</label>
+            <label class="control-label" for="field_spotAmount">Spot Amount</label>
             <input type="number" class="form-control" name="spotAmount" id="field_spotAmount"
-                    ng-model="vm.campaign.spotAmount"
-                     />
+                    ng-model="vm.campaign.spotAmount"/>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="advertiserApp.campaign.startDate" for="field_startDate">Start Date</label>
+            <label class="control-label" for="field_startDate">Start Date</label>
                 <div class="input-group">
                     <input id="field_startDate" type="text" class="form-control" name="startDate" datetime-picker="{{dateformat}}"
-                           ng-model="vm.campaign.startDate" is-open="vm.datePickerOpenStatus.startDate"
-                      />
+                           ng-model="vm.campaign.startDate" is-open="vm.datePickerOpenStatus.startDate"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('startDate')">
                             <i class="glyphicon glyphicon-calendar"></i></button>
@@ -50,11 +39,10 @@
                 </div>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="advertiserApp.campaign.endDate" for="field_endDate">End Date</label>
+            <label class="control-label" for="field_endDate">End Date</label>
                 <div class="input-group">
                     <input id="field_endDate" type="text" class="form-control" name="endDate" datetime-picker="{{dateformat}}"
-                           ng-model="vm.campaign.endDate" is-open="vm.datePickerOpenStatus.endDate"
-                      />
+                           ng-model="vm.campaign.endDate" is-open="vm.datePickerOpenStatus.endDate"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('endDate')">
                             <i class="glyphicon glyphicon-calendar"></i></button>
@@ -71,31 +59,31 @@
         </div>
 
         <div class="form-group">
-            <label data-translate="advertiserApp.campaign.campaignState" for="field_campaignState">Campaign State</label>
-            <select class="form-control" id="field_campaignState" name="campaignState" ng-model="vm.campaign.campaignStateId"
-                    ng-options="state.id as state.id for state in vm.campaignstates | orderBy:'id'">
+            <label for="field_campaignState">Campaign State</label>
+            <select class="form-control" id="field_campaignState" name="campaignState" ng-model="vm.campaign.campaignState"
+                    ng-options="state as state for state in vm.states">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label data-translate="advertiserApp.campaign.business" for="field_business">Business</label>
-            <select class="form-control" id="field_business" name="business" ng-model="vm.campaign.businessId"
-                    ng-options="business.id as business.id for business in vm.businesses | orderBy:'id'">
+            <label for="field_business">Business</label>
+            <select class="form-control" id="field_business" name="business" ng-model="vm.campaign.campaignBusiness"
+                    ng-options="business.name for business in vm.businesses">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label data-translate="advertiserApp.campaign.priceSchedule" for="field_priceSchedule">Price Schedule</label>
+            <label for="field_priceSchedule">Price Schedule</label>
             <select class="form-control" id="field_priceSchedule" multiple name="priceSchedule" ng-model="vm.campaign.priceSchedules"
                     ng-options="priceSchedule as priceSchedule.id for priceSchedule in vm.priceschedules track by priceSchedule.id"></select>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
-            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Anuluj</span>
         </button>
         <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Zapisz</span>
         </button>
     </div>
 </form>

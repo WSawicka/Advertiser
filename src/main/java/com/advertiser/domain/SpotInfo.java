@@ -49,7 +49,7 @@ public class SpotInfo implements Serializable {
     @JsonIgnore
     private Set<Spot> spots = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne
     @JsonIgnore
     private Campaign campaign;
 

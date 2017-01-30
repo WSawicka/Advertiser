@@ -5,13 +5,13 @@
         .module('advertiserApp')
         .controller('ReportController', ReportController);
 
-    ReportController.$inject = ['$scope', 'Principal', 'LoginService', 'entity', '$state', 'User', 'Campaign'];
+    ReportController.$inject = ['$scope', 'Principal', 'LoginService', 'entity', '$state', '$stateParams', 'User', 'Campaign'];
 
-    function ReportController($scope, Principal, LoginService, entity, $state, User, Campaign) {
+    function ReportController($scope, Principal, LoginService, entity, $state, $stateParams,User, Campaign) {
         var vm = this;
         vm.authorities = ['ROLE_ADMIN'];
 
-        vm.year = 2016;
+        vm.year = $stateParams.year;
         vm.campaigns = entity;
         vm.users = User.query();
         vm.report = Campaign.getReportGeneral({year: vm.year});

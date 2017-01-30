@@ -121,7 +121,8 @@ public class SpotResource {
     @Timed
     public List<SpotDTO> getAllSpotsByHourId(@PathVariable Long hourId ){
         List<Spot> spots = spotRepository.findAllSpotsByHourId(hourId);
-        return spotMapper.spotsToSpotDTOs(spots, campaignMapper);
+        List<SpotDTO> result = spotMapper.spotsToSpotDTOs(spots, campaignMapper);
+        return result;
     }
 
     @GetMapping("/campaigns/amounts/{userId}")

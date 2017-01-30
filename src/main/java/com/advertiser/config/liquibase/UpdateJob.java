@@ -18,8 +18,10 @@ public class UpdateJob implements Job{
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         try {
-            cs.updateCampaigns();
-            System.out.println("Database is succesfully updated!");
+            if (cs != null) {
+                cs.updateCampaigns();
+                System.out.println("Database is succesfully updated!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

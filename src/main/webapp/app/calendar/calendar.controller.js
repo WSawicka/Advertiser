@@ -5,11 +5,18 @@
         .module('advertiserApp')
         .controller('CalendarController', CalendarController);
 
-    CalendarController.$inject = ['$scope', '$state', '$cookies', '$stateParams', 'Spot', 'Week', 'Campaign'];
+    CalendarController.$inject = ['Principal', '$scope', '$state', '$cookies', '$stateParams', 'User', 'Spot', 'Week', 'Campaign'];
 
-    function CalendarController ($scope, $state, $cookies, stateParams, Spot, Week, Campaign) {
+    function CalendarController (Principal, $scope, $state, $cookies, stateParams, User, Spot, Week, Campaign) {
         var vm = this;
-        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        vm.authorities = ['ROLE_INSPECTOR', 'ROLE_ADMIN'];
+        vm.auth = Principal.identity().then(function(account) {
+            var login = account.login;
+            User.get({login: login}, function(result){
+                vm.user = result;
+            });
+        });
+        vm.user;
 
         var calendar = $('#calendar');
         vm.editMode = ($cookies.get('editMode') == "true");
@@ -96,19 +103,18 @@
 
             Week.getSpotEvents({weekNumber: weekNumber, year: year},
                 function(result) {
+                    vm.week = Week.getWeekFromYear({weekNumber: weekNumber, year: year},
+                        function(successData) {
+                            var days = successData.days;
+                            vm.days = days;
+                            var hours = getHours(days);
+                            vm.hours = hours;
+                        });
                     for(var r in result){
                         var spot = result[r];
                         addEvent(spot.title, spot.start, spot.resourceId, spot.color);
                     }
                 });
-
-            vm.week = Week.getWeekFromYear({weekNumber: weekNumber, year: year},
-                function(successData) {
-                    var days = successData.days;
-                    vm.days = days;
-                    var hours = getHours(days);
-                    vm.hours = hours;
-            });
         }
 
         function loadDataDetails(dateTime){

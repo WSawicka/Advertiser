@@ -13,8 +13,11 @@
                 parent: 'app',
                 url: '/reports/{year}',
                 data: {
-                    authorities: ['ROLE_ADMIN'],
+                    authorities: ['ROLE_ADMIN', 'ROLE_INSPECTOR'],
                     pageTitle: 'advertiserApp.campaign.home.title'
+                },
+                params: {
+                    year: '@year'
                 },
                 views: {
                     'content@': {

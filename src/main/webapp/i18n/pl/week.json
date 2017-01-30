@@ -2,23 +2,23 @@
     "advertiserApp": {
         "week" : {
             "home": {
-                "title": "Weeks",
-                "createLabel": "Dodaj Week",
-                "createOrEditLabel": "Dodaj lub edytuj: Week",
+                "title": "Tygodnie",
+                "createLabel": "Dodaj tydzień",
+                "createOrEditLabel": "Dodaj lub edytuj: Tydzień",
                 "search": "Search for Week"
             },
-            "created": "A new Week is created with identifier {{ param }}",
-            "updated": "A Week is updated with identifier {{ param }}",
-            "deleted": "A Week is deleted with identifier {{ param }}",
+            "created": "Utworzono nowy tydzień.",
+            "updated": "Tydzień został zmieniony.",
+            "deleted": "Tydzień został usunięty.",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Week {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć wybrany tydzień?"
             },
             "detail": {
-                "title": "Week"
+                "title": "Tydzień"
             },
-            "number": "Number",
-            "year": "Year",
-            "day": "Day"
+            "number": "Numer",
+            "year": "Rok",
+            "day": "Dzień"
         }
     }
 }

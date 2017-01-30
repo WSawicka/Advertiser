@@ -31,6 +31,14 @@
                     dateTime: '@dateTime'
                 }
             },
+            'getCampaignByNameAndStartDate': {
+                method: 'GET',
+                url: 'api/campaigns/:name/:startDate',
+                params: {
+                    name: '@name',
+                    startDate: '@startDate'
+                }
+            },
             'checkIfPossible' : {
                 method : 'GET',
                 isArray: true,

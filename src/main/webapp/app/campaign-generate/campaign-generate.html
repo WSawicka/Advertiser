@@ -4,12 +4,12 @@
         <div class="col-md-12">
             <table class="table table-striped">
                 <thead><tr>
-                    <th><span data-translate="advertiserApp.campaign.nameShort">Name Short</span></th>
-                    <th><span data-translate="advertiserApp.campaign.name">Name</span></th>
-                    <th><span data-translate="advertiserApp.campaign.startDate">Start Date</span></th>
-                    <th><span data-translate="advertiserApp.campaign.endDate">End Date</span></th>
-                    <th><span data-translate="advertiserApp.campaign.spotAmount">Max Spot Amount</span></th>
-                    <th><span>Spot amount</span></th>
+                    <th><span>Nazwa skrócona</span></th>
+                    <th><span>Nazwa kampanii</span></th>
+                    <th><span>Data początku</span></th>
+                    <th><span>Data końca</span></th>
+                    <th><span>Ilość spotów</span></th>
+                    <th><span>Ilość zrealizowana</span></th>
                 </tr></thead>
                 <tbody><tr>
                     <td>{{vm.campaign.nameShort}}</td>
@@ -25,20 +25,24 @@
     <br/>
     <div>
         <div ng-click="changed()">
-            <div class="col-md-12">
-                <select id="select_spotInfo" ng-model="vm.spotInfos" class="col-md-4">
-                    <option ng-repeat="spotInfo in vm.spotInfos">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
-                </select><p id="ifSelectedSpotInfo" ng-show="vm.notSelectedSpotInfo" class="col-md-6" style="color: red">You must select one!</p>
+            <div>
+                <label class="control-label col-md-2">Wybierz informację o spocie</label>
+                <div class="col-md-5">
+                    <select id="select_spotInfo" ng-model="vm.spotInfos">
+                        <option ng-repeat="spotInfo in vm.spotInfos">{{spotInfo.producer}}, {{spotInfo.performer}}, {{spotInfo.length}}s</option>
+                    </select><p id="ifSelectedSpotInfo" ng-show="vm.notSelectedSpotInfo" class="col-md-6" style="color: red">You must select one!</p>
+                </div>
             </div>
+            <br/>
             <div class="col-md-12">
-                <label class="control-label">Preferred hours</label>
+                <label class="control-label">Preferowane godziny</label>
                 <div class="col-md-12">
                     <md-checkbox id="night" ng-model="vm.night">00 - 05</md-checkbox>
                     <md-checkbox id="morning" ng-model="vm.morning">06 - 11</md-checkbox>
                     <md-checkbox id="day" ng-model="vm.day">12 - 17</md-checkbox>
                     <md-checkbox id="evening" ng-model="vm.evening">18 - 23</md-checkbox>
                     <div>
-                        <md-checkbox id="withPeaks" class="col-md-3" ng-model="vm.withPeaks">With multiple peaks</md-checkbox>&nbsp;
+                        <md-checkbox id="withPeaks" class="col-md-3" ng-model="vm.withPeaks">Najczęściej losowane godziny:</md-checkbox>&nbsp;
                         <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[0]"
                                    min="0" max="5" step="1" aria-label="00 - 05"></md-slider>&nbsp;
                         <md-slider class="col-md-2" ng-show="vm.withPeaks" md-discrete ng-model="vm.peaks[1]"
@@ -50,15 +54,22 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <label class="control-label">Max amount of spots per day</label>
+            <div class="form-group col-md-3">
+                <label class="control-label">Maksymalna ilość spotów w dniu:</label>
                 <div>
                     <input type="number" class="form-control" id="spotsPerDay" ng-value="vm.spotsPerDay" min="0" max="24"/>
                 </div>
             </div>
+            <div class="col-md-7" style="float: right">
+                <label class="control-label">Tryb losowania</label>
+                <md-radio-group ng-model="vm.generationTypeSelected">
+                    <md-radio-button class="row" ng-repeat="type in vm.generationType" ng-value="type.value"
+                    >{{type.name}}</md-radio-button>
+                </md-radio-group>
+            </div>
             <div class="col-md-12">
-                <p ng-show="vm.isPossible">Spots, that can be inserted in preferred hours: {{vm.spotsInHoursPreferred}}.
-                    Spots in other hours: {{vm.spotsInOtherHours}}</p>
+                <p ng-show="vm.isPossible">Spoty, które mogą zostać wstawione w preferowanych godzinach: {{vm.spotsInHoursPreferred}}.
+                    Spoty w godzinach pozostałych: {{vm.spotsInOtherHours}}</p>
             </div>
         </div>
 

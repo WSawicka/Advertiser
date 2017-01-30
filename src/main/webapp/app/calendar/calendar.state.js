@@ -13,7 +13,7 @@
                 parent: 'app',
                 url: '/calendarView',
                 data: {
-                    authorities: ['ROLE_ADMIN']
+                    authorities: ['ROLE_ADMIN', 'ROLE_INSPECTOR']
                 },
                 views: {
                     'content@': {
@@ -41,7 +41,7 @@
                     hourId: '@hourId'
                 },
                 data: {
-                    authorities: ['ROLE_ADMIN']
+                    authorities: ['ROLE_ADMIN', 'ROLE_INSPECTOR']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({

@@ -1,5 +1,6 @@
 package com.advertiser.domain;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
  * A PriceScheduleHour.
  */
 @Entity
+@BatchSize(size = 24)
 @Table(name = "price_schedule_hour")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PriceScheduleHour implements Serializable {

@@ -11,6 +11,7 @@
         var vm = this;
         vm.authorities = ['ROLE_ADMIN'];
         vm.campaign = $stateParams.campaign;
+        // vm.campaignGot = Campaign.getCampaignByNameAndStartDate({name: vm.campaign.name, startDate: vm.campaign.startDate});
 
         vm.spotInfos = [];
 

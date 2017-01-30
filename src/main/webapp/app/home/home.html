@@ -1,15 +1,56 @@
 <div ng-cloak>
     <div class="row">
-        <div class="col-md-8">
-            <h1>Welcome in Advertiser app!</h1>
-
+        <div class="col-lg-12">
+            <h1 style="text-align: center">Witaj w aplikacji Advertiser!</h1>
+            <br/><br/>
             <div has-authority="ROLE_ADMIN">
-                <p><a ui-sref="campaign-add">Utwórz nową kampanię</a></p>
-                <p><a ui-sref="campaign">Wygeneruj spoty</a></p>
-                <p><a ui-sref="calendar">Przejdź do kalendarza</a></p>
-                <p><a ui-sref="summaries">Podsumowania i statystyki</a></p>
-                <div class="form-group row">
-                    <p class="col-lg-1"><a ui-sref="reports({year: vm.year})">Raporty</a>
+                <a ui-sref="campaign-add" class="col-lg-2" style="align-content: center">
+                    <h4>Utwórz nową kampanię</h4>
+                    <div class="add-campaign-image"></div>
+                </a>
+                <a ui-sref="campaign"class="col-lg-2">
+                    <h4>Wygeneruj spoty</h4>
+                    <div class="campaign-image"></div>
+                </a>
+                <a ui-sref="calendar"class="col-lg-2">
+                    <h4>Przejdź do kalendarza</h4>
+                    <div class="calendar-image"></div>
+                </a>
+                <a ui-sref="summaries"class="col-lg-2">
+                    <h4>Podsumowania i statystyki</h4>
+                    <div class="statistic-image"></div>
+                </a>
+                <div class="row"class="col-lg-2">
+                    <a ui-sref="reports({year: vm.year})">
+                        <h4 style="text-align: center">Raporty</h4>
+                        <div class="report-image"></div>
+                    </a>
+                    <div class="col-lg-2">
+                        <input type="number" class="form-control col-xl-6" ng-model="vm.year" min="2000" max="2050"/>
+                    </div>
+                    </p>
+                </div>
+            </div>
+
+            <div has-authority="ROLE_INSPECTOR">
+                <div class="col-lg-1"></div>
+                <a ui-sref="campaign"class="col-lg-2">
+                    <h4>Zobacz kampanie</h4>
+                    <div class="campaign-image"></div>
+                </a>
+                <a ui-sref="calendar"class="col-lg-2">
+                    <h4>Przejdź do kalendarza</h4>
+                    <div class="calendar-image"></div>
+                </a>
+                <a ui-sref="summaries"class="col-lg-2">
+                    <h4>Podsumowania i statystyki</h4>
+                    <div class="statistic-image"></div>
+                </a>
+                <div class="row"class="col-lg-2">
+                    <a ui-sref="reports({year: vm.year})">
+                        <h4 style="text-align: center">Raporty</h4>
+                        <div class="report-image"></div>
+                    </a>
                     <div class="col-lg-2">
                         <input type="number" class="form-control col-xl-6" ng-model="vm.year" min="2000" max="2050"/>
                     </div>

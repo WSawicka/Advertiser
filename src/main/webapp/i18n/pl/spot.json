@@ -3,25 +3,25 @@
         "spot" : {
             "home": {
                 "title": "Spots",
-                "createLabel": "Dodaj Spot",
-                "createOrEditLabel": "Dodaj lub edytuj: Spot",
-                "search": "Search for Spot"
+                "createLabel": "Dodaj spot",
+                "createOrEditLabel": "Dodaj lub edytuj: spot",
+                "search": "Wyszukaj spot"
             },
-            "created": "A new Spot is created with identifier {{ param }}",
-            "updated": "A Spot is updated with identifier {{ param }}",
-            "deleted": "A Spot is deleted with identifier {{ param }}",
+            "created": "Utworzono spot.",
+            "updated": "Spot został poprawnie zmieniony.",
+            "deleted": "Spot został usunięty.",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Spot {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć ten spot?"
             },
             "detail": {
                 "title": "Spot"
             },
-            "dateTime": "Date Time",
-            "hour": "Hour",
-            "campaign": "Campaign",
-            "spotInfo": "Spot Info",
-            "spotName": "Spot Name",
-            "spotNumber": "Spot Number"
+            "dateTime": "Data",
+            "hour": "Godzina",
+            "campaign": "Kampania",
+            "spotInfo": "Informacje o spocie",
+            "spotName": "Nazwa spotu",
+            "spotNumber": "Numer"
         }
     }
 }

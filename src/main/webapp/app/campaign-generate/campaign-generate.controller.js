@@ -36,7 +36,8 @@
         vm.spotsInOtherHours = 0;
 
         var spotGenerated = 0;
-        var generationType = ["default", "xorshift"];
+        vm.generationTypeSelected = "default";
+        vm.generationType = [{name: "zwykły", value: "default"}, {name: "losowy", value: "xorshift"}];
 
         loadData();
 
@@ -117,7 +118,7 @@
             function generateSpots() {
                 var toGenerate = [vm.spotsInHoursPreferred, vm.spotsInOtherHours];
                 var spotInfoId = getSpotInfoWith(vm.spotInfos, vm.spotInfosAll).id;
-                var generationForm = generationType[1]; // better random
+                var generationForm = vm.generationTypeSelected;
 
                 if (!vm.withPeaks)
                     vm.peaks = [11];

@@ -1,45 +1,29 @@
 
 <div>
-    <h2><span data-translate="advertiserApp.campaign.detail.title">Campaign</span> {{vm.campaign.id}}</h2>
+    <h2><span>Kampania</span> {{vm.campaign.nameShort}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span data-translate="advertiserApp.campaign.name">Name</span></dt>
-        <dd>
-            <span>{{vm.campaign.name}}</span>
-        </dd>
-        <dt><span data-translate="advertiserApp.campaign.nameShort">Name Short</span></dt>
-        <dd>
-            <span>{{vm.campaign.nameShort}}</span>
-        </dd>
-        <dt><span data-translate="advertiserApp.campaign.product">Product</span></dt>
-        <dd>
-            <span>{{vm.campaign.product}}</span>
-        </dd>
-        <dt><span data-translate="advertiserApp.campaign.spotAmount">Spot Amount</span></dt>
-        <dd>
-            <span>{{vm.campaign.spotAmount}}</span>
-        </dd>
-        <dt><span data-translate="advertiserApp.campaign.startDate">Start Date</span></dt>
-        <dd>
-            <span>{{vm.campaign.startDate | date:'medium'}}</span>
-        </dd>
-        <dt><span data-translate="advertiserApp.campaign.endDate">End Date</span></dt>
-        <dd>
-            <span>{{vm.campaign.endDate | date:'medium'}}</span>
-        </dd>
-        <dt><span data-translate="advertiserApp.campaign.campaignState">Campaign State</span></dt>
-        <dd>
-            <a ui-sref="statemySuffix-detail({id:vm.campaign.campaignStateId})">{{vm.campaign.campaignStateId}}</a>
-        </dd>
-        <dt><span data-translate="advertiserApp.campaign.business">Business</span></dt>
-        <dd>
-            <a ui-sref="businessmySuffix-detail({id:vm.campaign.businessId})">{{vm.campaign.businessId}}</a>
-        </dd>
-        <dt><span data-translate="advertiserApp.campaign.priceSchedule">Price Schedule</span></dt>
+        <dt><span>Nazwa</span></dt>
+        <dd><span>{{vm.campaign.name}}</span></dd>
+        <dt><span>Nazwa krótka</span></dt>
+        <dd><span>{{vm.campaign.nameShort}}</span></dd>
+        <dt><span>Produkt</span></dt>
+        <dd><span>{{vm.campaign.product}}</span></dd>
+        <dt><span>Ilość spotów max</span></dt>
+        <dd><span>{{vm.campaign.spotAmount}}</span></dd>
+        <dt><span>Data początku</span></dt>
+        <dd><span>{{vm.campaign.startDate | date:'medium'}}</span></dd>
+        <dt><span>Data końca</span></dt>
+        <dd><span>{{vm.campaign.endDate | date:'medium'}}</span></dd>
+        <dt><span>Stan kampanii</span></dt>
+        <dd>{{vm.campaign.campaignState.toLowerCase()}}</dd>
+        <dt><span>Branża</span></dt>
+        <dd>{{vm.campaign.campaignBusiness}}</dd>
+        <dt><span>Cennik</span></dt>
         <dd>
             <span ng-repeat="priceSchedule in vm.campaign.priceSchedules">
-                <a ui-sref="price-schedulemySuffix-detail({id: priceSchedule.id})">{{priceSchedule.id}}</a>{{$last ? '' : ', '}}
+                <a ui-sref="price-schedulemySuffix-detail({id: priceSchedule.id})">{{priceSchedule.name}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
     </dl>

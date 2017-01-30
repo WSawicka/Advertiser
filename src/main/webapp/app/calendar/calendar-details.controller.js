@@ -33,6 +33,9 @@
         vm.campaignsAllEdit = [];
         vm.spotInfosEdit = [];
         vm.spotInfosAllEdit = [];
+        
+        loadData();
+        loadSpots();
 
         vm.clear = clear;
         vm.save = save;
@@ -147,9 +150,6 @@
         }
 
         $(document).ready(function() {
-            loadData();
-            loadSpots();
-
             $scope.moveUp = function(){
                 var selected = this.spot;
                 var over = getSpotOver(selected);

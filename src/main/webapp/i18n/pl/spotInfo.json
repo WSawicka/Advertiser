@@ -2,29 +2,29 @@
     "advertiserApp": {
         "spotInfo" : {
             "home": {
-                "title": "Spot Infos",
-                "createLabel": "Dodaj Spot Info",
-                "createOrEditLabel": "Dodaj lub edytuj: Spot Info",
+                "title": "Informacje o spocie",
+                "createLabel": "Dodaj informację",
+                "createOrEditLabel": "Dodaj lub edytuj: informacje o spocie",
                 "search": "Search for Spot Info"
             },
-            "created": "A new Spot Info is created with identifier {{ param }}",
-            "updated": "A Spot Info is updated with identifier {{ param }}",
-            "deleted": "A Spot Info is deleted with identifier {{ param }}",
+            "created": "Utworzono nowe informacje o spocie.",
+            "updated": "Informacje o spocie zostały poprawnie zmienione.",
+            "deleted": "Poprawnie usunięto informacje o spocie.",
             "delete": {
-                "question": "Czy na pewno chcesz usunąć Spot Info {{ id }}?"
+                "question": "Czy na pewno chcesz usunąć ten element?"
             },
             "detail": {
-                "title": "Spot Info"
+                "title": "Informacje o spocie"
             },
-            "length": "Length",
-            "filePath": "File Path",
-            "producer": "Producer",
-            "scenarioAuthor": "Scenario Author",
-            "soundAuthor": "Sound Author",
-            "performer": "Performer",
-            "music": "Music",
+            "length": "Długość",
+            "filePath": "Ścieżka do pliku",
+            "producer": "Producent",
+            "scenarioAuthor": "Autor scenariusza",
+            "soundAuthor": "Realizator dźwięku",
+            "performer": "Wykonawcy",
+            "music": "Muzyka",
             "spot": "Spot",
-            "campaign": "Campaign"
+            "campaign": "Kampania"
         }
     }
 }

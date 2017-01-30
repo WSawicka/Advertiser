@@ -570,7 +570,7 @@
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>${sonar-maven-plugin.version}</version>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
                 <version>2.2.4</version>
@@ -602,7 +602,7 @@
                         <version>${mapstruct.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
@@ -842,16 +842,16 @@
                                     <arguments>build --no-notification</arguments>
                                 </configuration>
                             </execution>
-                            <execution>
+                            <!--<execution>
                                 <id>gulp test</id>
                                 <goals>
                                     <goal>gulp</goal>
                                 </goals>
                                 <phase>test</phase>
                                 <configuration>
-                                    <arguments>test --no-notification</arguments>
+                                    <arguments>test &#45;&#45;no-notification</arguments>
                                 </configuration>
-                            </execution>
+                            </execution>-->
                         </executions>
                     </plugin>
                     <plugin>

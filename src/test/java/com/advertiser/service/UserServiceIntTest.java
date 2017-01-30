@@ -8,15 +8,16 @@ import com.advertiser.repository.UserRepository;
 import java.time.ZonedDateTime;
 import com.advertiser.service.util.RandomUtil;
 import java.time.LocalDate;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
-import java.util.Optional;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -34,10 +35,26 @@ public class UserServiceIntTest {
     private PersistentTokenRepository persistentTokenRepository;
 
     @Inject
+    private org.springframework.boot.actuate.audit.AuditEventRepository auditEventRepository;
+
+    @Inject
     private UserRepository userRepository;
 
     @Inject
     private UserService userService;
+
+    @Test
+    public void testAddAuditEvent(){
+        java.util.Date date = new Date();
+        assertThat(auditEventRepository.find(date).size()).isEqualTo(0);
+        assertThat(auditEventRepository.find("admin", date).size()).isEqualTo(0);
+        assertThat(auditEventRepository.find("admin", date, "AUTHENTICATION_SUCCESS").size()).isEqualTo(0);
+        Map<String, Object> data = new HashMap<>();
+        data.put("details", (Object) null);
+        AuditEvent event = new AuditEvent(new Date(), "admin", "AUTHENTICATION_SUCCESS", data);
+        auditEventRepository.add(event);
+        date = new Date();
+    }
 
     @Test
     public void testRemoveOldPersistentTokens() {
